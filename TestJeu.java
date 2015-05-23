@@ -71,6 +71,8 @@ public class TestJeu {
 		int tailleX = 0;
 		int tailleY = 0;
 		int nombreBateau =0;
+		int bateauJoueur1 = 0;
+		int bateauJoueur2 = 0;
 		int nombreBateauMax = 0;
 		int type = -1 ;
 		String pseudo1 = "";
@@ -131,30 +133,46 @@ public class TestJeu {
 		if(Joueur.veutPlacerSesBateaux(pseudo1)){
 			// **** DEMANDE AU JOUEUR 1 LE PLACEMENT DE SES BATEAUX ****
 			if(Joueur.veutunNombreDeBateaux(pseudo1)){
-		  		System.out.println(" Mise en route du programme de placement des bateaux ...");
+				System.out.println(" Mise en route du programme de placement des bateaux ...");
 
 			} else {
-		  		System.out.println(" Mise en route du programme de placement automatique des bateaux ...");
-		  		joueur1.remplirAleatoirement(5);
+				answer = "";
+				while(bateauJoueur1 == 0){ // Boucle concernant le choix de placer ses bateaux.
+					System.out.println(pseudo1 +"Combien voulez vous de bateau ? O/n");
+					answer = sc.nextLine();
+					if(answer.length()!=0){		//Sécurité anti-débile qui appui sur entrée sans rien mettre
+						bateauJoueur1 = Integer.parseInt(answer);
+					}
+				}
+				joueur1.remplirAleatoirement(bateauJoueur1);
 			}
 		} else {
-			
+			System.out.println(" Mise en route du programme de placement automatique des bateaux ...");
+			joueur1.remplirAleatoirement(5);
 		}
-		
-		// **** DEMANDE AU JOUEUR 2 LE PLACEMENT DE SES BATEAUX ****
-				if(Joueur.veutPlacerSesBateaux(pseudo2)){
-					// **** DEMANDE AU JOUEUR 1 LE PLACEMENT DE SES BATEAUX ****
-					if(Joueur.veutunNombreDeBateaux(pseudo2)){
-				  		System.out.println(" Mise en route du programme de placement des bateaux ...");
 
-					} else {
-				  		System.out.println(" Mise en route du programme de placement automatique des bateaux ...");
-				  		joueur2.remplirAleatoirement(5);
+		// **** DEMANDE AU JOUEUR 2 LE PLACEMENT DE SES BATEAUX ****
+		if(Joueur.veutPlacerSesBateaux(pseudo2)){
+			// **** DEMANDE AU JOUEUR 1 LE PLACEMENT DE SES BATEAUX ****
+			if(Joueur.veutunNombreDeBateaux(pseudo2)){
+				System.out.println(" Mise en route du programme de placement des bateaux ...");
+
+			} else {
+				answer = "";
+				while(bateauJoueur2 == 0){ // Boucle concernant le choix de placer ses bateaux.
+					System.out.println(pseudo2 +"Combien voulez vous de bateau ? O/n");
+					answer = sc.nextLine();
+					if(answer.length()!=0){		//Sécurité anti-débile qui appui sur entrée sans rien mettre
+						bateauJoueur2 = Integer.parseInt(answer);
 					}
-				} else {
-					
 				}
-  	    	  
+			joueur2.remplirAleatoirement(bateauJoueur2);
+			} 		
+		} else {
+			System.out.println(" Mise en route du programme de placement automatique des bateaux ...");
+			joueur2.remplirAleatoirement(5);
+		}
+
   	  //Pour tester l'affichage : on affiche le plateau du joueur 1
   	  Affichage.afficherGrille(joueur1);
   	  //Pour tester l'affichage : on affiche le plateau du joueur 2

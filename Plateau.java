@@ -62,6 +62,101 @@ public class Plateau {
 		bateaux = new ListeBateau(nombreDeBateaux); // On créé la liste des bateaux
 		boolean bateauPossible;
 		
+		for(int i=0 ; i<bateaux.listeBat.length ; i++){
+			
+			int x = 0;
+			int y = 0;
+			int z = 0;
+			int t = 0;
+			int longueur; //correspond à la vrai longueur du bateau.
+			bateauPossible = false;
+			
+			switch(i){ // On définit la taille du bateau suivant le i de la boucle for principal.
+				case 0 :
+					longueur = 5;
+					break;
+				case 1 :
+					longueur = 4;
+					break;
+				case 2 :
+					longueur = 3;
+					break;
+				case 3 :
+					longueur = 2;
+					break;
+				case 4 :
+					longueur = 1;
+					break;
+				default : 
+					longueur = 1;
+					break;
+			}
+			
+			
+			while(bateauPossible==false){
+			
+				// **** ON CHOISIT LES COORDONNES DU BATEAU ET SON ORIENTATION **** // Les variables ont le suffixe -p pour "possible"
+				int xMax = plateauValeurs.length; // On repère la hauteur maximal du plateau de jeu
+				int yMax = plateauValeurs[0].length; // on repère la longueur maximale du plateau de jeu
+				
+				int xp = (int)(Math.random()*(xMax)); // on choisi une case sur les x.
+				int zp ;
+				int yp = (int)(Math.random()*(yMax)); // on repère une case sur les y.
+				int tp ;
+				
+				bateauPossible = true; // On considère que le bateau est possible
+				
+				if(Math.random()<(0.5)){ // On fait un 50/50
+					zp = xp; // Le bateau est horizontal.
+					tp = (longueur-1+yp); // le bateau est de taille "longueur" voir explication ci-dessous.
+					
+					// **** ON VERIFIE QUE CE BATEAU RENTRE LA OU ON A CHOISIT ****
+					if((yp+longueur)<plateauValeurs.length){
+						for( int j=0 ; j<longueur ; j++){
+							if(plateauValeurs[xp][yp+j][0]!=0){
+								bateauPossible=false;
+							}
+						}
+					} else {
+						bateauPossible = false;
+					}
+				} else {
+					zp = (longueur-1+xp); // le bateau est de taille "longueur" d'où le -1 (compter sur un damier pour vérifier : y + 5 va donner un bateau de taille 6 car y est inclus)
+					tp = yp; // le bateau est vertical.
+					
+					// **** ON VERIFIE QUE CE BATEAU RENTRE LA OU ON A CHOISIT ****
+					if((xp+longueur)<plateauValeurs[xp].length){
+						for( int j=0 ; j<longueur ; j++){
+							if(plateauValeurs[xp+j][yp][0]!=0){
+								bateauPossible=false;
+							}
+						}
+					} else {
+						bateauPossible = false;
+					}
+					
+				}
+				
+				// **** SI OUI ON PLACE LES VARIABLES TEMPORAIRE (EN -P) DANS LES VARIBLES DEFINITIVES pour les sortir de la boucle while****
+				if(bateauPossible==true){
+					x = xp;
+					y = yp;
+					z = zp;
+					t = tp;
+				} //Fin du if(beateaupossible==true)
+				
+			}// fin du while (bateauPossible==false)
+			
+			// **** ON CREE LE BATEAU SI LE bateau etait possible****
+			bateaux.listeBat[i] = new Bateau(x,y,z,t,i+1);
+			placerBateau(bateaux.listeBat[i]);
+			// **** ON LE PLACE SUR LE PLATEAU****
+			
+		  	//DEBUG ONLY // 
+			System.out.println("Le bateau N°" + (i+1) + " de taille" + longueur + "(" + x + y + z + t + ") est créé. (xmin,ymin,xmax,ymax) donc il est horizontal :" + (bateaux.listeBat[i].horizontal) );
+
+		}
+		
 		
 		
 	}
