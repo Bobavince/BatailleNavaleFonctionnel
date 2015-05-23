@@ -7,6 +7,9 @@ public class ListeBateau {
 	int[][] liste; // Liste des bateaux, avec dans la colonne 1 leur identifiant et la colonne 2 leur état (1 pour alive, 0 pour détruit)
 	Bateau[] listeBat;
 			
+	/**
+	 * 
+	 */
 	public ListeBateau(){
 		//Première version de cette méthode qui cré la liste comme une liste contenat des objets Bateaux.
 		listeBat = new Bateau[5];
@@ -18,6 +21,10 @@ public class ListeBateau {
 		}
 	}
 	
+	/**
+	 * @param numeroBateau : correspond au numero qui sera inscrit sur les cases du plateau, correspond à cet unique bateau
+	 * @return Un boolean, vrai si le bateau existe encore, faux si le bateau a été détruit
+	 */
 	public boolean bateauExiste(int numeroBateau){
 		boolean existant = false;
 		
@@ -28,6 +35,9 @@ public class ListeBateau {
 		return existant;
 	}
 	
+	/** Méthode pour couler un bateau.
+	 * @param numeroBateau : correspond au numero qui sera inscrit sur les cases du plateau, correspond à cet unique bateau
+	 */
 	public void coulerBateau(int numeroBateau){
 		if(numeroBateau<listeBat.length){			//sécurité pour éviter des boundOutOfarray
 			listeBat[numeroBateau].rendreCouler();			//On passe le bateau en "détruit"

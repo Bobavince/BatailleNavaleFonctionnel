@@ -1,20 +1,9 @@
 import java.util.Scanner;
-
 import javax.swing.JFrame;
 
 
-/**
- * @author Vincent F
- *
- */
-
 public class TestJeu {
-
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
 	 	//MORCEAU DE CODE POUR ESSAYER L'AFFICHAGE EN FENETRE. A FAIRE EN DERNIER
 	    JFrame fenetre = new JFrame();
@@ -47,10 +36,13 @@ public class TestJeu {
 	
 			    System.out.println("Veuillez saisir le numéro de votre réponse :");
 			    answer = sc.nextLine();
-			    choix = answer.charAt(0);
+			    if(answer == null){		//Sécurité anti-débile qui appuis sur entrée sans rien mettre
+
+		    		choix = answer.charAt(0);
+			    }
 			    System.out.println("Vous avez saisi : " + choix);
 	
-			    switch (choix)
+			    switch (choix) // Lancement du mode de jeu choisi
 			    {
 			      case '1' :
 			        HvsH();
@@ -73,14 +65,39 @@ public class TestJeu {
 	}
 
 	public static void HvsH() {
+  	  System.out.println("Mode HvsH lancé");   
+
+  	  //On va créer le plateau du joueur 1 et du joueur 2
+  	  Plateau joueur1 = new Plateau("Joueur 1", 10, 10); // un tableau 10*10
+  	  Plateau joueur2 = new Plateau("Joueur 2", 10, 10); // un tableau 10*10
+  	  
+  	  //On va donner des bateaux au joueur 1
+  	  //on va donner des bateaux au joueur 2
+  	  
+  	  //on gère les tours
+  	  // on gère les tirs de chacun des joueurs tant que le nombre de bateaux
+  	  
+  	  
+  	  while()
 		  // Ici est géré le mode de jeu Humain contre Humain
+  	  
+  	  System.out.println("Mode HvsH stoppé");  
 		}
 	
 	public static void HvsIA() {
+  	  System.out.println("Mode HvsIA lancé");   
+
 		  // Ici est géré le mode de jeu Humain contre IA
+  	  
+  	  System.out.println("Mode HvsIA stoppé");   
 		}
 	
 	public static void HvsvsH() {
+  	  System.out.println("Mode Hvsh..vsH lancé");   
+
 		  // Ici est géré le mode de jeu Humain contre .... contre Humain
+  	  
+  	  System.out.println("Mode Hvsh..vsH stoppé");   
+
 		}
 }

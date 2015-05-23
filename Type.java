@@ -6,15 +6,30 @@
 
 public class Type {
 	
-	//Classe qui créer un plateau carré (tableau 2D avec toutes les cases vides à 0)
+	/** Classe statique qui créé un plateau carré (tableau 2D avec toutes les cases vides à 0)
+	 * @param x : hauteur du plateau de jeu renvoyé (taille vertical)
+	 * @param y : largeur du plateau de jeu renvoyé (taille horizontal)
+	 * @return un tableau qui est remplis avec un motif carré (que des 0 partout)
+	 */
 	public static int[][] carre(int x, int y){
-		int[][] tab = null;
-				
-				// A compélter
-		return tab;
+		int[][] tab = new int[x][y]; // on créé le tableau qu'on va renvoyer de la taille x(vertical)*y(horizontal)
+		
+			for(int i=0 ; i<x; i++){
+				for(int j=0 ; j<y ; j++){
+					tab[i][j] = 0; // on remplis le tableau de case "0" équivalente à de l'eau.
+				}
+			}
+
+		return tab; // on renvois le tableau créé.
 	}
 	
-	//Classe qui gère l'appel des autres méthodes
+	
+	/** Classe qui gère l'appel des autres méthodes
+	 * @param x : hauteur du plateau de jeu renvoyé (taille vertical) // rayon pour le rond // diagonale pour le triangle
+	 * @param y : largeur du plateau de jeu renvoyé (taille horizontal)
+	 * @param numeroDeType : 1 pour rond, 2 pour triangle, 3 pour rectangle, défaut carré
+	 * @return le tableau avec des cases d'eau (0) qui correspondent à la forme donnée en argument.
+	 */
 	public static int[][] forme(int x, int y, int numeroDeType){
 		 int[][] tab;
 		
@@ -38,7 +53,10 @@ public class Type {
 		
 	}
 	
-	//Classe qui créer un plateau rond (tableau 2D avec les cases aux angles à -1)
+	/** Classe qui créer un plateau rond (tableau 2D avec les cases aux angles à -1)
+	 * @param r : rayon du cercle à créer
+	 * @return un tableau avec un cercle d'eau (de cases à 0)
+	 */
 	public static int[][] rond(int r){
 		 int[][] tab = null;
 		
@@ -46,7 +64,10 @@ public class Type {
 		return tab;
 	}
 	
-	//Classe qui créer un plateau triangle (tableau 2D avec des cases en coin à -1)
+	/** Classe qui créer un plateau triangle (tableau 2D avec des cases en coin à -1)
+	 * @param cote : coté du triangle à créer
+	 * @return un tableau avec un trangle d'eau (de cases à 0)
+	 */
 	public static int[][] triangle(int cote){
 		 int[][] tab = null ;
 		
@@ -54,7 +75,11 @@ public class Type {
 		return tab;
 	}
 	
-	//Classe qui créer un plateau rectangle (tableau 2D avec toutes les cases vides à 0)
+	/** Classe qui créer un plateau rectangle (tableau 2D avec toutes les cases vides à 0)
+	 * @param x : hauteur du plateau de jeu renvoyé (taille vertical) 
+	 * @param y : largeur du plateau de jeu renvoyé (taille horizontal)
+	 * @return un tableau rectangulaire d'eau (de cases à 0)
+	 */
 	public static int[][] rectangle(int x, int y){
 		 int[][] tab = null;
 		

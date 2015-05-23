@@ -15,22 +15,58 @@ public class Plateau {
 	String name = "Joueur";
 	ListeBateau bateaux = new ListeBateau();
 	
-	public Plateau(String name, int x, int y){
-		plateauValeurs = new int[y][x][2];
-		plateauValeurs = Type.carre(y,x); // méthode à revoir pour remplir le tableau
+	
+	
+	/**
+	 * @param name : nom à donner au plateau/joueur
+	 * @param x : largeur du plateau
+	 * @param y : hauteur du plateau
+	 */
+	public Plateau(String name, int x, int y){					// Par défaut on créé un plateau carré.
+		plateauValeurs = new int[x][y][2]; 						// on initialise le plateau à la tailel voulue
+		int[][] plateauBuffer = Type.carre(x,y);				 // on récupère un tableau de la forme voulue
+		
+		for(int i =0 ; i<plateauValeurs.length ; i++){
+			for(int j =0 ; j<plateauValeurs[0].length ; j++){
+				plateauValeurs[i][j][0] = plateauBuffer[i][j]; //on remplis le tableau principal avec le pattern choisi
+			}
+		}
+			
 		this.name = name;
 	}
 	
+	/**
+	 * @param name : nom à donner au plateau/joueur
+	 * @param x : largeur du plateau
+	 * @param y : hauteur du plateau
+	 * @param numeroDeType : Numero correspondant au type de plateau voulu (0 pour carré, 1 pour rond etc .. (A CORRIGER)) 
+	 */
 	public Plateau(String name, int x, int y, int numeroDeType){
-		plateauValeurs = new int[y][x][2];
-		plateauValeurs = Type.forme(x, y, numeroDeType);  // méthode à revoir pour remplir le tableau
+		plateauValeurs = new int[x][y][2];						// on initialise le plateau à la tailel voulue
+		int[][] plateauBuffer = Type.forme(x, y, numeroDeType);  // on récupère un tableau de la forme voulue
+		
+		for(int i =0 ; i<plateauValeurs.length ; i++){
+			for(int j =0 ; j<plateauValeurs[0].length ; j++){
+				plateauValeurs[i][j][0] = plateauBuffer[i][j]; //on remplis le tableau principal avec le pattern choisi
+			}
+		}
+		
 		this.name = name;
 	}
 	
+	/**
+	 * @param x : largeur du plateau
+	 * @param y : hauteur du plateau
+	 */
 	public void tirer(int x, int y){
 		
 	}
 	
+	/**
+	 * @param x : largeur du plateau
+	 * @param y : hauteur du plateau
+	 * @param joueur : sur qui on veut tirer
+	 */
 	public void tirerJoueur(int x, int y, Plateau joueur){
 		
 	}
