@@ -81,6 +81,7 @@ public class TestJeu {
   	  //Pour tester l'affichage : on affiche le plateau du joueur 1
   	  Affichage.afficherGrille(joueur1);
   	  //Pour tester l'affichage : on affiche le plateau du joueur 2
+  	  Affichage.afficherGrille(joueur2);
   	  
   	  //on gère les tours
   	  // on gère les tirs de chacun des joueurs tant que le nombre de bateaux

@@ -14,6 +14,7 @@ public class ListeBateau {
 		listeBat = new Bateau[nombreDeBateau];
 	}
 	
+	
 
 	/**
 	 * @param numeroBateau : correspond au numero qui sera inscrit sur les cases du plateau, correspond à cet unique bateau

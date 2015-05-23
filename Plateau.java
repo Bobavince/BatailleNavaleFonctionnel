@@ -22,7 +22,7 @@ public class Plateau {
 	 * @param x : largeur du plateau
 	 * @param y : hauteur du plateau
 	 */
-	public Plateau(String name, int x, int y){					// Par défaut on créé un plateau carré.
+	public Plateau(String name, int x, int y){// Par défaut on créé un plateau carré.
 		plateauValeurs = new int[x][y][2]; 						// on initialise le plateau à la tailel voulue
 		int[][] plateauBuffer = Type.carre(x,y);				 // on récupère un tableau de la forme voulue
 		
@@ -149,6 +149,9 @@ public class Plateau {
 			
 			// **** ON CREE LE BATEAU SI LE bateau etait possible****
 			bateaux.listeBat[i] = new Bateau(x,y,z,t,i+1);
+			placerBateau(bateaux.listeBat[i]);
+			// **** ON LE PLACE SUR LE PLATEAU****
+			
 		  	//DEBUG ONLY // 
 			System.out.println("Le bateau N°" + (i+1) + " de taille" + longueur + "(" + x + y + z + t + ") est créé. (xmin,ymin,xmax,ymax) donc il est horizontal :" + (bateaux.listeBat[i].horizontal) );
 
@@ -195,8 +198,16 @@ public class Plateau {
 	public void tirerJoueur(int x, int y, Plateau joueur){
 		
 	}
+
+	public void placerBateau(Bateau boat){
+		for (int i=0 ; i<boat.lieuEtat.length ; i++){ // pour toutes les couples de coordonnées du bateau donné
+			plateauValeurs[boat.lieuEtat[i][0]][boat.lieuEtat[i][1]][0] = boat.numero;	//on met le numero du bateau sur la couche 0
+		}
+	}
 	
 }
+
+
 
 
 /**
