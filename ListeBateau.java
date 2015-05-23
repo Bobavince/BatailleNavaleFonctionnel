@@ -4,23 +4,24 @@
  */
 
 public class ListeBateau {
-	int[][] liste; // Liste des bateaux, avec dans la colonne 1 leur identifiant et la colonne 2 leur état (1 pour alive, 0 pour détruit)
-	Bateau[] listeBat;
+	//OBSOLOETE : // Liste des bateaux, avec dans la colonne 1 leur identifiant et la colonne 2 leur état (1 pour alive, 0 pour détruit)
+	Bateau[] listeBat; // Liste des bateaux en tant qu'objet.
 			
 	/**
 	 * 
 	 */
-	public ListeBateau(){
+	public ListeBateau(int nombreDeBateau){
 		//Première version de cette méthode qui cré la liste comme une liste contenat des objets Bateaux.
-		listeBat = new Bateau[5];
+		listeBat = new Bateau[nombreDeBateau];
 		
 		//on remplis le tableau avec 5 bateaux numérotés 1 à liste.length+1
-		for(int i = 0; i<listeBat.length ; i++){
+		/*for(int i = 0; i<listeBat.length ; i++){
 			listeBat[i].creerBateau(i+1); // On créé chaque bateau A COMPLETER
 			listeBat[i].rendreAlive();	// on rend les bateaux sur le statut "alive"
-		}
+		}*/
 	}
 	
+
 	/**
 	 * @param numeroBateau : correspond au numero qui sera inscrit sur les cases du plateau, correspond à cet unique bateau
 	 * @return Un boolean, vrai si le bateau existe encore, faux si le bateau a été détruit

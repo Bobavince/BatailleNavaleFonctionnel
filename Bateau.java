@@ -5,8 +5,9 @@
 
 public class Bateau {
 	int numero;
-	boolean alive = false;
 	int longueur;
+	boolean horizontal;
+	boolean alive = false;
 	int[][] lieuEtat = null; // Deux première colonne pour les coordonnées, la troisième pour l'état
 	
 	/** Méthode qui créé un bateau à partir de ses coordonnées de placement, et qui calculera sa longueur.
@@ -18,13 +19,20 @@ public class Bateau {
 	 */
 	public Bateau(int xDebut, int yDebut, int xFin, int yFin, int numero){
 		
+		
 		if(xDebut==xFin){ // si le bateau est horizontal
-			for(int i=0 ; i<=(yFin-yDebut) ; i++){
+			lieuEtat = new int[(yFin-yDebut+1)][3]; // On créé un tableau de (yMax-Ymin)+1 en hauteur (soit pour la case 1 à 4, 3 cases + 1, soit bien 4 cases de long.
+			horizontal = true;
+			
+			for(int i=0 ; i<(yFin-yDebut+1) ; i++){ // On parcourt chaque case et on ajoute ses coodonnées en X et en Y. le +1 est pour la même raison qu'au dessus.
 				lieuEtat[i][0] = xDebut;
 				lieuEtat[i][1] = yDebut+i;
 			}
 		} else if (yDebut==yFin) { // si le bateau est vertical
-			for(int i=0 ; i<=(xFin-xDebut) ; i++){
+			lieuEtat = new int[(xFin-xDebut+1)][3]; // On créé un tableau de (xMax-xMin)+1 en hauteur (soit pour la case 1 à 4, 3 cases + 1, soit bien 4 cases de long.
+			horizontal = false;
+			
+			for(int i=0 ; i<(xFin-xDebut+1) ; i++){ // On parcourt chaque case et on ajoute ses coodonnées en X et en Y. le +1 est pour la même raison qu'au dessus.
 				lieuEtat[i][0] = xDebut+i; 
 				lieuEtat[i][1] = yDebut;
 			}
