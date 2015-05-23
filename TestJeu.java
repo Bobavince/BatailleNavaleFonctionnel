@@ -1,30 +1,21 @@
+import java.awt.*;
 import java.util.Scanner;
+
 import javax.swing.JFrame;
+import javax.swing.*;
+import javax.swing.border.Border;
 
 
 public class TestJeu {
 	public static void main(String[] args) {
 		
-	 	//MORCEAU DE CODE POUR ESSAYER L'AFFICHAGE EN FENETRE. A FAIRE EN DERNIER
-	    JFrame fenetre = new JFrame();
 	    //Creations des instances nécessaires (Scanner, fenetre...)
 	    Scanner sc = new Scanner(System.in); 
+	    
 	    //Creation des variables 
 	    String answer = ""; // Utilisée pour le choix de l'utilsateur du mode de jeu
 	    char choix = '0';
 	    boolean rejouer = true;
-	   
-	    
-	    //Définit un titre pour notre fenêtre
-	    fenetre.setTitle("BatailleNAVALE");
-	    //Définit sa taille : 400 pixels de large et 100 pixels de haut
-	    fenetre.setSize(800, 600);
-	    //Nous demandons maintenant à notre objet de se positionner au centre
-	    fenetre.setLocationRelativeTo(null);
-	    //Termine le processus lorsqu'on clique sur la croix rouge
-	    fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    //Et enfin, la rendre visible        
-	    fenetre.setVisible(true);
 	    
 	    System.out.println("**** Bienvenue dans notre jeu ****");
 	    
@@ -78,7 +69,7 @@ public class TestJeu {
   	  //On va créer le plateau du joueur 1 et du joueur 2
   	  Plateau joueur1 = new Plateau("Joueur 1", 10, 10); // un tableau 10*10
   	  Plateau joueur2 = new Plateau("Joueur 2", 10, 10); // un tableau 10*10
-  	  
+	    
   	  //On va donner des bateaux au joueur 1
   	  System.out.println("On remplis le plateau du joueur 1.");
   	  joueur1.remplirAleatoirement(5);
@@ -86,6 +77,10 @@ public class TestJeu {
   	  //on va donner des bateaux au joueur 2
   	  System.out.println("On remplis le plateau du joueur 2.");
   	  joueur2.remplirAleatoirement(5);
+  	  
+  	  //Pour tester l'affichage : on affiche le plateau du joueur 1
+  	  Affichage.afficherGrille(joueur1);
+  	  //Pour tester l'affichage : on affiche le plateau du joueur 2
   	  
   	  //on gère les tours
   	  // on gère les tirs de chacun des joueurs tant que le nombre de bateaux

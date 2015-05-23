@@ -68,8 +68,30 @@ public class Plateau {
 			int y = 0;
 			int z = 0;
 			int t = 0;
-			int longueur = 4; //correspond à la vrai longueur du bateau.
+			int longueur; //correspond à la vrai longueur du bateau.
 			bateauPossible = false;
+			
+			switch(i){ // On définit la taille du bateau suivant le i de la boucle for principal.
+				case 0 :
+					longueur = 5;
+					break;
+				case 1 :
+					longueur = 4;
+					break;
+				case 2 :
+					longueur = 3;
+					break;
+				case 3 :
+					longueur = 2;
+					break;
+				case 4 :
+					longueur = 1;
+					break;
+				default : 
+					longueur = 1;
+					break;
+			}
+			
 			
 			while(bateauPossible==false){
 			
@@ -127,9 +149,34 @@ public class Plateau {
 			
 			// **** ON CREE LE BATEAU SI LE bateau etait possible****
 			bateaux.listeBat[i] = new Bateau(x,y,z,t,i+1);
-		  	System.out.println("Le bateau N°" + (i+1) + " (" + x + y + z + t + ") est créé. (xmin,ymin,xmax,ymax) donc il est horizontal :" + (bateaux.listeBat[i].horizontal) );
+		  	//DEBUG ONLY // 
+			System.out.println("Le bateau N°" + (i+1) + " de taille" + longueur + "(" + x + y + z + t + ") est créé. (xmin,ymin,xmax,ymax) donc il est horizontal :" + (bateaux.listeBat[i].horizontal) );
 
 		}
+	}
+	
+	
+	public boolean bateauPresent(int x, int y){
+		boolean estPresent = false; // On pose une variable à retourner.
+		
+		for(int i =0; i < bateaux.listeBat.length ; i++) { // on parcours la liste des bateaux sans dépasser
+			if(bateaux.listeBat[i].estPresentSurCetteCase(x, y)==true){ //on demande à chaque bateau si il est sur la case qu'on considère
+				estPresent = true; // Si oui on passe la variable à True : il y a un bateau sur cette case
+			} 
+		}
+		
+		return estPresent;
+	}
+	
+	public int numeroBateauPresent(int x, int y){
+		int numeroDuBateau = 0; // On pose une variable à retourner.
+		
+		for(int i =0; i < bateaux.listeBat.length ; i++) { // on parcours la liste des bateaux sans dépasser
+			if(bateaux.listeBat[i].estPresentSurCetteCase(x, y)==true){ //on demande à chaque bateau si il est sur la case qu'on considère
+				numeroDuBateau = bateaux.listeBat[i].numero; // Si oui on récupère son numéro
+			} 
+		}
+		return numeroDuBateau;
 	}
 	
 	/**

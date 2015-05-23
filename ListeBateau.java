@@ -11,14 +11,7 @@ public class ListeBateau {
 	 * 
 	 */
 	public ListeBateau(int nombreDeBateau){
-		//Première version de cette méthode qui cré la liste comme une liste contenat des objets Bateaux.
 		listeBat = new Bateau[nombreDeBateau];
-		
-		//on remplis le tableau avec 5 bateaux numérotés 1 à liste.length+1
-		/*for(int i = 0; i<listeBat.length ; i++){
-			listeBat[i].creerBateau(i+1); // On créé chaque bateau A COMPLETER
-			listeBat[i].rendreAlive();	// on rend les bateaux sur le statut "alive"
-		}*/
 	}
 	
 
@@ -29,7 +22,7 @@ public class ListeBateau {
 	public boolean bateauExiste(int numeroBateau){
 		boolean existant = false;
 		
-		if(numeroBateau<listeBat.length){			//sécurité pour éviter des boundOutOfarray
+		if(numeroBateau<=listeBat.length){			//sécurité pour éviter des boundOutOfarray
 			existant = listeBat[numeroBateau-1].alive ;
 		}
 		

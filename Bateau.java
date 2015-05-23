@@ -61,6 +61,17 @@ public class Bateau {
 		alive = false;
 	}
 	
+	public boolean estPresentSurCetteCase(int x, int y){
+		boolean jeSuisPresent = false; // On pose une variable à retourner
+		
+		for(int i=0; i< lieuEtat.length ; i++){ // On parcourt le tableau de coordonnées du bateau en question
+			if(lieuEtat[i][0] == x && lieuEtat[i][1]==y){ // Si les coordonnées en argument correspondent à un binome du tableau ( si à la ligne i, la colonne 0 = x et la colonne 1 = y, alors on renvois true
+				jeSuisPresent = true;
+			}
+		}
+		
+		return jeSuisPresent;
+	}
 	
 	public boolean tir(Plateau plateauJoueur, int x, int y){
 		
