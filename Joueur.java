@@ -193,7 +193,6 @@ public class Joueur {
 		int nombreBateaux =0;
 		Scanner sc = new Scanner(System.in);
 
-		answer = "";
 		while(nombreBateaux <= 0 && nombreBateaux>nombreMaxBateaux){ // Boucle concernant le choix du nombre de bateaux.
 			System.out.println(pseudo +": Combien voulez vous de bateau ?");
 			answer = sc.nextLine();
@@ -250,6 +249,44 @@ public class Joueur {
 		return nombreBateauxChoisi;
 	} // FIN DE " utilitairePlacementDesBateaux "
 
+	/** Méthode qui demande au joueur la taille du bateau qu'il désire.
+	 * @param tailleMax : nombre qui fixe la taille maximal du bateau que le joueur peut choisir
+	 * @return la taille du bateau, choisie par le joueur.
+	 */
+	public static int choixTailleBateau(int tailleMax){
+		String answer = "";
+		int tailleBateau =0;
+		Scanner sc = new Scanner(System.in);
 
+		while(tailleBateau <= 0 && tailleBateau>tailleMax){ // Boucle concernant le choix du nombre de bateaux.
+			System.out.println(" Quelle taille de bateau désirez vous ? ");
+			answer = sc.nextLine();
+			if(answer.length()!=0){		//Sécurité anti-débile qui appui sur entrée sans rien mettre
+				tailleBateau = Integer.parseInt(answer);
+			}
+		}
+		return tailleBateau;
+	} // FIN DE " choixTailleBateau "
+	
+	/** Méthode qui demande au joueur les coordonnées du bateau.
+	 * @param nombreMaxBateaux : nombre passé en argument, et calculé en dehors de cette classe, qui fixe la limite à ne pas dépasser. Fixe donc la limite haute du choix du joueur.
+	 * @return le nombre de bateau choisi par le joueur.
+	 */
+	public static int choixCoordonnéesBateau(String pseudo, int nombreMaxBateaux){
+		char choix = ' ';
+		String answer = "";
+		int nombreBateaux =0;
+		Scanner sc = new Scanner(System.in);
+
+		answer = "";
+		while(nombreBateaux <= 0 && nombreBateaux>nombreMaxBateaux){ // Boucle concernant le choix du nombre de bateaux.
+			System.out.println(pseudo +": Combien voulez vous de bateau ?");
+			answer = sc.nextLine();
+			if(answer.length()!=0){		//Sécurité anti-débile qui appui sur entrée sans rien mettre
+				nombreBateaux = Integer.parseInt(answer);
+			}
+		}
+		return nombreBateaux;
+	} // FIN DE " choixCoordonnéesBateau "
 }
 
