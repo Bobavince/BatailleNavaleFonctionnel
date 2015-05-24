@@ -6,6 +6,9 @@
 import java.util.Scanner;
 
 
+/**
+ * Classe qui permet de demander au joueur des choses diverses. (Gestion du jeu "haut-niveau")
+ */
 public class Joueur {
 	char choix = ' ';
 	String answer = "";
@@ -20,6 +23,10 @@ public class Joueur {
 	Plateau joueur1;
 	Plateau joueur2 ;
 
+	/** Methode qui demande au joueur de s'identifier en lui demandant son nom.
+	 * @param numeroJoueur : sert simplement à afficher le N° du joueur lors de la requête "Joueur x, quel est votre pseudo ? " 
+	 * @return le pseudo du joueur sous forme de String.
+	 */
 	public static String identification(int numeroJoueur){
 		String pseudo = "";
 		Scanner sc = new Scanner(System.in);
@@ -42,6 +49,11 @@ public class Joueur {
 		return pseudo;
 	}
 
+	/** Methode qui demande au joueur le type de plateau voulu. 
+	 * @param pseudo1 simplement utile pour dire, "Joueur 1", "Joueur 2" quel plateau voulez vous ? 
+	 * @param pseudo2 de même.
+	 * @return un int ayant pour valeur : 0 - carré // 1 - rond // n2 - triangle // n3 - rectangle
+	 */
 	public static int typeDePlateau(String pseudo1, String pseudo2){
 		int type = -1 ;
 		Scanner sc = new Scanner(System.in);
@@ -61,6 +73,11 @@ public class Joueur {
 		return type;
 	}
 
+	/** Méthode qui demande la taille d'un plateau rond (donc le rayon)
+	 * @param pseudo1 simplement utile pour dire, "Joueur 1", "Joueur 2" quel taille voulez vous ? 
+	 * @param pseudo2 de même.
+	 * @return Le rayon du plateau sous forme d'un INT.
+	 */
 	public static int taillePlateauRond(String pseudo1, String pseudo2){
 		int tailleX = 0;
 		String answer = "";
@@ -77,6 +94,11 @@ public class Joueur {
 		return tailleX;
 	}
 
+	/** Méthode qui demande la taille d'un plateau triangulaire (donc le coté)
+	 * @param pseudo1 simplement utile pour dire, "Joueur 1", "Joueur 2" quel taille voulez vous ? 
+	 * @param pseudo2 de même.
+	 * @return Le coté du plateau sous forme d'un INT.
+	 */
 	public static int taillePlateauTriangle(String pseudo1, String pseudo2){
 		int tailleX = 0;
 		String answer = "";
@@ -91,7 +113,12 @@ public class Joueur {
 		}
 		return tailleX;
 	}
-	
+
+	/** Méthode qui demande la taille d'un plateau rectangulaire (donc les cotés)
+	 * @param pseudo1 simplement utile pour dire, "Joueur 1", "Joueur 2" quel taille voulez vous ? 
+	 * @param pseudo2 de même.
+	 * @return Le coté du plateau sous forme d'un INT. PROBLEME ON DEVRAIT EN RENVOYER 2 ...  NE PAS UTILISER CETTE CLASSE DONC =) 
+	 */
 	public static int taillePlateauRectangle(String pseudo1, String pseudo2){
 		int tailleX = 0;
 		int tailleY = 0;
@@ -115,6 +142,11 @@ public class Joueur {
 		return tailleX;
 	}
 	
+
+	/** Méthode qui demande si le joueur veut placer ses bateaux
+	 * @param pseudo simplement utile pour dire, "Joueur 1" voulez vous placer vos bateaux ? 
+	 * @return retourne un boolean qui vaut true si il veut placer ses bateaux
+	 */
 	public static boolean veutPlacerSesBateaux(String pseudo){
 		char choix = ' ';
 		String answer = "";
@@ -137,14 +169,18 @@ public class Joueur {
 
 		return placerSesBateaux;
 	}
-		
+
+	/** Méthode qui demande si le joueur veut choisir son nombre de bateaux // A NOTER : IL FAUDRAIT RAJOUTER UNE SECURITE POUR EVITER LES DEBILES QUI METTENT 40 BATEAUX SUR UN PLATEAU 4*4. LE PLACEMENT ALEATOIRE NE POURRA JAMAIS ABOUTIR ET ON AURA UNE BOUCLE INFINIE
+	 * @param pseudo simplement utile pour dire, "Joueur 1" voulez vous choisir le nombre de vos bateaux ? 
+	 * @return retourne un boolean qui vaut true si il veut choisir son nombre de bateaux.
+	 */
 	public static boolean veutunNombreDeBateaux(String pseudo){
 		char choix = ' ';
 		String answer = "";
 		boolean nombreDeBateaux;
 		Scanner sc = new Scanner(System.in);
-		
-		// **** DEMANDE AU JOUEUR 1 LE PLACEMENT DE SES BATEAUX ****
+
+		// **** DEMANDE AU JOUEUR "PSEUDO" LE PLACEMENT DE SES BATEAUX ****
 		while(choix ==' '){ // Boucle concernant le choix de placer ses bateaux.
 			System.out.println(pseudo +": Voulez-vous choisir le nombre de vos bateaux ? O/n");
 			answer = sc.nextLine();
@@ -159,5 +195,65 @@ public class Joueur {
 		}
 		return nombreDeBateaux;
 	}
-  	  
+
+	public static int choixNombreDeBateaux(String pseudo, int nombreMaxBateaux){
+		char choix = ' ';
+		String answer = "";
+		int nombreBateaux =0;
+		Scanner sc = new Scanner(System.in);
+		
+		answer = "";
+		while(nombreBateaux <= 0 && nombreBateaux>nombreMaxBateaux){ // Boucle concernant le choix du nombre de bateaux.
+			System.out.println(pseudo +": Combien voulez vous de bateau ?");
+			answer = sc.nextLine();
+			if(answer.length()!=0){		//Sécurité anti-débile qui appui sur entrée sans rien mettre
+				nombreBateaux = Integer.parseInt(answer);
+			}
+		}
+		return nombreBateaux;
+	}
+	
+	public static int utilitairePlacementDesBateaux(Plateau plateauDuJoueur, int nombreBateauMax){
+		
+		int nombreBateauxChoisi = 5; // Par défaut le nombre de bateaux d'un joueur est de 5.
+		
+		if(Joueur.veutPlacerSesBateaux(plateauDuJoueur.name)){
+			// **** DEMANDE AU JOUEUR 1 LE CHOIX DU NOMBRE DE SES BATEAUX ****
+			if(Joueur.veutunNombreDeBateaux(plateauDuJoueur.name)){
+				//LE JOUEUR VEUT PLACER SES BATEAUX ET CHOISIR LEUR NOMBRE
+				System.out.println(" Mise en route du programme de choix du nombre de bateaux : ");
+				nombreBateauxChoisi=Joueur.choixNombreDeBateaux(plateauDuJoueur.name, nombreBateauMax);
+				
+				System.out.println(" Mise en route du programme de placement des bateaux ...");
+				//ICI COMPLETER PAR ...
+
+			} else {
+				//LE JOUEUR VEUT PLACER SES BATEAUX MAIS PAS CHOISIR LEUR NOMBRE
+				
+				System.out.println(" Mise en route du programme de placement des bateaux ...");
+				//ICI COMPLETER PAR ...
+
+			}
+		} else {
+			// **** DEMANDE AU JOUEUR 1 LE CHOIX DU NOMBRE DE SES BATEAUX ****
+			if(Joueur.veutunNombreDeBateaux(plateauDuJoueur.name)){
+				//LE JOUEUR NE VEUT PAS PLACER SES BATEAUX MAIS CHOISIR LEUR NOMBRE
+				System.out.println(" Mise en route du programme de choix du nombre de bateaux : ");
+				nombreBateauxChoisi=Joueur.choixNombreDeBateaux(plateauDuJoueur.name, nombreBateauMax);
+				
+				System.out.println(" Mise en route du programme de placement automatique des bateaux");
+				plateauDuJoueur.remplirAleatoirement(nombreBateauxChoisi);
+
+			} else {
+				//LE JOUEUR VEUT NI PLACER SES BATEAUX NI CHOISIR LEUR NOMBRE
+				System.out.println(" Mise en route du programme de placement automatique des bateaux ...");
+				plateauDuJoueur.remplirAleatoirement(nombreBateauxChoisi);
+			}
+		}
+		return nombreBateauxChoisi;
+	}
+
+	
 }
+
+ 	

@@ -92,21 +92,21 @@ public class TestJeu {
 
 		// **** DEMANDE AU JOUEURS LA TAILLE DU PLATEAU ET LE GENERE ****
 		if(type==1){
-			
+
 			tailleX = Joueur.taillePlateauRond(pseudo1, pseudo2);
 			//On va créer le plateau du joueur 1 et du joueur 2
 			joueur1 = new Plateau(pseudo1, tailleX*2, tailleX*2, 1); // C'est un cercle ! Donc de taille r*2 
 			joueur2 = new Plateau(pseudo2, tailleX*2, tailleX*2, 1);
 			nombreBateauMax=10*tailleX; // Environ 2Pi*r soit le nombre maximal de cases.
-		
+
 		} else if(type==2){
-			
+
 			tailleX = Joueur.taillePlateauTriangle(pseudo1, pseudo2);
 			//On va créer le plateau du joueur 1 et du joueur 2
 			joueur1 = new Plateau(pseudo1, (int)(tailleX*0.88660), tailleX, 1); // Un peu de trigo. Si on considère un triangle équilatéral, on a la hauteur du triangle qui est égale à 0,8*coté.
 			joueur2 = new Plateau(pseudo2, (int)(tailleX*0.88660), tailleX, 1);
 			nombreBateauMax=(int)(tailleX*tailleX*0.88660*0.5); // Environ la surface d'un triangle de hauteur cote*0,8 
-		
+
 		} else {
 			while(tailleX<=0 || tailleY<=0){ 
 				answer = "";
@@ -122,66 +122,28 @@ public class TestJeu {
 					tailleY = Integer.parseInt(answer);
 				}
 			}
-			
+
 			//On va créer le plateau du joueur 1 et du joueur 2
 			joueur1 = new Plateau(pseudo1, tailleX, tailleY); 
 			joueur2 = new Plateau(pseudo2, tailleX, tailleY); 
 			nombreBateauMax = tailleX*tailleY;
 		}
 
-		// **** DEMANDE AU JOUEUR 1 LE PLACEMENT DE SES BATEAUX ****
-		if(Joueur.veutPlacerSesBateaux(pseudo1)){
-			// **** DEMANDE AU JOUEUR 1 LE PLACEMENT DE SES BATEAUX ****
-			if(Joueur.veutunNombreDeBateaux(pseudo1)){
-				System.out.println(" Mise en route du programme de placement des bateaux ...");
-
-			} else {
-				answer = "";
-				while(bateauJoueur1 == 0){ // Boucle concernant le choix de placer ses bateaux.
-					System.out.println(pseudo1 +"Combien voulez vous de bateau ? O/n");
-					answer = sc.nextLine();
-					if(answer.length()!=0){		//Sécurité anti-débile qui appui sur entrée sans rien mettre
-						bateauJoueur1 = Integer.parseInt(answer);
-					}
-				}
-				joueur1.remplirAleatoirement(bateauJoueur1);
-			}
-		} else {
-			System.out.println(" Mise en route du programme de placement automatique des bateaux ...");
-			joueur1.remplirAleatoirement(5);
-		}
+		// **** DEMANDE AU JOUEUR 1 LE CHOIX PLACEMENT DE SES BATEAUX ****
+		Joueur.utilitairePlacementDesBateaux(joueur1, nombreBateauMax);
 
 		// **** DEMANDE AU JOUEUR 2 LE PLACEMENT DE SES BATEAUX ****
-		if(Joueur.veutPlacerSesBateaux(pseudo2)){
-			// **** DEMANDE AU JOUEUR 1 LE PLACEMENT DE SES BATEAUX ****
-			if(Joueur.veutunNombreDeBateaux(pseudo2)){
-				System.out.println(" Mise en route du programme de placement des bateaux ...");
+		Joueur.utilitairePlacementDesBateaux(joueur2, nombreBateauMax);
 
-			} else {
-				answer = "";
-				while(bateauJoueur2 == 0){ // Boucle concernant le choix de placer ses bateaux.
-					System.out.println(pseudo2 +"Combien voulez vous de bateau ? O/n");
-					answer = sc.nextLine();
-					if(answer.length()!=0){		//Sécurité anti-débile qui appui sur entrée sans rien mettre
-						bateauJoueur2 = Integer.parseInt(answer);
-					}
-				}
-			joueur2.remplirAleatoirement(bateauJoueur2);
-			} 		
-		} else {
-			System.out.println(" Mise en route du programme de placement automatique des bateaux ...");
-			joueur2.remplirAleatoirement(5);
-		}
+		//Pour tester l'affichage : on affiche le plateau du joueur 1
+		Affichage.afficherGrille(joueur1);
+		//Pour tester l'affichage : on affiche le plateau du joueur 2
+		Affichage.afficherGrille(joueur2);
 
-  	  //Pour tester l'affichage : on affiche le plateau du joueur 1
-  	  Affichage.afficherGrille(joueur1);
-  	  //Pour tester l'affichage : on affiche le plateau du joueur 2
-  	  Affichage.afficherGrille(joueur2);
-  	  
-  	  //on gère les tours
-  	  
-  	  // on gère les tirs de chacun des joueurs tant que le nombre de bateaux
-  	  
+		//on gère les tours
+
+		// on gère les tirs de chacun des joueurs tant que le nombre de bateaux
+
   	  
   	  
   	  
