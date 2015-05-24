@@ -58,8 +58,8 @@ public class Plateau {
 	/** Classe qui va remplir le plateau de (nombredeBateau) bateaux.
 	 * @param nombreDeBateaux : nombre de Bateaux à ajouter au plateau de jeu.
 	 */
-	public void remplirAleatoirement(int nombreDeBateaux){
-		bateaux = new ListeBateau(nombreDeBateaux); // On créé la liste des bateaux
+	public void remplirAleatoirement(int[] listeTailleBateaux){
+		bateaux = new ListeBateau(listeTailleBateaux.length); // On créé la liste des bateaux
 		boolean bateauPossible;
 
 		for(int i=0 ; i<bateaux.listeBat.length ; i++){
@@ -68,30 +68,8 @@ public class Plateau {
 			int y = 0;
 			int z = 0;
 			int t = 0;
-			int longueur; //correspond à la vrai longueur du bateau.
+			int longueur = listeTailleBateaux[i]; //correspond à la vrai longueur du bateau.
 			bateauPossible = false;
-
-			switch(i){ // On définit la taille du bateau suivant le i de la boucle for principal.
-			case 0 :
-				longueur = 5;
-				break;
-			case 1 :
-				longueur = 4;
-				break;
-			case 2 :
-				longueur = 3;
-				break;
-			case 3 :
-				longueur = 2;
-				break;
-			case 4 :
-				longueur = 1;
-				break;
-			default : 
-				longueur = 1;
-				break;
-			}
-
 
 			while(bateauPossible==false){
 
@@ -161,9 +139,8 @@ public class Plateau {
 
 	}
 
-	public void remplirManuellement(int nombreDeBateaux, int tailleMaxBateau){
-		bateaux = new ListeBateau(nombreDeBateaux); // On créé la liste des bateaux
-		int tailleBateauCourant;
+	public void remplirManuellement(int tailleMaxBateau, int[] listeTailleBateaux){
+		bateaux = new ListeBateau(listeTailleBateaux.length); // On créé la liste des bateaux
 		boolean bateauPossible;
 		
 		for(int i=0 ; i<bateaux.listeBat.length ; i++){
@@ -174,48 +151,27 @@ public class Plateau {
 			int y = 0;
 			int z = 0;
 			int t = 0;
-			int longueur; //correspond à la vrai longueur du bateau.
+			int[] coordonnes = new int[2];
+			int longueur = listeTailleBateaux[i]; //correspond à la vrai longueur du bateau.
 			bateauPossible = false;
 
-			// NOTE : Soit on demande la longueur et la première coordonnées. puis l'orientation. Soit on demande les coordonnées début et fin. A compélter donc.
-			// ON DEMANDE AU JOUEUR LA TAILLE DU BATEAU COURANT, ET ON LA STOCKE. LE BATEAU NE PEUT DEPASSER LA TAILLE MAXIMAL AUTORISEE
-			tailleBateauCourant=Joueur.choixTailleBateau(tailleMaxBateau);
 			
-			switch(i){ // On définit la taille du bateau suivant le i de la boucle for principal.
-			case 0 :
-				longueur = 5;
-				break;
-			case 1 :
-				longueur = 4;
-				break;
-			case 2 :
-				longueur = 3;
-				break;
-			case 3 :
-				longueur = 2;
-				break;
-			case 4 :
-				longueur = 1;
-				break;
-			default : 
-				longueur = 1;
-				break;
-			}
-
-
+			//la première coordonnées. puis l'orientation.
 			while(bateauPossible==false){
-
+				
+				coordonnes = Joueur.choixCoordonnes(this); // On demande des coordonnés pour placer le bateau.
+				
 				// **** ON CHOISIT LES COORDONNES DU BATEAU ET SON ORIENTATION **** // Les variables ont le suffixe -p pour "possible"
-				int xMax = plateauValeurs.length; // On repère la hauteur maximal du plateau de jeu
-				int yMax = plateauValeurs[0].length; // on repère la longueur maximale du plateau de jeu
-
-				int xp = (int)(Math.random()*(xMax)); // on choisi une case sur les x.
+				int xp = coordonnes[0]; // on choisi une case sur les x.
 				int zp ;
-				int yp = (int)(Math.random()*(yMax)); // on repère une case sur les y.
+				int yp = coordonnes[1]; // on repère une case sur les y.
 				int tp ;
 
 				bateauPossible = true; // On considère que le bateau est possible
 
+				
+				
+				
 				if(Math.random()<(0.5)){ // On fait un 50/50
 					zp = xp; // Le bateau est horizontal.
 					tp = (longueur-1+yp); // le bateau est de taille "longueur" voir explication ci-dessous.

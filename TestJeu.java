@@ -131,11 +131,21 @@ public class TestJeu {
 			nombreBateauMax = tailleX*tailleY;
 		}
 
+		// ON CREE UN PATTERN DE FLOTTE QUI SERA APPLIQUE A CHAQUE JOUEUR.
+		Joueur joueurs = new Joueur(); // On initialise une instance de la classe joueur pour qu'elle garde en mémoire le tableau des
+		
+		if(Joueur.veutTypeDeFlotte()==true){
+			joueurs.utilitaireTypeDeFlotte(5,nombreBateauMax);	
+		} else {
+			joueurs.utilitaireFlotteParDefaut(nombreBateauMax);
+		}
+				
 		// **** DEMANDE AU JOUEUR 1 LE CHOIX PLACEMENT DE SES BATEAUX ****
-		Joueur.utilitairePlacementDesBateaux(joueur1, nombreBateauMax);
-
+		joueurs.utilitairePlacementDesBateaux(joueur1, nombreBateauMax);
+		
+				
 		// **** DEMANDE AU JOUEUR 2 LE PLACEMENT DE SES BATEAUX ****
-		Joueur.utilitairePlacementDesBateaux(joueur2, nombreBateauMax);
+		joueurs.utilitairePlacementDesBateaux(joueur2, nombreBateauMax);
 
 		//Pour tester l'affichage : on affiche le plateau du joueur 1
 		Affichage.afficherGrille(joueur1);
