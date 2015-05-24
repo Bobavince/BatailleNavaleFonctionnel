@@ -6,15 +6,15 @@
 public class ListeBateau {
 	//OBSOLOETE : // Liste des bateaux, avec dans la colonne 1 leur identifiant et la colonne 2 leur état (1 pour alive, 0 pour détruit)
 	Bateau[] listeBat; // Liste des bateaux en tant qu'objet.
-			
-	/**
+
+	/** 
 	 * 
 	 */
 	public ListeBateau(int nombreDeBateau){
 		listeBat = new Bateau[nombreDeBateau];
 	}
-	
-	
+
+
 
 	/**
 	 * @param numeroBateau : correspond au numero qui sera inscrit sur les cases du plateau, correspond à cet unique bateau
@@ -22,14 +22,14 @@ public class ListeBateau {
 	 */
 	public boolean bateauExiste(int numeroBateau){
 		boolean existant = false;
-		
+
 		if(numeroBateau<=listeBat.length){			//sécurité pour éviter des boundOutOfarray
 			existant = listeBat[numeroBateau-1].alive ;
 		}
-		
+
 		return existant;
 	}
-	
+
 	/** Méthode pour couler un bateau.
 	 * @param numeroBateau : correspond au numero qui sera inscrit sur les cases du plateau, correspond à cet unique bateau
 	 */
@@ -73,4 +73,4 @@ if(numeroBateau<=liste.length){			//sécurité pour éviter des boundOutOfarray
 }
 }
 
-*/
+ */
