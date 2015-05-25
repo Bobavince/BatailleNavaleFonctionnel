@@ -89,7 +89,7 @@ public class Affichage {
 
 				if(j==0){ // Dans la première colonne : 
 					if(i%2==0){
-						grille += (char)(65+(((i)/2)%27)); // si on est sur une ligne paire (nouveau repère!) alors on note les A,B,C ... de 65 à 90, avec un modulo pour gérer les cas supérieurs à 26 lignes)
+						grille += (char)(65+(((i)/2)%26)); // si on est sur une ligne paire (nouveau repère!) alors on note les A,B,C ... de 65 à 90, avec un modulo pour gérer les cas supérieurs à 26 lignes)
 					} else if(i%2==1){
 						grille += espaceSimple; // si on est sur une ligne impaire, on fait simplement un espace.
 					}

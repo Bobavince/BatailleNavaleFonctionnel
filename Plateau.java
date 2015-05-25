@@ -89,7 +89,7 @@ public class Plateau {
 					tp = (longueur-1+yp); // le bateau est de taille "longueur" voir explication ci-dessous.
 
 					// **** ON VERIFIE QUE CE BATEAU RENTRE LA OU ON A CHOISIT ****
-					if((yp+longueur)<plateauValeurs.length){
+					if((yp+longueur)<plateauValeurs[xp].length){
 						for( int j=0 ; j<longueur ; j++){
 							if(plateauValeurs[xp][yp+j][0]!=0){
 								bateauPossible=false;
@@ -103,7 +103,7 @@ public class Plateau {
 					tp = yp; // le bateau est vertical.
 
 					// **** ON VERIFIE QUE CE BATEAU RENTRE LA OU ON A CHOISIT ****
-					if((xp+longueur)<plateauValeurs[xp].length){
+					if((xp+longueur)<plateauValeurs.length){
 						for( int j=0 ; j<longueur ; j++){
 							if(plateauValeurs[xp+j][yp][0]!=0){
 								bateauPossible=false;
@@ -145,7 +145,7 @@ public class Plateau {
 		
 		for(int i=0 ; i<bateaux.listeBat.length ; i++){
 
-			System.out.println(" **** BATEAU N°" + i + ": ****");
+			System.out.println(" **** BATEAU N°" + (i+1) + " ****");
 
 			int x = 0;
 			int y = 0;
@@ -154,12 +154,14 @@ public class Plateau {
 			int[] coordonnes = new int[2];
 			int longueur = listeTailleBateaux[i]; //correspond à la vrai longueur du bateau.
 			bateauPossible = false;
+			boolean horizontal = false;
 
 			
 			//la première coordonnées. puis l'orientation.
 			while(bateauPossible==false){
 				
 				coordonnes = Joueur.choixCoordonnes(this); // On demande des coordonnés pour placer le bateau.
+				horizontal = Joueur.choixOrientation();
 				
 				// **** ON CHOISIT LES COORDONNES DU BATEAU ET SON ORIENTATION **** // Les variables ont le suffixe -p pour "possible"
 				int xp = coordonnes[0]; // on choisi une case sur les x.
@@ -168,37 +170,38 @@ public class Plateau {
 				int tp ;
 
 				bateauPossible = true; // On considère que le bateau est possible
-
 				
-				
-				
-				if(Math.random()<(0.5)){ // On fait un 50/50
+				if(horizontal){ // On fait un 50/50
 					zp = xp; // Le bateau est horizontal.
 					tp = (longueur-1+yp); // le bateau est de taille "longueur" voir explication ci-dessous.
 
 					// **** ON VERIFIE QUE CE BATEAU RENTRE LA OU ON A CHOISIT ****
-					if((yp+longueur)<plateauValeurs.length){
+					if((yp+longueur)<plateauValeurs[xp].length){
 						for( int j=0 ; j<longueur ; j++){
 							if(plateauValeurs[xp][yp+j][0]!=0){
 								bateauPossible=false;
+								System.out.println("Le bateau ne rentre pas ! Colision avec : " + plateauValeurs[xp][yp+j][0] );
 							}
 						}
 					} else {
 						bateauPossible = false;
+						System.out.println("Le bateau ne rentre pas ! Il sort du plateau !");
 					}
 				} else {
 					zp = (longueur-1+xp); // le bateau est de taille "longueur" d'où le -1 (compter sur un damier pour vérifier : y + 5 va donner un bateau de taille 6 car y est inclus)
 					tp = yp; // le bateau est vertical.
 
 					// **** ON VERIFIE QUE CE BATEAU RENTRE LA OU ON A CHOISIT ****
-					if((xp+longueur)<plateauValeurs[xp].length){
+					if((xp+longueur)<plateauValeurs.length){
 						for( int j=0 ; j<longueur ; j++){
 							if(plateauValeurs[xp+j][yp][0]!=0){
 								bateauPossible=false;
+								System.out.println("Le bateau ne rentre pas ! Colision avec : " + plateauValeurs[xp+j][yp][0] );
 							}
 						}
 					} else {
 						bateauPossible = false;
+						System.out.println("Le bateau ne rentre pas ! Il sort du plateau !");
 					}
 
 				}
@@ -285,9 +288,6 @@ public class Plateau {
 	}
 
 }
-
-
-
 
 /**
  * Le plateau est composé de deux niveaux. Un niveau 0 qui sert à connaitre ce qu'il y a sur le le plateau et un niveau 1 qui sert à savoir les actions subit par le plateau.

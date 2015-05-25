@@ -50,7 +50,7 @@ public class Joueur {
 
 		// **** DEMANDE AU JOUEURS LA TYPE DU PLATEAU ****
 		while(type!= 0 && type != 1 && type!=2 && type!=3){ 
-			System.out.println( pseudo1 + ", "+ pseudo2 + " : Sur quel type de plateau voulez-vous jouer ? 0/1/2/3 ");
+			System.out.println( pseudo1 + " , "+ pseudo2 + " : Sur quel type de plateau voulez-vous jouer ? 0/1/2/3 ");
 			System.out.println("0 - carré \n1 - rond \n2 - triangle\n3 - rectangle");
 			answer = sc.nextLine();
 			if(answer.length()!=0){
@@ -74,7 +74,7 @@ public class Joueur {
 
 		// **** DEMANDE AU JOUEURS LA TAILLE DU PLATEAU ET LE GENERE ****
 		while(tailleX<=0){ 
-			System.out.println( pseudo1 + pseudo2 + "Sur quelle taille de plateau voulez-vous jouer ? Rayon ? ");
+			System.out.println( pseudo1 + " , "+ pseudo2 + " Sur quelle taille de plateau voulez-vous jouer ? Rayon ? ");
 			answer = sc.nextLine();
 			if(answer.length()!=0){
 				tailleX = Integer.parseInt(answer);
@@ -94,7 +94,7 @@ public class Joueur {
 		Scanner sc = new Scanner(System.in);
 
 		while(tailleX<=0){ 
-			System.out.println( pseudo1 + pseudo2 + "Sur quelle taille de plateau voulez-vous jouer ? Coté ? ");
+			System.out.println( pseudo1 + " , " + pseudo2 + "Sur quelle taille de plateau voulez-vous jouer ? Coté ? ");
 			answer = sc.nextLine();
 			if(answer.length()!=0){
 				tailleX = Integer.parseInt(answer);
@@ -116,7 +116,7 @@ public class Joueur {
 
 		while(tailleX<=0 || tailleY<=0){ 
 			answer ="";
-			System.out.println( pseudo1 + pseudo2 + "Sur quelle taille de plateau voulez-vous jouer ? Hauteur ?");
+			System.out.println( pseudo1 + " , " + pseudo2 + "Sur quelle taille de plateau voulez-vous jouer ? Hauteur ?");
 			answer = sc.nextLine();
 			if(answer.length()!=0){
 				tailleX = Integer.parseInt(answer);
@@ -163,7 +163,7 @@ public class Joueur {
 	/** Méthode qui demande si les joueurs veulent choisir leur flotte // A NOTER : IL FAUDRAIT RAJOUTER UNE SECURITE POUR EVITER LES DEBILES QUI METTENT 40 BATEAUX SUR UN PLATEAU 4*4. LE PLACEMENT ALEATOIRE NE POURRA JAMAIS ABOUTIR ET ON AURA UNE BOUCLE INFINIE 
 	 * @return retourne un boolean qui vaut true si il veut choisir sa flotte.
 	 */
-	public static boolean veutTypeDeFlotte(){
+	public static boolean veutChoisirCompositionDeFlotte(){
 		char choix = ' ';
 		String answer = "";
 		boolean veutChoisirFlotte;
@@ -183,7 +183,7 @@ public class Joueur {
 			veutChoisirFlotte = false;
 		}
 		return veutChoisirFlotte;
-	} // FIN DE " veutTypeDeFlotte " 
+	} // FIN DE " veutChoisirCompositionDeFlotte " 
 
 	
 	/** Méthode qui demande au joueur "pseudo" le nombre de bateaux qu'il désire.
@@ -192,12 +192,11 @@ public class Joueur {
 	 * @return le nombre de bateau choisi par le joueur.
 	 */
 	public static int choixNombreDeBateaux(int nombreMaxBateaux){
-		char choix = ' ';
 		String answer = "";
-		int nombreBateaux =0;
+		int nombreBateaux = -1;
 		Scanner sc = new Scanner(System.in);
 
-		while(nombreBateaux <= 0 && nombreBateaux>nombreMaxBateaux){ // Boucle concernant le choix du nombre de bateaux.
+		while(nombreBateaux <= 0 || nombreBateaux>nombreMaxBateaux){ // Boucle concernant le choix du nombre de bateaux.
 			System.out.println("Combien voulez vous de bateau(x) ?");
 			answer = sc.nextLine();
 			if(answer.length()!=0){		//Sécurité anti-débile qui appui sur entrée sans rien mettre
@@ -207,36 +206,52 @@ public class Joueur {
 		return nombreBateaux;
 	} // FIN DE " choixNombreDeBateaux " 
 
+	public static int calculNombreBateauxOptimal(int type, int nombreBateauxMax){
+		int nombreBateaux = 5;
+		
+		switch (type){
+		case 1:
+			//rond : calcul le nombre optimal de bateauxx pour un rond
+			break;
+		case 2 :
+			//triangle : calcul le nombre optimal de bateaux pour un triangle
+			break;
+		case 3 :
+			//rectangle : calcul le nombre optimal de bateau pour un rectangle
+			break;
+		default :
+			//carré : calcul le nombe optimal de bateau pour un carré
+			break;
+		}
+		
+		return nombreBateaux;
+	}
 	
 	/** Méthode qui gère les demandes du joueur quand à son choix de placer ses bateaux, et leur nombre. Tout est automatisé. 
 	 * @param plateauDuJoueur : Plateau concerné par le placement des bateaux.
 	 * @param nombreBateauMax : Nombre calculé en amont, qui fixe la limite haute du nombre de bateaux sur le plateau de jeu. (Suivant le type de plateau, le calcul devra être différent)
 	 * @return Le nombre de bateaux du joueur, choisi par lui, ou par défaut : 5.
 	 */
-	public int utilitairePlacementDesBateaux(Plateau plateauDuJoueur, int nombreBateauMax){
-
-		int nombreBateauxChoisi = 5; // Par défaut le nombre de bateaux d'un joueur est de 5. N'A PLUS DE SENS - A ENLEVER. 
+	public void utilitairePlacementDesBateaux(Plateau plateauDuJoueur, int nombreBateau, int nombreMaxDeBateaux, int tailleMaxBateau){
 
 		if(Joueur.veutPlacerSesBateaux(plateauDuJoueur.name)){
 			//LE JOUEUR VEUT PLACER SES BATEAUX
 			System.out.println(" Mise en route du programme de placement des bateaux ...");
-			//ICI COMPLETER PAR ...
-			plateauDuJoueur.remplirManuellement(5, this.typeDeFlotte);
+			plateauDuJoueur.remplirManuellement(nombreBateau, this.typeDeFlotte);
 
 		} else {
-			//LE JOUEUR VEUT NI PLACER SES BATEAUX NI CHOISIR LEUR NOMBRE
+			//LE JOUEUR VEUT PAS PLACER SES BATEAUX
 			System.out.println(" Mise en route du programme de placement automatique des bateaux ...");
 			plateauDuJoueur.remplirAleatoirement(this.typeDeFlotte);
 		}
 
-		return nombreBateauxChoisi;
 	} // FIN DE " utilitairePlacementDesBateaux "
 
 	
-	public void utilitaireTypeDeFlotte(int tailleMaxBateau, int nombreMaxBateau){
+	public int utilitaireTypeDeFlotte(int tailleMaxBateau, int nombreMaxBateau){
 		String answer = "";
 		int tailleBateau = 0;
-		int nbBateau = choixNombreDeBateaux(nombreMaxBateau); // On demande aux joueurs combien de bateaux ils veulent que leur flotte soit composée.
+		int nbBateau = choixNombreDeBateaux(nombreMaxBateau); // On demande aux joueurs combien de bateaux ils veulent que leur flotte soit composée. Le nombre de bateau SERA INFERIEUR AU nombre de bateau maximum autorisé ! 
 		this.typeDeFlotte = new int[nbBateau];
 		Scanner sc = new Scanner(System.in);
 
@@ -245,11 +260,12 @@ public class Joueur {
 		System.out.println(" Vous allez choisir un par un chaque type de bateau en rentrant leur taille.");
 
 		for (int i=0; i<nbBateau ; i++){
-			if(i==0){ // On gère le premier bateau à part. C'est le bateau 'maitre'/Tireur
 
+			
+			if(i==0){ // On gère le premier bateau à part. C'est le bateau 'maitre'/Tireur	
 				System.out.println("Le premier bateau est votre bateau tireur. C'est le bateau principal de votre jeu. Si vous le perdez, vous avez perdu.");
 
-				while(tailleBateau <= 0 && tailleBateau>tailleMaxBateau){ // Boucle concernant le choix de l'utilisateur.
+				while(tailleBateau <= 0 || tailleBateau>tailleMaxBateau){ // Boucle concernant le choix de l'utilisateur.
 					System.out.println(" Quelle taille de bateau désirez vous pour votre bateau N°" + (i+1) + " ? ");
 					answer = sc.nextLine();
 					if(answer.length()!=0){		//Sécurité anti-débile qui appui sur entrée sans rien mettre
@@ -262,7 +278,7 @@ public class Joueur {
 
 			} else { // Les autres bateaux
 
-				while(tailleBateau <= 0 && tailleBateau>tailleMaxBateau){ // Boucle concernant le choix de l'utilisateur.
+				while(tailleBateau <= 0 || tailleBateau>tailleMaxBateau){ // Boucle concernant le choix de l'utilisateur.
 					System.out.println(" Quelle taille de bateau désirez vous pour votre bateau N°" + (i+1) + " ? ");
 					answer = sc.nextLine();
 					if(answer.length()!=0){		//Sécurité anti-débile qui appui sur entrée sans rien mettre
@@ -274,6 +290,7 @@ public class Joueur {
 			}
 
 		}
+		return nbBateau;
 	}
 
 	
@@ -321,7 +338,7 @@ public class Joueur {
 		coordonnes[0]=0;
 		coordonnes[1]=0;
 		
-		while(coordonnes[0]>plateau.plateauValeurs.length && coordonnes[0]<=0 && coordonnes[1]<=0 && coordonnes[1]>plateau.plateauValeurs[0].length && correct==false){ // Boucle concernant le choix du nombre de bateaux.
+		while(coordonnes[0]>plateau.plateauValeurs.length || coordonnes[0]<=0 || coordonnes[1]<=0 || coordonnes[1]>plateau.plateauValeurs[0].length || correct==false){ // Boucle concernant le choix du nombre de bateaux.
 			System.out.println(" Quelles coordonnes choisissez-vous ? (Forme : 'A 12' ou '1 1");
 			answer = sc.nextLine();
 			correct = true;
@@ -336,12 +353,11 @@ public class Joueur {
 						correct = false;
 					}
 				}
-				
 				for(int i= 0; correct==true && i<answer.length() ; i++){
 					if(i<indexEspace && ((int)(answer.charAt(i))<65 || (int)(answer.charAt(i))>90)&&((int)(answer.charAt(i))<97 || (int)(answer.charAt(i))>122)){
 						correct = false; // Tant qu'on est pas dans la zone  a....z ou A....Z on n'en veut pas.
 					} 
-					if( i>indexEspace && ((int)(answer.charAt(i))<48 || (int)(answer.charAt(i))>57)){
+					if(i>indexEspace && ((int)(answer.charAt(i))<48 || (int)(answer.charAt(i))>57)){
 						correct = false; // Tant qu'on est pas dans la zone 1...9 on n'en veut pas.
 					}
 				}
@@ -349,9 +365,9 @@ public class Joueur {
 				if(correct==true){ // Si les données sont correctes
 					cordA = answer.substring(0, indexEspace);	//On pose une variable tampon
 					cordB = answer.substring(indexEspace+1,answer.length()); //On pose une deuxième variable tampon.
-					if(((int)(cordA.charAt(0))<65 || (int)(cordA.charAt(0))>90)){
+					if(((int)(cordA.charAt(0))>65 || (int)(cordA.charAt(0))<90)){
 						coordonnes[0] = ((int)(cordA.charAt(0))-65); // Si c'est une majuscule on enlève la valeur d'un A majuscule pour retrouver des coordonnées valables.
-					} else if (((int)(cordA.charAt(0))<97 || (int)(cordA.charAt(0))>122)){
+					} else if (((int)(cordA.charAt(0))>97 || (int)(cordA.charAt(0))<122)){
 						coordonnes[0] = ((int)(cordA.charAt(0))-97); // Si c'est une minuscule on enlève la valeur d'un a minuscule pour retrouver des coordonnées valables.
 					} // ATTENTION A LA PROBABILITE QUE COORDONNES[0] NE SOIT PAS DEFINIT. NORMALEMENT CE NE DEVRAIT PAS ARRIVER ... 
 					coordonnes[1] = Integer.parseInt(cordB);
@@ -361,6 +377,31 @@ public class Joueur {
 		
 		return coordonnes;
 	}
+	
+	
+	public static boolean choixOrientation(){
+		boolean horizontal = false;
+		char choix = ' ';
+		String answer = "";
+		Scanner sc = new Scanner(System.in);
+
+		// **** DEMANDE AU JOUEUR Si il veut un bateau horizontal****
+		while(choix ==' '){ // Boucle concernant le choix de placer ses bateaux.
+			System.out.println(" Voulez-vous que ce bateau soit horizontal ? O/n");
+			answer = sc.nextLine();
+			if(answer.length()!=0){		//Sécurité anti-débile qui appui sur entrée sans rien mettre
+				choix = answer.charAt(0);
+			}  
+		}
+		if(choix=='O'){
+			horizontal = true;
+		} else {
+			horizontal = false;
+		}
+		
+		return horizontal;
+	}
+	
 	
 	/** Méthode qui demande au joueur la taille du bateau qu'il désire.
 	 * @param tailleMax : nombre qui fixe la taille maximal du bateau que le joueur peut choisir

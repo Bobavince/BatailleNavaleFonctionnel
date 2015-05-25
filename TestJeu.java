@@ -67,19 +67,22 @@ public class TestJeu {
 	public static void HvsH() {
 		System.out.println("Mode HvsH lancé");// Ici est géré le mode de jeu Humain contre Humain
 
-		//On instancie les variables utiles 
+		//On instancie les variables utiles pour les demandes utilisateur
 		char choix = ' ';
 		String answer = "";
+		Scanner sc = new Scanner(System.in); 
 		int tailleX = 0;
 		int tailleY = 0;
 		int nombreBateau =0;
-		int bateauJoueur1 = 0;
-		int bateauJoueur2 = 0;
+		
+		//On instancie les variables utiles pour les "Max" : le nombre de bateaux maximal autorisé, la longueur maximal autorisée etc ... 
 		int nombreBateauMax = 0;
+		int longueurMax = 5;
+		
+		//On instancie les variables utiles pour les données sur les plateaux de jeux.
 		int type = -1 ;
 		String pseudo1 = "";
 		String pseudo2 = "";
-		Scanner sc = new Scanner(System.in); 
 		Plateau joueur1;
 		Plateau joueur2 ;
 
@@ -134,18 +137,19 @@ public class TestJeu {
 		// ON CREE UN PATTERN DE FLOTTE QUI SERA APPLIQUE A CHAQUE JOUEUR.
 		Joueur joueurs = new Joueur(); // On initialise une instance de la classe joueur pour qu'elle garde en mémoire le tableau des
 		
-		if(Joueur.veutTypeDeFlotte()==true){
-			joueurs.utilitaireTypeDeFlotte(5,nombreBateauMax);	
+		
+		if(Joueur.veutChoisirCompositionDeFlotte()==true){
+			nombreBateau = joueurs.utilitaireTypeDeFlotte(longueurMax,nombreBateauMax);	
 		} else {
-			joueurs.utilitaireFlotteParDefaut(nombreBateauMax);
+			nombreBateau = Joueur.calculNombreBateauxOptimal(type, nombreBateauMax);// METHODE A COMPLETER
+			joueurs.utilitaireFlotteParDefaut(nombreBateau);
 		}
 				
 		// **** DEMANDE AU JOUEUR 1 LE CHOIX PLACEMENT DE SES BATEAUX ****
-		joueurs.utilitairePlacementDesBateaux(joueur1, nombreBateauMax);
-		
+		joueurs.utilitairePlacementDesBateaux(joueur1, nombreBateau ,nombreBateauMax, longueurMax);	
 				
 		// **** DEMANDE AU JOUEUR 2 LE PLACEMENT DE SES BATEAUX ****
-		joueurs.utilitairePlacementDesBateaux(joueur2, nombreBateauMax);
+		joueurs.utilitairePlacementDesBateaux(joueur2, nombreBateau ,nombreBateauMax, longueurMax);
 
 		//Pour tester l'affichage : on affiche le plateau du joueur 1
 		Affichage.afficherGrille(joueur1);
