@@ -18,7 +18,7 @@ public class Bateau {
 	 * @param numero : numero du bateau qui correspond à son identifiant.
 	 */
 	public Bateau(int xDebut, int yDebut, int xFin, int yFin, int numero){
-		
+
 		if(xDebut==xFin){ // si le bateau est horizontal
 			lieuEtat = new int[(yFin-yDebut+1)][3]; // On créé un tableau de (yMax-Ymin)+1 en hauteur (soit pour la case 1 à 4, 3 cases + 1, soit bien 4 cases de long.
 			horizontal = true;
@@ -84,14 +84,33 @@ public class Bateau {
 		return jeSuisPresent;
 	}
 
-	public boolean tir(Plateau plateauJoueur, int x, int y){
+	public void tir(Plateau plateauJoueur, int x, int y){
 
 
 	}
 
-	public int tir(Plateau plateauJoueur, int x, int y){
-
-
+	public void recevoirModification(int x, int y, int modification){
+		for(int i =0; i<lieuEtat.length ; i++){
+			if(lieuEtat[i][0] == x && lieuEtat[i][1] == y){
+				lieuEtat[i][2] += modification; // Le batea subit la modification notifiée dans la colonne 3 de son tableau d'état.
+			}
+		}
+		this.verifierAlive();
+	}
+	
+	public void recevoirTir(int x, int y){
+		this.recevoirModification(x, y, -1); // Le bateau subit une modification de vie de -1
 	}
 
+	public void verifierAlive(){
+		boolean aliveOrNot = false;
+
+		for(int i =0; i<lieuEtat.length ; i++){
+			if(lieuEtat[i][2] > 0){
+				aliveOrNot = true;
+			}
+		}
+		this.alive = aliveOrNot;
+	}
+		
 }

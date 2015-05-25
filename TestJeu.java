@@ -74,11 +74,11 @@ public class TestJeu {
 		int tailleX = 0;
 		int tailleY = 0;
 		int nombreBateau =0;
-		
+
 		//On instancie les variables utiles pour les "Max" : le nombre de bateaux maximal autorisé, la longueur maximal autorisée etc ... 
 		int nombreBateauMax = 0;
 		int longueurMax = 5;
-		
+
 		//On instancie les variables utiles pour les données sur les plateaux de jeux.
 		int type = -1 ;
 		String pseudo1 = "";
@@ -115,7 +115,7 @@ public class TestJeu {
 		} else {
 			while(tailleX<=0 || tailleY<=0){ 
 				answer = "";
-				System.out.println( pseudo1 + pseudo2 + "Sur quelle taille de plateau voulez-vous jouer ? Hauteur ?");
+				System.out.println( pseudo1 + " , " + pseudo2 + ": Sur quelle taille de plateau voulez-vous jouer ? Hauteur ?");
 				answer = sc.nextLine();
 				if(answer.length()!=0){
 					tailleX = Integer.parseInt(answer);
@@ -136,18 +136,18 @@ public class TestJeu {
 
 		// ON CREE UN PATTERN DE FLOTTE QUI SERA APPLIQUE A CHAQUE JOUEUR.
 		Joueur joueurs = new Joueur(); // On initialise une instance de la classe joueur pour qu'elle garde en mémoire le tableau des
-		
-		
+
+
 		if(Joueur.veutChoisirCompositionDeFlotte()==true){
 			nombreBateau = joueurs.utilitaireTypeDeFlotte(longueurMax,nombreBateauMax);	
 		} else {
 			nombreBateau = Joueur.calculNombreBateauxOptimal(type, nombreBateauMax);// METHODE A COMPLETER
 			joueurs.utilitaireFlotteParDefaut(nombreBateau);
 		}
-				
+
 		// **** DEMANDE AU JOUEUR 1 LE CHOIX PLACEMENT DE SES BATEAUX ****
 		joueurs.utilitairePlacementDesBateaux(joueur1, nombreBateau ,nombreBateauMax, longueurMax);	
-				
+
 		// **** DEMANDE AU JOUEUR 2 LE PLACEMENT DE SES BATEAUX ****
 		joueurs.utilitairePlacementDesBateaux(joueur2, nombreBateau ,nombreBateauMax, longueurMax);
 
@@ -157,13 +157,14 @@ public class TestJeu {
 		Affichage.afficherGrille(joueur2);
 
 		//on gère les tours
-
-		// on gère les tirs de chacun des joueurs tant que le nombre de bateaux
-
-
-
-
-		System.out.println("Mode HvsH stoppé");  
+		while(joueur1.aPerdu()==false && joueur2.aPerdu()==false){
+			System.out.println(" ---------- \n" + joueur1.name + " : Vous tirez.");
+			Joueur.recupCoordonnesVerifierTirer(joueur1, joueur2);
+			System.out.println(" ---------- \n" + joueur2.name + " : Vous tirez.");
+			Joueur.recupCoordonnesVerifierTirer(joueur2, joueur1);
+		}
+		
+		System.out.println("Mode HvsH stoppé.\n\n");  
 	}
 
 	public static void HvsIA() {

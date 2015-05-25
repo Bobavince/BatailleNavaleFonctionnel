@@ -12,7 +12,7 @@ public class Joueur {
 
 	//Variables internes de la classe 
 	int[] typeDeFlotte;
-	
+
 	/** Methode qui demande au joueur de s'identifier en lui demandant son nom.
 	 * @param numeroJoueur : sert simplement à afficher le N° du joueur lors de la requête "Joueur x, quel est votre pseudo ? " 
 	 * @return le pseudo du joueur sous forme de String.
@@ -159,7 +159,7 @@ public class Joueur {
 		return placerSesBateaux;
 	} // FIN DE " veutPlacerSesBateaux " 
 
-	
+
 	/** Méthode qui demande si les joueurs veulent choisir leur flotte // A NOTER : IL FAUDRAIT RAJOUTER UNE SECURITE POUR EVITER LES DEBILES QUI METTENT 40 BATEAUX SUR UN PLATEAU 4*4. LE PLACEMENT ALEATOIRE NE POURRA JAMAIS ABOUTIR ET ON AURA UNE BOUCLE INFINIE 
 	 * @return retourne un boolean qui vaut true si il veut choisir sa flotte.
 	 */
@@ -185,7 +185,7 @@ public class Joueur {
 		return veutChoisirFlotte;
 	} // FIN DE " veutChoisirCompositionDeFlotte " 
 
-	
+
 	/** Méthode qui demande au joueur "pseudo" le nombre de bateaux qu'il désire.
 	 * @param pseudo : pseudo du joueur, juste pour lui demander " "Joueur 1" combien voulez vous de bateaux ? " 
 	 * @param nombreMaxBateaux : nombre passé en argument, et calculé en dehors de cette classe, qui fixe la limite à ne pas dépasser. Fixe donc la limite haute du choix du joueur.
@@ -208,7 +208,7 @@ public class Joueur {
 
 	public static int calculNombreBateauxOptimal(int type, int nombreBateauxMax){
 		int nombreBateaux = 5;
-		
+
 		switch (type){
 		case 1:
 			//rond : calcul le nombre optimal de bateauxx pour un rond
@@ -223,10 +223,10 @@ public class Joueur {
 			//carré : calcul le nombe optimal de bateau pour un carré
 			break;
 		}
-		
+
 		return nombreBateaux;
 	}
-	
+
 	/** Méthode qui gère les demandes du joueur quand à son choix de placer ses bateaux, et leur nombre. Tout est automatisé. 
 	 * @param plateauDuJoueur : Plateau concerné par le placement des bateaux.
 	 * @param nombreBateauMax : Nombre calculé en amont, qui fixe la limite haute du nombre de bateaux sur le plateau de jeu. (Suivant le type de plateau, le calcul devra être différent)
@@ -247,7 +247,7 @@ public class Joueur {
 
 	} // FIN DE " utilitairePlacementDesBateaux "
 
-	
+
 	public int utilitaireTypeDeFlotte(int tailleMaxBateau, int nombreMaxBateau){
 		String answer = "";
 		int tailleBateau = 0;
@@ -261,7 +261,7 @@ public class Joueur {
 
 		for (int i=0; i<nbBateau ; i++){
 
-			
+
 			if(i==0){ // On gère le premier bateau à part. C'est le bateau 'maitre'/Tireur	
 				System.out.println("Le premier bateau est votre bateau tireur. C'est le bateau principal de votre jeu. Si vous le perdez, vous avez perdu.");
 
@@ -293,7 +293,7 @@ public class Joueur {
 		return nbBateau;
 	}
 
-	
+
 	public void utilitaireFlotteParDefaut(int nombreDeBateau){
 
 		int tailleBateau = 0;
@@ -326,7 +326,7 @@ public class Joueur {
 		}
 
 	}
-	
+
 	public static int[] choixCoordonnes(Plateau plateau){
 		int[] coordonnes = new int[2];
 		String answer = "";
@@ -334,16 +334,16 @@ public class Joueur {
 		String cordB ; 
 		boolean correct = false;
 		Scanner sc = new Scanner(System.in);
-		
-		coordonnes[0]=0;
-		coordonnes[1]=0;
-		
-		while(coordonnes[0]>plateau.plateauValeurs.length || coordonnes[0]<=0 || coordonnes[1]<=0 || coordonnes[1]>plateau.plateauValeurs[0].length || correct==false){ // Boucle concernant le choix du nombre de bateaux.
-			System.out.println(" Quelles coordonnes choisissez-vous ? (Forme : 'A 12' ou '1 1");
+
+		coordonnes[0]=-1;
+		coordonnes[1]=-1;
+
+		while(coordonnes[0]>=plateau.plateauValeurs.length || coordonnes[0]<0 || coordonnes[1]<0 || coordonnes[1]>=plateau.plateauValeurs[0].length || correct==false){ // Boucle concernant le choix du nombre de bateaux.
+			System.out.println(" Quelles coordonnes choisissez-vous ? (Forme : 'A 12' ou '1 1')");
 			answer = sc.nextLine();
 			correct = true;
 			int indexEspace = 0;
-			
+
 			if(answer.length()>=3 && correct==true){		//Sécurité anti-débile qui appui sur entrée sans rien mettre	
 				for(int i=0; answer.charAt(i)!=' ' && i<(answer.length()-1) ; i++){
 					if(answer.charAt(i+1)==' '){
@@ -354,14 +354,14 @@ public class Joueur {
 					}
 				}
 				for(int i= 0; correct==true && i<answer.length() ; i++){
-					if(i<indexEspace && ((int)(answer.charAt(i))<65 || (int)(answer.charAt(i))>90)&&((int)(answer.charAt(i))<97 || (int)(answer.charAt(i))>122)){
-						correct = false; // Tant qu'on est pas dans la zone  a....z ou A....Z on n'en veut pas.
+					if(i<indexEspace && ((int)(answer.charAt(i))<65 || (int)(answer.charAt(i))>90) && ((int)(answer.charAt(i))<97 || (int)(answer.charAt(i))>122) && ((int)(answer.charAt(i))<48 || (int)(answer.charAt(i))>57)){
+						correct = false; // Tant qu'on est pas dans la zone  a....z ou A....Z ou 1...9 on n'en veut pas.
 					} 
 					if(i>indexEspace && ((int)(answer.charAt(i))<48 || (int)(answer.charAt(i))>57)){
 						correct = false; // Tant qu'on est pas dans la zone 1...9 on n'en veut pas.
 					}
 				}
-				
+
 				if(correct==true){ // Si les données sont correctes
 					cordA = answer.substring(0, indexEspace);	//On pose une variable tampon
 					cordB = answer.substring(indexEspace+1,answer.length()); //On pose une deuxième variable tampon.
@@ -369,16 +369,18 @@ public class Joueur {
 						coordonnes[0] = ((int)(cordA.charAt(0))-65); // Si c'est une majuscule on enlève la valeur d'un A majuscule pour retrouver des coordonnées valables.
 					} else if (((int)(cordA.charAt(0))>97 || (int)(cordA.charAt(0))<122)){
 						coordonnes[0] = ((int)(cordA.charAt(0))-97); // Si c'est une minuscule on enlève la valeur d'un a minuscule pour retrouver des coordonnées valables.
-					} // ATTENTION A LA PROBABILITE QUE COORDONNES[0] NE SOIT PAS DEFINIT. NORMALEMENT CE NE DEVRAIT PAS ARRIVER ... 
+					} else {
+						coordonnes[0] = Integer.parseInt(cordA);
+					}
 					coordonnes[1] = Integer.parseInt(cordB);
 				}
 			}
 		}
-		
+
 		return coordonnes;
 	}
-	
-	
+
+
 	public static boolean choixOrientation(){
 		boolean horizontal = false;
 		char choix = ' ';
@@ -398,11 +400,10 @@ public class Joueur {
 		} else {
 			horizontal = false;
 		}
-		
+
 		return horizontal;
 	}
-	
-	
+
 	/** Méthode qui demande au joueur la taille du bateau qu'il désire.
 	 * @param tailleMax : nombre qui fixe la taille maximal du bateau que le joueur peut choisir
 	 * @return la taille du bateau, choisie par le joueur.
@@ -421,7 +422,7 @@ public class Joueur {
 		}
 		return tailleBateau;
 	} // FIN DE " choixTailleBateau "
-	
+
 	/** Méthode qui demande au joueur les coordonnées du bateau.
 	 * @param nombreMaxBateaux : nombre passé en argument, et calculé en dehors de cette classe, qui fixe la limite à ne pas dépasser. Fixe donc la limite haute du choix du joueur.
 	 * @return le nombre de bateau choisi par le joueur.
@@ -442,5 +443,90 @@ public class Joueur {
 		}
 		return nombreBateaux;
 	} // FIN DE " choixCoordonnéesBateau "
+
+	public static Plateau surQuiVoulezVousTirer(Plateau[] listeJoueurs){
+		Plateau cible = null;
+		String answer = "";
+		int choix =0;
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Sur qui voulez-vous tirer ? ");
+		for(int i= 0; i <listeJoueurs.length ; i++){
+			System.out.println( i + " - " + listeJoueurs[i].name);
+		}
+
+		while(choix <= 0 && choix>listeJoueurs.length){ // Boucle concernant le choix du nombre de bateaux.
+			answer = sc.nextLine();
+			if(answer.length()!=0){		//Sécurité anti-débile qui appui sur entrée sans rien mettre
+				choix = Integer.parseInt(answer);
+			}
+		}
+		cible = listeJoueurs[choix];
+		
+		return cible;
+	}
+	
+	public static void recupCoordonnesVerifierTirer(Plateau joueur1, Plateau joueur2){
+		boolean correct = false;
+		int[] coordonnes = new int[2];	
+		
+		while(correct==false){
+			coordonnes = Joueur.choixCoordonnes(joueur2);
+			if(joueur2.dejaSubiTir(coordonnes[0], coordonnes[1])==false && Joueur.scannerCaseInterdite(joueur2, coordonnes[0], coordonnes[1])==false){
+				correct = true;
+			} else if (Joueur.scannerCaseInterdite(joueur2, coordonnes[0], coordonnes[1])==true){
+				System.out.println("Cette case est hors du plateau de jeu !");
+			} else {
+				System.out.println("Cette case a déjà subit un tir !");
+			}
+		}
+		joueur1.tirerJoueur(coordonnes, joueur2);
+		Joueur.reponseAuTir(joueur2, coordonnes[0], coordonnes[1]);
+		
+	}
+	
+	public static void reponseAuTir(Plateau joueur, int x, int y){
+		if(Joueur.scannerCasePresenceBateau(joueur, x, y)==true){
+			System.out.print("Vous avec touché un bateau !\n");
+			if(joueur.bateaux.listeBat[joueur.numeroBateauPresent(x, y)].alive == false){
+				System.out.print("\b\b et vous l'avez coulé !");
+			}
+		} else if(Joueur.scannerCasePresenceRecif(joueur, x, y)){
+			System.out.println("Chtong, qu'est-ce que c'était ?");
+		} else {
+			System.out.println("Plouf");
+		}
+	}
+	
+	public static boolean scannerCasePresenceBateau(Plateau joueur2, int x, int y){
+		boolean presenceBateau = false;
+		
+		if(joueur2.plateauValeurs[x][y][0]>0){
+			presenceBateau=true;
+		}
+		
+		return presenceBateau;
+	}
+	
+	public static boolean scannerCasePresenceRecif(Plateau joueur2, int x, int y){
+		boolean presenceRecif = false;
+		
+		if(joueur2.plateauValeurs[x][y][0]==(-1)){
+			presenceRecif=true;
+		}
+		
+		return presenceRecif;
+	}
+	
+	public static boolean scannerCaseInterdite(Plateau joueur2, int x, int y){
+		boolean presenceInterdite = false;
+		
+		if(joueur2.plateauValeurs[x][y][0]==(-2)){
+			presenceInterdite=true;
+		}
+		
+		return presenceInterdite;
+	}
 }
+
 

@@ -142,7 +142,7 @@ public class Plateau {
 	public void remplirManuellement(int tailleMaxBateau, int[] listeTailleBateaux){
 		bateaux = new ListeBateau(listeTailleBateaux.length); // On créé la liste des bateaux
 		boolean bateauPossible;
-		
+
 		for(int i=0 ; i<bateaux.listeBat.length ; i++){
 
 			System.out.println(" **** BATEAU N°" + (i+1) + " ****");
@@ -156,13 +156,13 @@ public class Plateau {
 			bateauPossible = false;
 			boolean horizontal = false;
 
-			
+
 			//la première coordonnées. puis l'orientation.
 			while(bateauPossible==false){
-				
+
 				coordonnes = Joueur.choixCoordonnes(this); // On demande des coordonnés pour placer le bateau.
 				horizontal = Joueur.choixOrientation();
-				
+
 				// **** ON CHOISIT LES COORDONNES DU BATEAU ET SON ORIENTATION **** // Les variables ont le suffixe -p pour "possible"
 				int xp = coordonnes[0]; // on choisi une case sur les x.
 				int zp ;
@@ -170,7 +170,7 @@ public class Plateau {
 				int tp ;
 
 				bateauPossible = true; // On considère que le bateau est possible
-				
+
 				if(horizontal){ // On fait un 50/50
 					zp = xp; // Le bateau est horizontal.
 					tp = (longueur-1+yp); // le bateau est de taille "longueur" voir explication ci-dessous.
@@ -244,7 +244,7 @@ public class Plateau {
 
 		return estPresent;
 	}
-	
+
 	/** Méthode qui teste si un bateau est présent sur la case considérée. Il parcourt la liste des bateau affiliée au plateau du joueur, et demande à chaque bateau si il est sur la case considérée. Si il est présent, on retourne son numéro.
 	 * @param x : ordonnées de la case (vertical)
 	 * @param y : abscisse de la case (horizontal)
@@ -270,71 +270,52 @@ public class Plateau {
 		}
 	}
 
-	/**
-	 * @param x : largeur du plateau
-	 * @param y : hauteur du plateau
-	 */
-	public void tirer(int x, int y){
-
-	}
+	
 
 	/**
 	 * @param x : largeur du plateau
 	 * @param y : hauteur du plateau
 	 * @param joueur : sur qui on veut tirer
 	 */
-	public void tirerJoueur(int x, int y, Plateau joueur){
-
+	public void tirerJoueur(int[] coordonnes, Plateau joueur){
+		joueur.recevoirTir(coordonnes[0], coordonnes[1]);
 	}
 
+	public void mettreAJourCase(int x, int y, int modification){
+		if(this.bateauPresent(x, y)==true){
+			this.plateauValeurs[x][y][1] = modification; // On ajoute la modification sur la couche 1 pour signaler la modification. 
+		}
+	}
+
+	public void recevoirTir(int x, int y){
+		this.mettreAJourCase(x, y, 1); // on met à jour la couche 1 du plateau en mettant un "1" pour signaler un tir ennemi. - NOTE : on pourrait mettre le numéro du joueur qui a tiré.
+		this.bateaux.listeBat[this.numeroBateauPresent(x, y)].recevoirTir(x, y); // On prend le plateau du joueur, la liste de bateau associée, on récupère la liste des bateaux, dont on sélectionne le numéro du bateau qui nous intéresse, et on lui demande de recevoir un tir.
+	}
+
+	public boolean aPerdu(){
+		boolean aPerdu = false;
+		this.calculNombreDeBateauRestant();
+		if(nbBateaux==0){
+			aPerdu=true;
+		}
+		return aPerdu;
+	}
+
+	public void calculNombreDeBateauRestant(){
+		int nombreDeBateauxAlive = 0;
+		for(int i =0; i < bateaux.listeBat.length ; i++) { // on parcours la liste des bateaux sans dépasser
+			if(bateaux.listeBat[i].alive==true){ //on demande à chaque bateau si il est vivant
+				nombreDeBateauxAlive++;
+			} 
+		}
+		this.nbBateaux = nombreDeBateauxAlive;
+	}
+
+	public boolean dejaSubiTir(int x, int y){
+		boolean dejaSubiTir = false;
+		if(plateauValeurs[x][y][1]!=0){
+			dejaSubiTir=true;
+		}
+		return dejaSubiTir;
+	}
 }
-
-/**
- * Le plateau est composé de deux niveaux. Un niveau 0 qui sert à connaitre ce qu'il y a sur le le plateau et un niveau 1 qui sert à savoir les actions subit par le plateau.
- * Au niveau 0 : 0 correspond à une case vide, -1 à une récif, 1,2,3,...,n au numéro du bateau.
- * C'est le plateau qui appelle la méthode du bateau tireur (On devrait faire de la hiérarchie, avec le classe bateau, puis la classe bateau principal, puis bateau tireur)
- * Le plateau tire aux coordonnées x,y sur le plateau du joueur Z. La méthode sera donc Tire(Plateau Z, int x, int y)
- * Si il touche une case au niveau 0 qui a pour valeur : 0, le tire tombe dans l'eau. -1 le tire ne fait rien (probabilité de rebondir?), 1,2,...n le tire touche un bateau.
- * Si le tire touche un bateau, dans ce cas, le bateau en question en est informé. Il met à jour son statut, son état, etc...
- * 
- * Chaque joueur tire tour à tour.
- * Le niveau 1 du plateau permet de savoir quelles cases ont déjà été touchées.
- * 
- * Evolutions possibles : 
- * Ajouter plusieurs points de vie à une même case.
- * Permet de gérer la forme du plateau en mettant une valeur -2 qui indique que le plateau n'existe pas à cette endroit.
- * Permet de ne pas tirer deux fois au même endroit si la couche 1 du plateau a pour valeur 1. (on pourrait également mettre le numéro du joueur à la palce, de manière à savoir qui a déjà tiré à cet endroit)
- * L'IA a gérer est indépendante de ces caractères. PAs plus compliqué à gérer.
- * La représentation en fenetre peut se faire facilement grace justement au nombre de la couche 0 ! On pourrait rajouter une troisième couche pour le brouillard de guerre, et ainsi savoir quelles cases cacher au joueur.
- */ 
-
-
-/**   AVANCEMENT CAHIER DES CHARGES
- *  Au début chaque participant place ses plateaux : A FAIRE
- *  
- * BRANCHE IA 
- * Soit HvsH soit IAvsH : A FAIRE
- * Les Deux : A faire
- * Plusieurs niveaux d'IA : A FAIRE
- * 
- * NOMBRE DE JOUEUR
- * 2 Joueurs : A FAIRE
- * 3 joueurs circulaires : A FAIRE
- * Plus de 3 joueurs non circulaires : A FAIRE
- * 
- * FORME DE PLATEAU
- * Rectangulaire fixe, nb de bateaux fixe : OK
- * Rectangulaire taille variable par l'utilisateur, nb de bateaux avec les tailles : A COMPLETER
- * REctangulaire avec nb de bateaux automatiquement : A FAIRE
- * Autres formes de plateaux : A FAIRE
- * 
- * AFFICHAGE
- * Simple Terminal : A COMPLETER
- * affichage graphique (depuis classe donnée) : A FAIRE
- * affichage complet Terminal : A COMPLETER
- * 
- * SAISIE
- * numéo et ligne séparéemment : A FAIRe
- * Clic sur les cases : A FAIRE
- * chaine avec lettres suivis de chiffres : A FAIRE
- */

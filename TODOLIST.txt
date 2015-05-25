@@ -47,3 +47,8 @@
  * Clic sur les cases : A FAIRe
  * chaine avec lettres suivis de chiffres : DONE (La méthode existe, elle s'apelle "coordonnes")
  */
+
+ 
+ BEUG : 
+ 
+ - Un batteau n'arrive pas à se mettre à jour avec son état. C'est peut être un beug sur les modification de vie dans la classe Bateau.
