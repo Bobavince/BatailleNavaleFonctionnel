@@ -55,7 +55,7 @@ public class Plateau {
 	}
 
 
-	/** Classe qui va remplir le plateau de (nombredeBateau) bateaux.
+	/** Méthode qui va remplir le plateau de (nombredeBateau) bateaux.
 	 * @param nombreDeBateaux : nombre de Bateaux à ajouter au plateau de jeu.
 	 */
 	public void remplirAleatoirement(int[] listeTailleBateaux){
@@ -139,6 +139,10 @@ public class Plateau {
 
 	}
 
+	/** Méthode qui va demander au joueur de remplir son plateau, avec les bateaux dont les tailles sont spécifié dans le tableau passé en argument "listeTailleBateau"
+	 * @param tailleMaxBateau
+	 * @param listeTailleBateaux
+	 */
 	public void remplirManuellement(int tailleMaxBateau, int[] listeTailleBateaux){
 		bateaux = new ListeBateau(listeTailleBateaux.length); // On créé la liste des bateaux
 		boolean bateauPossible;
@@ -228,6 +232,7 @@ public class Plateau {
 
 	}
 
+	
 	/** Méthode qui teste si un bateau est présent sur la case considérée. Il parcourt la liste des bateau affiliée au plateau du joueur, et demande à chaque bateau si il est sur la case considérée.
 	 * @param x : ordonnées de la case (vertical)
 	 * @param y : abscisse de la case (horizontal)
@@ -280,16 +285,16 @@ public class Plateau {
 	public void tirerJoueur(int[] coordonnes, Plateau joueur){
 		joueur.recevoirTir(coordonnes[0], coordonnes[1]);
 	}
-
-	public void mettreAJourCase(int x, int y, int modification){
-		if(this.bateauPresent(x, y)==true){
-			this.plateauValeurs[x][y][1] = modification; // On ajoute la modification sur la couche 1 pour signaler la modification. 
-		}
-	}
-
+	
 	public void recevoirTir(int x, int y){
 		this.mettreAJourCase(x, y, 1); // on met à jour la couche 1 du plateau en mettant un "1" pour signaler un tir ennemi. - NOTE : on pourrait mettre le numéro du joueur qui a tiré.
-		this.bateaux.listeBat[this.numeroBateauPresent(x, y)].recevoirTir(x, y); // On prend le plateau du joueur, la liste de bateau associée, on récupère la liste des bateaux, dont on sélectionne le numéro du bateau qui nous intéresse, et on lui demande de recevoir un tir.
+		if(this.bateauPresent(x, y)==true){
+			this.bateaux.listeBat[this.numeroBateauPresent(x, y)-1].recevoirTir(x, y); // On prend le plateau du joueur, la liste de bateau associée, on récupère la liste des bateaux, dont on sélectionne le numéro du bateau qui nous intéresse, et on lui demande de recevoir un tir.			
+		}
+	}
+	
+	public void mettreAJourCase(int x, int y, int modification){
+			this.plateauValeurs[x][y][1] = modification; // On ajoute la modification sur la couche 1 pour signaler le tir. 
 	}
 
 	public boolean aPerdu(){

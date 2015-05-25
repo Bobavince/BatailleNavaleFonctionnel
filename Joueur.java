@@ -480,6 +480,7 @@ public class Joueur {
 				System.out.println("Cette case a déjà subit un tir !");
 			}
 		}
+
 		joueur1.tirerJoueur(coordonnes, joueur2);
 		Joueur.reponseAuTir(joueur2, coordonnes[0], coordonnes[1]);
 		
@@ -488,7 +489,7 @@ public class Joueur {
 	public static void reponseAuTir(Plateau joueur, int x, int y){
 		if(Joueur.scannerCasePresenceBateau(joueur, x, y)==true){
 			System.out.print("Vous avec touché un bateau !\n");
-			if(joueur.bateaux.listeBat[joueur.numeroBateauPresent(x, y)].alive == false){
+			if(joueur.bateaux.listeBat[joueur.numeroBateauPresent(x, y)-1].alive == false){
 				System.out.print("\b\b et vous l'avez coulé !");
 			}
 		} else if(Joueur.scannerCasePresenceRecif(joueur, x, y)){

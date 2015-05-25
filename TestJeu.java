@@ -158,9 +158,11 @@ public class TestJeu {
 
 		//on gère les tours
 		while(joueur1.aPerdu()==false && joueur2.aPerdu()==false){
-			System.out.println(" ---------- \n" + joueur1.name + " : Vous tirez.");
+			System.out.println(" ---------- \n" + joueur1.name + " : Vous tirez. Voici votre tableau de tir.");
+			Affichage.afficherGrilleEnnemi(joueur2);
 			Joueur.recupCoordonnesVerifierTirer(joueur1, joueur2);
-			System.out.println(" ---------- \n" + joueur2.name + " : Vous tirez.");
+			System.out.println(" ---------- \n" + joueur2.name + " : Vous tirez. Voici votre tableau de tir.");
+			Affichage.afficherGrilleEnnemi(joueur1);
 			Joueur.recupCoordonnesVerifierTirer(joueur2, joueur1);
 		}
 		

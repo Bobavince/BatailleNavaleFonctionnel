@@ -92,9 +92,15 @@ public class Bateau {
 	public void recevoirModification(int x, int y, int modification){
 		for(int i =0; i<lieuEtat.length ; i++){
 			if(lieuEtat[i][0] == x && lieuEtat[i][1] == y){
-				lieuEtat[i][2] += modification; // Le batea subit la modification notifiée dans la colonne 3 de son tableau d'état.
+				lieuEtat[i][2] += modification; // Le bateau subit la modification notifiée dans la colonne 3 de son tableau d'état.
 			}
 		}
+		
+		String etat = "";
+		for(int i =0; i<lieuEtat.length ; i++){
+			etat += "[" +lieuEtat[i][0]+lieuEtat[i][1]+"]"+lieuEtat[i][2] ;
+		}
+		System.out.println("Etat du bateau tiré : " + etat);
 		this.verifierAlive();
 	}
 	
