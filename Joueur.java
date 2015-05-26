@@ -4,7 +4,6 @@
  */
 import java.util.Scanner;
 
-
 /**
  * Classe qui permet de demander au joueur des choses diverses. (Gestion du jeu "haut-niveau")
  */
@@ -12,6 +11,22 @@ public class Joueur {
 
 	//Variables internes de la classe 
 	int[] typeDeFlotte;
+	
+	public static int nombreDeJoueurs(){
+		int nombreJoueurs = -1 ;
+		Scanner sc = new Scanner(System.in);
+		String answer = "";
+
+		// **** DEMANDE AU JOUEURS LA TYPE DU PLATEAU ****
+		while(nombreJoueurs<2){ 
+			System.out.println( " Combien de joueurs veulent jouer ? 0/1/2/3.. ");
+			answer = sc.nextLine();
+			if(answer.length()!=0){
+					nombreJoueurs = Integer.parseInt(answer); //récupère le nombre de joueurs rentré
+			}
+		}
+		return nombreJoueurs;
+	}
 
 	/** Methode qui demande au joueur de s'identifier en lui demandant son nom.
 	 * @param numeroJoueur : sert simplement à afficher le N° du joueur lors de la requête "Joueur x, quel est votre pseudo ? " 
@@ -43,14 +58,14 @@ public class Joueur {
 	 * @param pseudo2 de même.
 	 * @return un int ayant pour valeur : 0 - carré // 1 - rond // n2 - triangle // n3 - rectangle
 	 */
-	public static int typeDePlateau(String pseudo1, String pseudo2){
+	public static int typeDePlateau(){
 		int type = -1 ;
 		Scanner sc = new Scanner(System.in);
 		String answer = "";
 
 		// **** DEMANDE AU JOUEURS LA TYPE DU PLATEAU ****
 		while(type!= 0 && type != 1 && type!=2 && type!=3){ 
-			System.out.println( pseudo1 + " , "+ pseudo2 + " : Sur quel type de plateau voulez-vous jouer ? 0/1/2/3 ");
+			System.out.println("Joueurs : Sur quel type de plateau voulez-vous jouer ? 0/1/2/3 ");
 			System.out.println("0 - carré \n1 - rond \n2 - triangle\n3 - rectangle");
 			answer = sc.nextLine();
 			if(answer.length()!=0){
@@ -67,14 +82,14 @@ public class Joueur {
 	 * @param pseudo2 de même.
 	 * @return Le rayon du plateau sous forme d'un INT.
 	 */
-	public static int taillePlateauRond(String pseudo1, String pseudo2){
+	public static int taillePlateauRond(){
 		int tailleX = 0;
 		String answer = "";
 		Scanner sc = new Scanner(System.in);
 
 		// **** DEMANDE AU JOUEURS LA TAILLE DU PLATEAU ET LE GENERE ****
 		while(tailleX<=0){ 
-			System.out.println( pseudo1 + " , "+ pseudo2 + " Sur quelle taille de plateau voulez-vous jouer ? Rayon ? ");
+			System.out.println( "Joueurs : Sur quelle taille de plateau voulez-vous jouer ? Rayon ? ");
 			answer = sc.nextLine();
 			if(answer.length()!=0){
 				tailleX = Integer.parseInt(answer);
@@ -88,13 +103,13 @@ public class Joueur {
 	 * @param pseudo2 de même.
 	 * @return Le coté du plateau sous forme d'un INT.
 	 */
-	public static int taillePlateauTriangle(String pseudo1, String pseudo2){
+	public static int taillePlateauTriangle(){
 		int tailleX = 0;
 		String answer = "";
 		Scanner sc = new Scanner(System.in);
-
+		// **** DEMANDE AU JOUEUR LA TAILLE DU PLATEAU TRIANGULAIRE VOULU ****
 		while(tailleX<=0){ 
-			System.out.println( pseudo1 + " , " + pseudo2 + "Sur quelle taille de plateau voulez-vous jouer ? Coté ? ");
+			System.out.println( " Joueurs : Sur quelle taille de plateau voulez-vous jouer ? Coté ? ");
 			answer = sc.nextLine();
 			if(answer.length()!=0){
 				tailleX = Integer.parseInt(answer);
@@ -108,7 +123,7 @@ public class Joueur {
 	 * @param pseudo2 de même.
 	 * @return Le coté du plateau sous forme d'un INT. PROBLEME ON DEVRAIT EN RENVOYER 2 ...  NE PAS UTILISER CETTE CLASSE DONC =) 
 	 */
-	public static int taillePlateauRectangle(String pseudo1, String pseudo2){
+	public static int taillePlateauRectangle(){
 		int tailleX = 0;
 		int tailleY = 0;
 		String answer ="";
@@ -116,7 +131,7 @@ public class Joueur {
 
 		while(tailleX<=0 || tailleY<=0){ 
 			answer ="";
-			System.out.println( pseudo1 + " , " + pseudo2 + "Sur quelle taille de plateau voulez-vous jouer ? Hauteur ?");
+			System.out.println( " Joueurs : Sur quelle taille de plateau voulez-vous jouer ? Hauteur ?");
 			answer = sc.nextLine();
 			if(answer.length()!=0){
 				tailleX = Integer.parseInt(answer);
@@ -130,7 +145,6 @@ public class Joueur {
 		}
 		return tailleX;
 	} // FIN DE " taillePlateauRectangle "
-
 
 	/** Méthode qui demande si le joueur veut placer ses bateaux
 	 * @param pseudo simplement utile pour dire, "Joueur 1" voulez vous placer vos bateaux ? 
@@ -159,7 +173,6 @@ public class Joueur {
 		return placerSesBateaux;
 	} // FIN DE " veutPlacerSesBateaux " 
 
-
 	/** Méthode qui demande si les joueurs veulent choisir leur flotte // A NOTER : IL FAUDRAIT RAJOUTER UNE SECURITE POUR EVITER LES DEBILES QUI METTENT 40 BATEAUX SUR UN PLATEAU 4*4. LE PLACEMENT ALEATOIRE NE POURRA JAMAIS ABOUTIR ET ON AURA UNE BOUCLE INFINIE 
 	 * @return retourne un boolean qui vaut true si il veut choisir sa flotte.
 	 */
@@ -185,7 +198,6 @@ public class Joueur {
 		return veutChoisirFlotte;
 	} // FIN DE " veutChoisirCompositionDeFlotte " 
 
-
 	/** Méthode qui demande au joueur "pseudo" le nombre de bateaux qu'il désire.
 	 * @param pseudo : pseudo du joueur, juste pour lui demander " "Joueur 1" combien voulez vous de bateaux ? " 
 	 * @param nombreMaxBateaux : nombre passé en argument, et calculé en dehors de cette classe, qui fixe la limite à ne pas dépasser. Fixe donc la limite haute du choix du joueur.
@@ -206,6 +218,11 @@ public class Joueur {
 		return nombreBateaux;
 	} // FIN DE " choixNombreDeBateaux " 
 
+	/** Méthode à compléter, qui calcul le nombre de bateaux optimal de bateaux, selon la forme du plateau, en connaissant le nombre de bateaux maximal.
+	 * @param type : nombre (int) correspondant au type du plateau
+	 * @param nombreBateauxMax : nombre de bateau maximum calculé à l'extérieur.
+	 * @return le nombre de bateau optimal sous forme de int. Note : il pourrait aussi retourner une liste de bateau avec leur taille.
+	 */
 	public static int calculNombreBateauxOptimal(int type, int nombreBateauxMax){
 		int nombreBateaux = 5;
 
@@ -225,7 +242,7 @@ public class Joueur {
 		}
 
 		return nombreBateaux;
-	}
+	} // Fin calculNombreBateauxOptimal
 
 	/** Méthode qui gère les demandes du joueur quand à son choix de placer ses bateaux, et leur nombre. Tout est automatisé. 
 	 * @param plateauDuJoueur : Plateau concerné par le placement des bateaux.
@@ -237,30 +254,32 @@ public class Joueur {
 		if(Joueur.veutPlacerSesBateaux(plateauDuJoueur.name)){
 			//LE JOUEUR VEUT PLACER SES BATEAUX
 			System.out.println(" Mise en route du programme de placement des bateaux ...");
-			plateauDuJoueur.remplirManuellement(nombreBateau, this.typeDeFlotte);
+			plateauDuJoueur.remplirManuellement(nombreBateau, this.typeDeFlotte); // On le fait remplir manuellement.
 
 		} else {
 			//LE JOUEUR VEUT PAS PLACER SES BATEAUX
 			System.out.println(" Mise en route du programme de placement automatique des bateaux ...");
-			plateauDuJoueur.remplirAleatoirement(this.typeDeFlotte);
+			plateauDuJoueur.remplirAleatoirement(this.typeDeFlotte); // On le fait remplir aléatoirement.
 		}
 
 	} // FIN DE " utilitairePlacementDesBateaux "
 
-
+	/** Méthode qui gère la demande utilisateur pour créer une flotte. Il demande le nombre de bateaux ovulu et il va demander la taille de chaque bateau voulu, en connaissant la taille maximal autorisée pour un bateau.  Il remplit le tableau de la classe "Joueur" nommé "typeDeFlotte" 
+	 * @param tailleMaxBateau : taille maximum autorisée pour un bateau de la flotte
+	 * @param nombreMaxBateau : va demande le nombre de bateau voulu à l'utilisateur, sans dépasser cette limite.
+	 * @return le nombre de bateaux choisis par l'utilisateur
+	 */
 	public int utilitaireTypeDeFlotte(int tailleMaxBateau, int nombreMaxBateau){
 		String answer = "";
 		int tailleBateau = 0;
 		int nbBateau = choixNombreDeBateaux(nombreMaxBateau); // On demande aux joueurs combien de bateaux ils veulent que leur flotte soit composée. Le nombre de bateau SERA INFERIEUR AU nombre de bateau maximum autorisé ! 
-		this.typeDeFlotte = new int[nbBateau];
+		this.typeDeFlotte = new int[nbBateau]; // On inialise la liste des tailles des bateaux de la longueur demandé juste avant.
 		Scanner sc = new Scanner(System.in);
-
 
 		System.out.println(" **** Initilisation du programme de création de flotte ****");
 		System.out.println(" Vous allez choisir un par un chaque type de bateau en rentrant leur taille.");
 
 		for (int i=0; i<nbBateau ; i++){
-
 
 			if(i==0){ // On gère le premier bateau à part. C'est le bateau 'maitre'/Tireur	
 				System.out.println("Le premier bateau est votre bateau tireur. C'est le bateau principal de votre jeu. Si vous le perdez, vous avez perdu.");
@@ -269,7 +288,7 @@ public class Joueur {
 					System.out.println(" Quelle taille de bateau désirez vous pour votre bateau N°" + (i+1) + " ? ");
 					answer = sc.nextLine();
 					if(answer.length()!=0){		//Sécurité anti-débile qui appui sur entrée sans rien mettre
-						tailleBateau = Integer.parseInt(answer);
+						tailleBateau = Integer.parseInt(answer); // On récupère la taille du bateau entrée par l'utilisateur
 					}
 				}
 
@@ -288,12 +307,13 @@ public class Joueur {
 				this.typeDeFlotte[i]=tailleBateau; // On range la taille du bateau dans le tableau de la classe joueur.
 				tailleBateau =0;
 			}
-
 		}
-		return nbBateau;
-	}
+		return nbBateau; // On renvois le nombre de bateau choisi par l'utilisateur au début de la méthode.
+	}// Fin utilitaireTypeDeFlotte ---- POSSIBILITE D'OPTIMISATION : EN RETIRANT LE NBBATEAU, ET EN SE SERVANT D typeDEFlotte.Length.
 
-
+	/** Méthode qui remplit la liste "typeDeFlotte" de la classe "Joueur" par la flotte par défaut. Composée de 5 bateaux : 5 4 3 2 2 1 ..1
+	 * @param nombreDeBateau : nombre de bateau qui vont composer la flotte par défaut.
+	 */
 	public void utilitaireFlotteParDefaut(int nombreDeBateau){
 
 		int tailleBateau = 0;
@@ -324,9 +344,12 @@ public class Joueur {
 			this.typeDeFlotte[i]=tailleBateau; // On range la taille du bateau dans le tableau de la classe joueur.
 			tailleBateau =0;
 		}
+	} // FIN utilitaireFlotteParDefaut
 
-	}
-
+	/** Méthode standard pour demander des coordonnes à l'utilisateur dans le respect des limitations posées par le plateau passé en argument. (On évite les OutOfBoundException)
+	 * @param plateau : Plateau passé en argument, comme limitateur en abscisse et en ordonnées pour les coordonnées acceptées.
+	 * @return un tableau de deux entiers, avec l'ordonnée en [0] et l'abscisse en [1]
+	 */
 	public static int[] choixCoordonnes(Plateau plateau){
 		int[] coordonnes = new int[2];
 		String answer = "";
@@ -376,11 +399,14 @@ public class Joueur {
 				}
 			}
 		}
-
 		return coordonnes;
-	}
+	}// FIN choixCoordonnes
 
 
+
+	/** Méthode qui demande simplement si le joueur veut que son bateau soit horizontal.
+	 * @return renvois un boolean qui vaut "true" si l'utilisateur veut que le bateau soit horizontal, et "false" si il veut qu'il soit vertical.
+	 */
 	public static boolean choixOrientation(){
 		boolean horizontal = false;
 		char choix = ' ';
@@ -389,7 +415,7 @@ public class Joueur {
 
 		// **** DEMANDE AU JOUEUR Si il veut un bateau horizontal****
 		while(choix ==' '){ // Boucle concernant le choix de placer ses bateaux.
-			System.out.println(" Voulez-vous que ce bateau soit horizontal ? O/n");
+			System.out.println("Voulez-vous que ce bateau soit horizontal ? O/n");
 			answer = sc.nextLine();
 			if(answer.length()!=0){		//Sécurité anti-débile qui appui sur entrée sans rien mettre
 				choix = answer.charAt(0);
@@ -402,7 +428,8 @@ public class Joueur {
 		}
 
 		return horizontal;
-	}
+	}// FIN choixOrientation
+
 
 	/** Méthode qui demande au joueur la taille du bateau qu'il désire.
 	 * @param tailleMax : nombre qui fixe la taille maximal du bateau que le joueur peut choisir
@@ -422,6 +449,7 @@ public class Joueur {
 		}
 		return tailleBateau;
 	} // FIN DE " choixTailleBateau "
+
 
 	/** Méthode qui demande au joueur les coordonnées du bateau.
 	 * @param nombreMaxBateaux : nombre passé en argument, et calculé en dehors de cette classe, qui fixe la limite à ne pas dépasser. Fixe donc la limite haute du choix du joueur.
@@ -444,32 +472,44 @@ public class Joueur {
 		return nombreBateaux;
 	} // FIN DE " choixCoordonnéesBateau "
 
-	public static Plateau surQuiVoulezVousTirer(Plateau[] listeJoueurs){
+
+	/** Méthode qui gère sur qui veut tirer un joueur. Il présente la liste des joueurs et renvois le plateau correspondant choisi par l'utilisateur.
+	 * @param listeJoueurs : un liste de type Plateau[] que la méthode va présenter à l'utilisateur
+	 * @return le plateau du joueur que le joueur a selectionné.
+	 */
+	public static Plateau surQuiVoulezVousTirer(Plateau tireur, Plateau[] listeJoueurs){
 		Plateau cible = null;
 		String answer = "";
-		int choix =0;
+		int choix = -1;
 		Scanner sc = new Scanner(System.in);
-		
+
 		System.out.println("Sur qui voulez-vous tirer ? ");
 		for(int i= 0; i <listeJoueurs.length ; i++){
-			System.out.println( i + " - " + listeJoueurs[i].name);
+			if(tireur != listeJoueurs[i]){
+				System.out.println( i + " - " + listeJoueurs[i].name);	
+			}
 		}
 
-		while(choix <= 0 && choix>listeJoueurs.length){ // Boucle concernant le choix du nombre de bateaux.
+		while(choix < 0 || choix>=listeJoueurs.length){ // Boucle concernant le choix du nombre de bateaux.
 			answer = sc.nextLine();
 			if(answer.length()!=0){		//Sécurité anti-débile qui appui sur entrée sans rien mettre
 				choix = Integer.parseInt(answer);
 			}
 		}
+		System.out.println("Vous avez choisi de tirer sur : " + listeJoueurs[choix].name);
 		cible = listeJoueurs[choix];
-		
+
 		return cible;
-	}
-	
+	} // FIN surQuiVoulezVousTirer
+
+	/** Méthode qui récupère demande au joueur d'entrer des coordonnées, vérifie si cette case n'a pas déjà subit un tir, ou si la case est interdite, tir et renvois la description du résultat du tir.
+	 * @param joueur1 : joueur attaquant à qui sera proposé de tirer.
+	 * @param joueur2 : joueur cible qui sera touché.
+	 */
 	public static void recupCoordonnesVerifierTirer(Plateau joueur1, Plateau joueur2){
 		boolean correct = false;
 		int[] coordonnes = new int[2];	
-		
+
 		while(correct==false){
 			coordonnes = Joueur.choixCoordonnes(joueur2);
 			if(joueur2.dejaSubiTir(coordonnes[0], coordonnes[1])==false && Joueur.scannerCaseInterdite(joueur2, coordonnes[0], coordonnes[1])==false){
@@ -483,9 +523,13 @@ public class Joueur {
 
 		joueur1.tirerJoueur(coordonnes, joueur2);
 		Joueur.reponseAuTir(joueur2, coordonnes[0], coordonnes[1]);
-		
-	}
-	
+	} //FIN recupCoordonnesVerifierTirer
+
+	/** Méthode qui fournit une réponse au tir sur le joueur passé en argument, selon les coordonnées du tir. Renvois "plouf, chtong, ou touché, voir coulé"
+	 * @param joueur : joueur cible qui a reçu le tir.
+	 * @param x : ordonnée du tir.
+	 * @param y : abscisse du tir.
+	 */
 	public static void reponseAuTir(Plateau joueur, int x, int y){
 		if(Joueur.scannerCasePresenceBateau(joueur, x, y)==true){
 			System.out.print("Vous avec touché un bateau !\n");
@@ -497,37 +541,53 @@ public class Joueur {
 		} else {
 			System.out.println("Plouf");
 		}
-	}
-	
-	public static boolean scannerCasePresenceBateau(Plateau joueur2, int x, int y){
+	} // FIN reponseAuTir
+
+	/** Méthode simple qui regarde si un bateau est présent sur la case du plateau du joueur, aux coordonnées indiquées.
+	 * @param joueur : plateau du joueur à scanner.
+	 * @param x : ordonnée du scan.
+	 * @param y : absisse du scan.
+	 * @return un boolean qui vaut true si un bateau est présent, false si il n'y a pas de bateau. (si plateau[x][y][0] > 0 c'est true.)
+	 */
+	public static boolean scannerCasePresenceBateau(Plateau joueur, int x, int y){
 		boolean presenceBateau = false;
-		
-		if(joueur2.plateauValeurs[x][y][0]>0){
+
+		if(joueur.plateauValeurs[x][y][0]>0){
 			presenceBateau=true;
 		}
-		
+
 		return presenceBateau;
-	}
-	
+	} // FIN scannerCasePresenceBateau
+
+	/** Méthode simple qui regarde si un récif est présent sur la case du plateau du joueur, aux coordonnées indiquées.
+	 * @param joueur : plateau du joueur à scanner.
+	 * @param x : ordonnée du scan.
+	 * @param y : absisse du scan.
+	 * @return un boolean qui vaut true si un récif est présent, false si il n'y a pas de récif. (si plateau[x][y][0] = (-1) c'est true.)
+	 */
 	public static boolean scannerCasePresenceRecif(Plateau joueur2, int x, int y){
 		boolean presenceRecif = false;
-		
+
 		if(joueur2.plateauValeurs[x][y][0]==(-1)){
 			presenceRecif=true;
 		}
-		
+
 		return presenceRecif;
-	}
-	
+	} // FIN scannerCasePresenceRecif
+
+	/** Méthode simple qui regarde si la case est interdite du plateau du joueur, aux coordonnées indiquées.
+	 * @param joueur : plateau du joueur à scanner.
+	 * @param x : ordonnée du scan.
+	 * @param y : absisse du scan.
+	 * @return un boolean qui vaut true si un la case est interdite, false si il la case n'est pas interdite.. (si plateau[x][y][0] = (-2) c'est true.)
+	 */
 	public static boolean scannerCaseInterdite(Plateau joueur2, int x, int y){
 		boolean presenceInterdite = false;
-		
+
 		if(joueur2.plateauValeurs[x][y][0]==(-2)){
 			presenceInterdite=true;
 		}
-		
+
 		return presenceInterdite;
-	}
+	} // FIN scannerCaseInterdite
 }
-
-

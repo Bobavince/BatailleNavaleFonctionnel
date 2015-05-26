@@ -4,7 +4,6 @@
  */
 
 public class ListeBateau {
-	//OBSOLOETE : // Liste des bateaux, avec dans la colonne 1 leur identifiant et la colonne 2 leur état (1 pour alive, 0 pour détruit)
 	Bateau[] listeBat; // Liste des bateaux en tant qu'objet.
 
 	/** Créé une liste d'objet de type "Bateau"

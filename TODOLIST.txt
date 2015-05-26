@@ -27,7 +27,7 @@
  * Plusieurs niveaux d'IA : A FAIRE
  * 
  * NOMBRE DE JOUEUR
- * 2 Joueurs : A FAIRE
+ * 2 Joueurs : DONE
  * 3 joueurs circulaires : A FAIRE
  * Plus de 3 joueurs non circulaires : A FAIRE
  * 
@@ -38,17 +38,15 @@
  * Autres formes de plateaux : A COMPLETER (La méthode dans "Type.java" est à compléter.
  * 
  * AFFICHAGE
- * Simple Terminal : A COMPLETER
+ * Simple Terminal : DONE (inclus)
  * affichage graphique (depuis classe donnée) : A FAIRE
- * affichage complet Terminal : A COMPLETER
+ * affichage complet Terminal : DONE
  * 
  * SAISIE
- * numéo et ligne séparéemment : NON
+ * numéo et ligne séparéemment : DONE
  * Clic sur les cases : A FAIRe
  * chaine avec lettres suivis de chiffres : DONE (La méthode existe, elle s'apelle "coordonnes")
  */
 
  
  BEUG : 
- 
- - Un batteau n'arrive pas à se mettre à jour avec son état. C'est peut être un beug sur les modification de vie dans la classe Bateau.

@@ -140,8 +140,8 @@ public class Plateau {
 	}
 
 	/** Méthode qui va demander au joueur de remplir son plateau, avec les bateaux dont les tailles sont spécifié dans le tableau passé en argument "listeTailleBateau"
-	 * @param tailleMaxBateau
-	 * @param listeTailleBateaux
+	 * @param tailleMaxBateau : Spécifie la taille maximum d'un bateau
+	 * @param listeTailleBateaux : La liste des bateaux à créer en fonction de leur taille.
 	 */
 	public void remplirManuellement(int tailleMaxBateau, int[] listeTailleBateaux){
 		bateaux = new ListeBateau(listeTailleBateaux.length); // On créé la liste des bateaux
@@ -277,15 +277,18 @@ public class Plateau {
 
 	
 
-	/**
-	 * @param x : largeur du plateau
-	 * @param y : hauteur du plateau
-	 * @param joueur : sur qui on veut tirer
+	/** Méthode qui tire sur un plateau ennemi aux coordonnées passées en argument.
+	 * @param coordonnes : tableau qui prend x en [0] et y en [1]
+	 * @param joueur : plateau cible.
 	 */
 	public void tirerJoueur(int[] coordonnes, Plateau joueur){
 		joueur.recevoirTir(coordonnes[0], coordonnes[1]);
 	}
 	
+	/** Méthode qui permet de recevoir un tir, en mettant à jour la case sur la couche 1 du plateau, et en appelant la méthode "recevoir tire" du bateau sur la case de la couche 0
+	 * @param x : coordonnées de tir (vertical/ordonnée)
+	 * @param y : coordonnées de tir (horizontal/abscisse)
+	 */
 	public void recevoirTir(int x, int y){
 		this.mettreAJourCase(x, y, 1); // on met à jour la couche 1 du plateau en mettant un "1" pour signaler un tir ennemi. - NOTE : on pourrait mettre le numéro du joueur qui a tiré.
 		if(this.bateauPresent(x, y)==true){
@@ -293,10 +296,18 @@ public class Plateau {
 		}
 	}
 	
+	/** Méthode pour mettre à jour une case de coordonées x/y avec en argument la modification à faire. On fait + modificaiton, donc si on veut faire case -1 il faut bien envoyer "-1" comme modification
+	 * @param x : ordonnée
+	 * @param y : abscisse
+	 * @param modification : mettre la valeur signée (avec le - ou sans) qu'on veut donner (on modifie la couche 1 du plateau)
+	 */
 	public void mettreAJourCase(int x, int y, int modification){
 			this.plateauValeurs[x][y][1] = modification; // On ajoute la modification sur la couche 1 pour signaler le tir. 
 	}
 
+	/** Méthode qui calcul le nombre de bateaux alive restant. Retourne si le joueur a perdu ou non.
+	 * @return un boolean qui vaut true si tous les bateaux sont à "mort"
+	 */
 	public boolean aPerdu(){
 		boolean aPerdu = false;
 		this.calculNombreDeBateauRestant();
@@ -306,6 +317,8 @@ public class Plateau {
 		return aPerdu;
 	}
 
+	/** Méthode qui calcul le nombre de bateaux restants en vie sur le plateau courant.
+	 */
 	public void calculNombreDeBateauRestant(){
 		int nombreDeBateauxAlive = 0;
 		for(int i =0; i < bateaux.listeBat.length ; i++) { // on parcours la liste des bateaux sans dépasser
@@ -316,6 +329,11 @@ public class Plateau {
 		this.nbBateaux = nombreDeBateauxAlive;
 	}
 
+	/** Méthode qui regarde si la case considérée a déjà subit un tir ou non.
+	 * @param x : ordonnée.
+	 * @param y : abscisse.
+	 * @return un boolean qui vaut true si la case a déjà subit un tir, false sinon.
+	 */
 	public boolean dejaSubiTir(int x, int y){
 		boolean dejaSubiTir = false;
 		if(plateauValeurs[x][y][1]!=0){

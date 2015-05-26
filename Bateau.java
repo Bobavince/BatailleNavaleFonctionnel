@@ -89,6 +89,11 @@ public class Bateau {
 
 	}
 
+	/** Méthode qui permet d'effectuer une modification sur un case occupée par un bateau.
+	 * @param x : ordonnée
+	 * @param y : abscisse
+	 * @param modification : nombre signé ( il faut mettre le -) qui modifie la case correspondante, sur laquelle se trouve le bateau.
+	 */
 	public void recevoirModification(int x, int y, int modification){
 		for(int i =0; i<lieuEtat.length ; i++){
 			if(lieuEtat[i][0] == x && lieuEtat[i][1] == y){
@@ -100,14 +105,20 @@ public class Bateau {
 		for(int i =0; i<lieuEtat.length ; i++){
 			etat += "[" +lieuEtat[i][0]+lieuEtat[i][1]+"]"+lieuEtat[i][2] ;
 		}
-		System.out.println("Etat du bateau tiré : " + etat);
+		// DEBUG MODE // System.out.println("Etat du bateau tiré : " + etat);
 		this.verifierAlive();
 	}
 	
+	/** Méthode qui permet de recevoir un tir, donc par défaut, une modification de -1 sur la case x/y
+	 * @param x : ordonnée
+	 * @param y : abscisse
+	 */
 	public void recevoirTir(int x, int y){
 		this.recevoirModification(x, y, -1); // Le bateau subit une modification de vie de -1
 	}
 
+	/** Méthode qui vérifie si le bateau est alive, donc si toutes ces cases ont été touchées ou non. (Si la colonne 2 est complètement à 0). Modifie la variable alive du bateau courant.
+	 */
 	public void verifierAlive(){
 		boolean aliveOrNot = false;
 
