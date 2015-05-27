@@ -53,9 +53,7 @@ public class Joueur {
 		return pseudo;
 	} // FIN DE " identification " 
 
-	/** Methode qui demande au joueur le type de plateau voulu. 
-	 * @param pseudo1 simplement utile pour dire, "Joueur 1", "Joueur 2" quel plateau voulez vous ? 
-	 * @param pseudo2 de même.
+	/** Methode qui demande au joueur le type de plateau voulu. "quel plateau voulez vous ? "
 	 * @return un int ayant pour valeur : 0 - carré // 1 - rond // n2 - triangle // n3 - rectangle
 	 */
 	public static int typeDePlateau(){
@@ -77,9 +75,7 @@ public class Joueur {
 		return type;
 	} // FIN DE " typeDePlateau " 
 
-	/** Méthode qui demande la taille d'un plateau rond (donc le rayon)
-	 * @param pseudo1 simplement utile pour dire, "Joueur 1", "Joueur 2" quel taille voulez vous ? 
-	 * @param pseudo2 de même.
+	/** Méthode qui demande la taille d'un plateau rond (donc le rayon)"  quel taille voulez vous ? "
 	 * @return Le rayon du plateau sous forme d'un INT.
 	 */
 	public static int taillePlateauRond(){
@@ -98,9 +94,7 @@ public class Joueur {
 		return tailleX;
 	} // FIN DE " taillePlateauRond "
 
-	/** Méthode qui demande la taille d'un plateau triangulaire (donc le coté)
-	 * @param pseudo1 simplement utile pour dire, "Joueur 1", "Joueur 2" quel taille voulez vous ? 
-	 * @param pseudo2 de même.
+	/** Méthode qui demande la taille d'un plateau triangulaire (donc le coté) " quel taille voulez vous ? "
 	 * @return Le coté du plateau sous forme d'un INT.
 	 */
 	public static int taillePlateauTriangle(){
@@ -118,9 +112,7 @@ public class Joueur {
 		return tailleX;
 	} // FIN DE " taillePlateauTriangle "
 
-	/** Méthode qui demande la taille d'un plateau rectangulaire (donc les cotés)
-	 * @param pseudo1 simplement utile pour dire, "Joueur 1", "Joueur 2" quel taille voulez vous ? 
-	 * @param pseudo2 de même.
+	/** Méthode qui demande la taille d'un plateau rectangulaire (donc les cotés): "quel taille voulez vous ? " 
 	 * @return Le coté du plateau sous forme d'un INT. PROBLEME ON DEVRAIT EN RENVOYER 2 ...  NE PAS UTILISER CETTE CLASSE DONC =) 
 	 */
 	public static int taillePlateauRectangle(){
@@ -198,8 +190,7 @@ public class Joueur {
 		return veutChoisirFlotte;
 	} // FIN DE " veutChoisirCompositionDeFlotte " 
 
-	/** Méthode qui demande au joueur "pseudo" le nombre de bateaux qu'il désire.
-	 * @param pseudo : pseudo du joueur, juste pour lui demander " "Joueur 1" combien voulez vous de bateaux ? " 
+	/** Méthode qui demande au joueur "pseudo" le nombre de bateaux qu'il désire. Elle lui demande " "Joueur 1" combien voulez vous de bateaux ? " 
 	 * @param nombreMaxBateaux : nombre passé en argument, et calculé en dehors de cette classe, qui fixe la limite à ne pas dépasser. Fixe donc la limite haute du choix du joueur.
 	 * @return le nombre de bateau choisi par le joueur.
 	 */
@@ -246,8 +237,9 @@ public class Joueur {
 
 	/** Méthode qui gère les demandes du joueur quand à son choix de placer ses bateaux, et leur nombre. Tout est automatisé. 
 	 * @param plateauDuJoueur : Plateau concerné par le placement des bateaux.
-	 * @param nombreBateauMax : Nombre calculé en amont, qui fixe la limite haute du nombre de bateaux sur le plateau de jeu. (Suivant le type de plateau, le calcul devra être différent)
-	 * @return Le nombre de bateaux du joueur, choisi par lui, ou par défaut : 5.
+	 * @param nombreBateau : Nombre calculé en amont, qui fixe la limite haute du nombre de bateaux sur le plateau de jeu. (Suivant le type de plateau, le calcul devra être différent)
+	 * @param nombreMaxDeBateaux : nombre maximum de bateaux que le joueur pourra choisir 
+	 * @param tailleMaxBateau : taille maximum qu'un user pourra choisir.
 	 */
 	public void utilitairePlacementDesBateaux(Plateau plateauDuJoueur, int nombreBateau, int nombreMaxDeBateaux, int tailleMaxBateau){
 
@@ -452,6 +444,7 @@ public class Joueur {
 
 
 	/** Méthode qui demande au joueur les coordonnées du bateau.
+	 * @param pseudo : permet de préciser à quel joueur on demande des coordonnées pour son bateau.
 	 * @param nombreMaxBateaux : nombre passé en argument, et calculé en dehors de cette classe, qui fixe la limite à ne pas dépasser. Fixe donc la limite haute du choix du joueur.
 	 * @return le nombre de bateau choisi par le joueur.
 	 */
@@ -474,6 +467,7 @@ public class Joueur {
 
 
 	/** Méthode qui gère sur qui veut tirer un joueur. Il présente la liste des joueurs et renvois le plateau correspondant choisi par l'utilisateur.
+	 * @param tireur : plateau qui va tirer sur un autre joueur de la liste ( c'est pour l'exclure de la liste lors du choix de la cible)
 	 * @param listeJoueurs : un liste de type Plateau[] que la méthode va présenter à l'utilisateur
 	 * @return le plateau du joueur que le joueur a selectionné.
 	 */
@@ -547,7 +541,7 @@ public class Joueur {
 	 * @param joueur : plateau du joueur à scanner.
 	 * @param x : ordonnée du scan.
 	 * @param y : absisse du scan.
-	 * @return un boolean qui vaut true si un bateau est présent, false si il n'y a pas de bateau. (si plateau[x][y][0] > 0 c'est true.)
+	 * @return un boolean qui vaut true si un bateau est présent, false si il n'y a pas de bateau. (si plateau[x][y][0] supérieur à 0 c'est true.)
 	 */
 	public static boolean scannerCasePresenceBateau(Plateau joueur, int x, int y){
 		boolean presenceBateau = false;
@@ -565,10 +559,10 @@ public class Joueur {
 	 * @param y : absisse du scan.
 	 * @return un boolean qui vaut true si un récif est présent, false si il n'y a pas de récif. (si plateau[x][y][0] = (-1) c'est true.)
 	 */
-	public static boolean scannerCasePresenceRecif(Plateau joueur2, int x, int y){
+	public static boolean scannerCasePresenceRecif(Plateau joueur, int x, int y){
 		boolean presenceRecif = false;
 
-		if(joueur2.plateauValeurs[x][y][0]==(-1)){
+		if(joueur.plateauValeurs[x][y][0]==(-1)){
 			presenceRecif=true;
 		}
 
@@ -581,10 +575,10 @@ public class Joueur {
 	 * @param y : absisse du scan.
 	 * @return un boolean qui vaut true si un la case est interdite, false si il la case n'est pas interdite.. (si plateau[x][y][0] = (-2) c'est true.)
 	 */
-	public static boolean scannerCaseInterdite(Plateau joueur2, int x, int y){
+	public static boolean scannerCaseInterdite(Plateau joueur, int x, int y){
 		boolean presenceInterdite = false;
 
-		if(joueur2.plateauValeurs[x][y][0]==(-2)){
+		if(joueur.plateauValeurs[x][y][0]==(-2)){
 			presenceInterdite=true;
 		}
 

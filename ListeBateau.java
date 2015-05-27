@@ -7,6 +7,7 @@ public class ListeBateau {
 	Bateau[] listeBat; // Liste des bateaux en tant qu'objet.
 
 	/** Créé une liste d'objet de type "Bateau"
+	 *  @param nombreDeBateau : créer la liste avec le nombre de Bateau indiqué comme longuer de la liste.
 	 */
 	public ListeBateau(int nombreDeBateau){
 		listeBat = new Bateau[nombreDeBateau];

@@ -56,7 +56,7 @@ public class Plateau {
 
 
 	/** Méthode qui va remplir le plateau de (nombredeBateau) bateaux.
-	 * @param nombreDeBateaux : nombre de Bateaux à ajouter au plateau de jeu.
+	 * @param listeTailleBateaux : nombre de Bateaux à ajouter au plateau de jeu, sous forme de liste.
 	 */
 	public void remplirAleatoirement(int[] listeTailleBateaux){
 		bateaux = new ListeBateau(listeTailleBateaux.length); // On créé la liste des bateaux

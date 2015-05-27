@@ -122,12 +122,14 @@ public class Affichage {
 	}
 
 	/** Méthode qui devrait gérer l'affichage de son propre plateau, ou d'un plateau ami. On devrait voir les bateaux, et leur état.
+	 * @param plateau  : plateau du joueur duquel on va afficher la grille en tant qu'ami
 	 */
-	public static void afficherGrilleAmi(int[][][] tab){
+	public static void afficherGrilleAmi(Plateau plateau){
 
 	}
 
 	/** Méthode qui devrait gérer l'affichage d'un plateau ennemi. On devrait voir les tirs (donc la couche 1 du plateau ennemi).
+	 * @param plateau : plateau du joueur duquel on va afficher la grille en tant qu'ennemi
 	 */
 	public static void afficherGrilleEnnemi(Plateau plateau){
 		String grille = "";
