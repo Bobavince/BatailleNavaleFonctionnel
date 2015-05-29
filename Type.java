@@ -3,10 +3,7 @@
  * Classe de gestion de la forme du plateau;
  * Note : le mot clé static permet d'éviter d'instancier la classe pour y avoir accès (aucune sens d'instancier la classe Type)
  */
-/**
- * @author Vincent F et Thomas B
- * Classe de gestion des choses qu'on demande au joueur
- */
+
 public class Type {
 
 	/** Classe statique qui créé un plateau carré (tableau 2D avec toutes les cases vides à 0)

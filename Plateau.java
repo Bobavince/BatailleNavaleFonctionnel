@@ -163,7 +163,7 @@ public class Plateau {
 
 			//la première coordonnées. puis l'orientation.
 			while(bateauPossible==false){
-
+				Affichage.afficherGrille(this);
 				coordonnes = Joueur.choixCoordonnes(this); // On demande des coordonnés pour placer le bateau.
 				horizontal = Joueur.choixOrientation();
 
@@ -198,9 +198,18 @@ public class Plateau {
 					// **** ON VERIFIE QUE CE BATEAU RENTRE LA OU ON A CHOISIT ****
 					if((xp+longueur)<plateauValeurs.length){
 						for( int j=0 ; j<longueur ; j++){
-							if(plateauValeurs[xp+j][yp][0]!=0){
+							if(plateauValeurs[xp+j][yp][0]>0){
 								bateauPossible=false;
 								System.out.println("Le bateau ne rentre pas ! Colision avec : " + plateauValeurs[xp+j][yp][0] );
+							} else if (plateauValeurs[xp+j][yp][0]==-2){
+								bateauPossible=false;
+								System.out.println("Le bateau ne rentre pas ! Hors de la zone de jeu autorisée" );
+							} else if (plateauValeurs[xp+j][yp][0]==-1){
+								bateauPossible=false;
+								System.out.println("Le bateau ne rentre pas ! Colision avec des récifs ! ");
+							} else {
+								bateauPossible=false;
+								System.out.println("Le bateau ne rentre pas ! Gros problème ! " );
 							}
 						}
 					} else {
@@ -227,7 +236,7 @@ public class Plateau {
 
 			//DEBUG ONLY // 
 			System.out.println("Le bateau N°" + (i+1) + " de taille" + longueur + "(" + x + y + z + t + ") est créé. (xmin,ymin,xmax,ymax) donc il est horizontal :" + (bateaux.listeBat[i].horizontal) );
-
+			
 		}
 
 	}
