@@ -110,8 +110,8 @@ public class TestJeu {
 
 			tailleX = Joueur.taillePlateauTriangle();
 			//On va créer le plateau du joueur 1 et du joueur 2
-			joueur1 = new Plateau(pseudo1, (int)(tailleX*0.88660), tailleX, 1); // Un peu de trigo. Si on considère un triangle équilatéral, on a la hauteur du triangle qui est égale à 0,8*coté.
-			joueur2 = new Plateau(pseudo2, (int)(tailleX*0.88660), tailleX, 1);
+			joueur1 = new Plateau(pseudo1, (int)(tailleX*0.88660), tailleX, 2); // Un peu de trigo. Si on considère un triangle équilatéral, on a la hauteur du triangle qui est égale à 0,8*coté.
+			joueur2 = new Plateau(pseudo2, (int)(tailleX*0.88660), tailleX, 2);
 			nombreBateauMax=(int)(tailleX*tailleX*0.88660*0.5); // Environ la surface d'un triangle de hauteur cote*0,8 
 
 		} else {
@@ -138,7 +138,6 @@ public class TestJeu {
 
 		// ON CREE UN PATTERN DE FLOTTE QUI SERA APPLIQUE A CHAQUE JOUEUR.
 		Joueur joueurs = new Joueur(); // On initialise une instance de la classe joueur pour qu'elle garde en mémoire le tableau des
-
 
 		if(Joueur.veutChoisirCompositionDeFlotte()==true){ // Si les joueurs veulent composer la flotte
 			nombreBateau = joueurs.utilitaireTypeDeFlotte(longueurMax,nombreBateauMax);	 // Alors on lance l'utilitaire de création de flotte
@@ -237,7 +236,7 @@ public class TestJeu {
 
 			//On va créer le plateau des joueurs
 			for(int i = 0; i<listeJoueurs.length ; i++){
-				listeJoueurs[i] = new Plateau(pseudoJoueurs[i], (int)(tailleX*0.88660), tailleX, 1); // Un peu de trigo. Si on considère un triangle équilatéral, on a la hauteur du triangle qui est égale à 0,8*coté.
+				listeJoueurs[i] = new Plateau(pseudoJoueurs[i], (int)(tailleX*0.88660), tailleX, 2); // Un peu de trigo. Si on considère un triangle équilatéral, on a la hauteur du triangle qui est égale à 0,8*coté.
 			}
 
 			nombreBateauMax=(int)(tailleX*tailleX*0.88660*0.5); // Environ la surface d'un triangle de hauteur cote*0,8 

@@ -42,7 +42,7 @@ public class Type {
 			tab = rond(x);
 			break;  
 		case 2:
-			tab = triangle(x);
+			tab = triangle(x,y);
 			break;
 		case 3:
 			tab = rectangle(x,y);
@@ -81,13 +81,15 @@ public class Type {
 	 * @param cote : coté du triangle à créer
 	 * @return un tableau avec un trangle d'eau (de cases à 0)
 	 */
-	public static int[][] triangle(int cote){
-		int[][] tab =new int[(int)(0.8*cote)][cote] ;
+	public static int[][] triangle(int hauteur, int cote){
+		int[][] tab =new int[hauteur][cote] ;
 		
 		for(int i=0 ; i<tab.length; i++){
 			for(int j=0 ; j<tab[0].length ; j++){
-				if(i==0 && j!= (int)(cote/2)){
-					
+				if(j < (-(tab[0].length*0.5)/(double)(tab.length))*i + (int)(tab[0].length*0.5) || j > ((tab[0].length*0.5)/(double)(tab.length))*i + (int)(tab[0].length*0.5)){ // ON NE TOUCHE PAS A CA, CA MARCHE ! 
+					tab[i][j]= -2; // On mes des cases interdites.
+				} else {
+					tab[i][j] = 0 ; // on remplis le tableau de case "0" équivalente à de l'eau.
 				}
 			}
 		}
