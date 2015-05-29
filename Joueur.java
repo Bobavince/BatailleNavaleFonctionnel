@@ -64,7 +64,7 @@ public class Joueur {
 		// **** DEMANDE AU JOUEURS LA TYPE DU PLATEAU ****
 		while(type!= 0 && type != 1 && type!=2 && type!=3){ 
 			System.out.println("Joueurs : Sur quel type de plateau voulez-vous jouer ? 0/1/2/3 ");
-			System.out.println("0 - carré \n1 - rond \n2 - triangle\n3 - rectangle");
+			System.out.println("0 - carré \n1 - rond \n2 - triangle\n3 - rectangle\n4 - rectangle avec récifs");
 			answer = sc.nextLine();
 			if(answer.length()!=0){
 				if(((int)(answer.charAt(0))>=48 && ((int)(answer.charAt(0))<48+4))){
@@ -137,6 +137,27 @@ public class Joueur {
 		}
 		return tailleX;
 	} // FIN DE " taillePlateauRectangle "
+	
+	/** Méthode qui demande la taille d'un plateau carre (donc les cotés): "quel taille voulez vous ? " 
+	 * @return Le coté du plateau sous forme d'un INT.
+	 */
+	public static int taillePlateauCarre(){
+		int tailleX = 0;
+		int tailleY = 0;
+		String answer ="";
+		Scanner sc = new Scanner(System.in);
+
+		while(tailleX<=0){ 
+			answer ="";
+			System.out.println( "Joueurs : Sur quelle taille de plateau voulez-vous jouer ? Cote ?");
+			answer = sc.nextLine();
+			if(answer.length()!=0){
+				tailleX = Integer.parseInt(answer);
+			}
+		}
+		
+		return tailleX;
+	} // FIN DE " taillePlateauCarre
 
 	/** Méthode qui demande si le joueur veut placer ses bateaux
 	 * @param pseudo simplement utile pour dire, "Joueur 1" voulez vous placer vos bateaux ? 

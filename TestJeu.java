@@ -98,7 +98,14 @@ public class TestJeu {
 		type = Joueur.typeDePlateau();
 
 		// **** DEMANDE AU JOUEURS LA TAILLE DU PLATEAU ET LE GENERE ****
-		if(type==1){
+		if( type==0){
+			tailleX = Joueur.taillePlateauCarre();
+			//On va créer le plateau du joueur 1 et du joueur 2
+			joueur1 = new Plateau(pseudo1, tailleX, tailleX, 0); // C'est un cercle ! Donc de taille r*2 
+			joueur2 = new Plateau(pseudo2, tailleX, tailleX, 0);
+			nombreBateauMax=tailleX*tailleX; // Environ le nombre de cases.
+			
+		} else if(type==1){
 
 			tailleX = Joueur.taillePlateauRond();
 			//On va créer le plateau du joueur 1 et du joueur 2
@@ -114,6 +121,27 @@ public class TestJeu {
 			joueur2 = new Plateau(pseudo2, (int)(tailleX*0.88660), tailleX, 2);
 			nombreBateauMax=(int)(tailleX*tailleX*0.88660*0.5); // Environ la surface d'un triangle de hauteur cote*0,8 
 
+		} else if (type==4){
+			while(tailleX<=0 || tailleY<=0){ 
+				answer = "";
+				System.out.println( pseudo1 + " , " + pseudo2 + ": Sur quelle taille de plateau voulez-vous jouer ? Hauteur ?");
+				answer = sc.nextLine();
+				if(answer.length()!=0){
+					tailleX = Integer.parseInt(answer);
+				}
+				answer = "";
+				System.out.println("Largeur ?");
+				answer = sc.nextLine();
+				if(answer.length()!=0){
+					tailleY = Integer.parseInt(answer);
+				}
+			}
+
+			//On va créer le plateau du joueur 1 et du joueur 2
+			joueur1 = new Plateau(pseudo1, tailleX, tailleY, 4); 
+			joueur2 = new Plateau(pseudo2, tailleX, tailleY, 4); 
+			nombreBateauMax = tailleX*tailleY;
+			
 		} else {
 			while(tailleX<=0 || tailleY<=0){ 
 				answer = "";
@@ -208,7 +236,14 @@ public class TestJeu {
 				type = Joueur.typeDePlateau();
 
 				// **** DEMANDE AU JOUEURS LA TAILLE DU PLATEAU ET LE GENERE ****
-				if(type==1){
+				if( type==0){
+					tailleX = Joueur.taillePlateauCarre();
+					//On va créer le plateau du joueur 1 et du joueur 2
+					joueur1 = new Plateau(pseudo1, tailleX, tailleX, 0); // C'est un cercle ! Donc de taille r*2 
+					joueur2 = new Plateau(pseudo2, tailleX, tailleX, 0);
+					nombreBateauMax=tailleX*tailleX; // Environ le nombre de cases.
+					
+				} else if(type==1){
 
 					tailleX = Joueur.taillePlateauRond();
 					//On va créer le plateau du joueur 1 et du joueur 2
@@ -224,6 +259,27 @@ public class TestJeu {
 					joueur2 = new Plateau(pseudo2, (int)(tailleX*0.88660), tailleX, 2);
 					nombreBateauMax=(int)(tailleX*tailleX*0.88660*0.5); // Environ la surface d'un triangle de hauteur cote*0,8 
 
+				} else if (type==4){
+					while(tailleX<=0 || tailleY<=0){ 
+						answer = "";
+						System.out.println( pseudo1 + " , " + pseudo2 + ": Sur quelle taille de plateau voulez-vous jouer ? Hauteur ?");
+						answer = sc.nextLine();
+						if(answer.length()!=0){
+							tailleX = Integer.parseInt(answer);
+						}
+						answer = "";
+						System.out.println("Largeur ?");
+						answer = sc.nextLine();
+						if(answer.length()!=0){
+							tailleY = Integer.parseInt(answer);
+						}
+					}
+
+					//On va créer le plateau du joueur 1 et du joueur 2
+					joueur1 = new Plateau(pseudo1, tailleX, tailleY, 4); 
+					joueur2 = new Plateau(pseudo2, tailleX, tailleY, 4); 
+					nombreBateauMax = tailleX*tailleY;
+					
 				} else {
 					while(tailleX<=0 || tailleY<=0){ 
 						answer = "";
@@ -321,7 +377,17 @@ public class TestJeu {
 		type = Joueur.typeDePlateau();
 
 		// **** DEMANDE AU JOUEURS LA TAILLE DU PLATEAU ET LE GENERE ****
-		if(type==1){
+		if( type==0){
+			tailleX = Joueur.taillePlateauCarre();
+			
+			//On va créer le plateau des joueurs.
+			for(int i = 0; i<listeJoueurs.length ; i++){
+				listeJoueurs[i] = new Plateau(pseudoJoueurs[i], tailleX, tailleX, 0); 
+			}
+			
+			nombreBateauMax=tailleX*tailleX; // Environ le nombre de cases.
+			
+		} else if(type==1){
 
 			tailleX = Joueur.taillePlateauRond();
 
@@ -343,6 +409,29 @@ public class TestJeu {
 
 			nombreBateauMax=(int)(tailleX*tailleX*0.88660*0.5); // Environ la surface d'un triangle de hauteur cote*0,8 
 
+		}  else if (type==4){
+			while(tailleX<=0 || tailleY<=0){ 
+				answer = "";
+				System.out.println("Sur quelle taille de plateau voulez-vous jouer ? Hauteur ?");
+				answer = sc.nextLine();
+				if(answer.length()!=0){
+					tailleX = Integer.parseInt(answer);
+				}
+				answer = "";
+				System.out.println("Largeur ?");
+				answer = sc.nextLine();
+				if(answer.length()!=0){
+					tailleY = Integer.parseInt(answer);
+				}
+			}
+
+			//On va créer le plateau des joueurs
+			for(int i = 0; i<listeJoueurs.length ; i++){
+				listeJoueurs[i] = new Plateau(pseudoJoueurs[i],  tailleX, tailleY, 4); // Un peu de trigo. Si on considère un triangle équilatéral, on a la hauteur du triangle qui est égale à 0,8*coté.
+			}
+
+			nombreBateauMax = tailleX*tailleY;
+			
 		} else {
 			while(tailleX<=0 || tailleY<=0){ 
 				answer = "";

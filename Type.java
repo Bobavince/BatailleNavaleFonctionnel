@@ -35,6 +35,9 @@ public class Type {
 
 		switch (numeroDeType)
 		{
+		case 0 :
+			tab = carre(x,y);
+			break;
 		case 1:
 			tab = rond(x);
 			break;  
@@ -44,8 +47,11 @@ public class Type {
 		case 3:
 			tab = rectangle(x,y);
 			break;
+		case 4 :
+			tab = recifs(x,y);
+			break;
 		default:
-			tab = carre(x,y);    
+			tab = rectangle(x,y);    
 			break;
 		}
 
@@ -100,6 +106,18 @@ public class Type {
 	 * @return un tableau rectangulaire d'eau (de cases à 0)
 	 */
 	public static int[][] rectangle(int x, int y){
+		int[][] tab = new int[x][y]; // on créé le tableau qu'on va renvoyer de la taille x(vertical)*y(horizontal)
+
+		for(int i=0 ; i<x; i++){
+			for(int j=0 ; j<y ; j++){
+				tab[i][j] = 0; // on remplis le tableau de case "0" équivalente à de l'eau.
+			}
+		}
+
+		return tab; // on renvois le tableau créé.
+	}
+	
+	public static int[][] recifs(int x, int y){
 		int[][] tab = null;
 
 		// A compélter

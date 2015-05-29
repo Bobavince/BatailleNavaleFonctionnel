@@ -1,3 +1,10 @@
+LISTE DE CHOSES A FAIRE (NON OFFICIELLES)
+- compléter les méthodes des différentes IA dans la classe IA.java
+- compléter la méthode pour créer un plateau avec des récifs dans Type.java
+- mettre en place une méthode qui calcul le nombre de cases libres sur un plateau. 
+- mettre en place une méthode qui calcul le nombre maximum de bateau sur un plateau en fonction de la fonction précédente.
+- Checker les erreurs et fautes de frappes sur tout ce qui est dit dans le terminal.
+
 /**
  * Le plateau est composé de deux niveaux. Un niveau 0 qui sert à connaitre ce qu'il y a sur le le plateau et un niveau 1 qui sert à savoir les actions subit par le plateau.
  * Au niveau 0 : 0 correspond à une case vide, -1 à une récif, 1,2,3,...,n au numéro du bateau.
@@ -21,9 +28,9 @@
 /**   AVANCEMENT CAHIER DES CHARGES
  *  Au début chaque participant place ses bateaux : DONE
  *  
- * BRANCHE IA ------------------------------ A FAIRE --------------------------------------
- * Soit HvsH soit IAvsH : A FAIRE
- * Les Deux : A faire
+ * BRANCHE IA ------------------------------ A COMPLETER --------------------------------------
+ * Soit HvsH soit IAvsH : DONE
+ * Les Deux : DONE
  * Plusieurs niveaux d'IA : A FAIRE
  * 
  * NOMBRE DE JOUEUR ------------------------------ DONE --------------------------------------
