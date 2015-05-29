@@ -61,9 +61,18 @@ public class Type {
 	 * @return un tableau avec un cercle d'eau (de cases à 0)
 	 */
 	public static int[][] rond(int r){
-		int[][] tab = null;
+		int[][] tab = new int[2*r][2*r];
 
-		// A compélter
+		for(int i=0 ; i<tab.length; i++){
+			for(int j=0 ; j<tab[0].length ; j++){
+				if((r*r)<(((i-r)*(i-r))+((j-r)*(j-r)))){
+					tab[i][j]= -2;
+				} else {
+					tab[i][j] = 0 ; // on remplis le tableau de case "0" équivalente à de l'eau.
+				}
+			}
+		}
+		
 		return tab;
 	}
 
@@ -72,9 +81,16 @@ public class Type {
 	 * @return un tableau avec un trangle d'eau (de cases à 0)
 	 */
 	public static int[][] triangle(int cote){
-		int[][] tab = null ;
-
-		// A compélter
+		int[][] tab =new int[(int)(0.8*cote)][cote] ;
+		
+		for(int i=0 ; i<tab.length; i++){
+			for(int j=0 ; j<tab[0].length ; j++){
+				if(i==0 && j!= (int)(cote/2)){
+					
+				}
+			}
+		}
+		
 		return tab;
 	}
 
