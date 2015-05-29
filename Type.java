@@ -60,13 +60,14 @@ public class Type {
 	 * @param r : rayon du cercle à créer
 	 * @return un tableau avec un cercle d'eau (de cases à 0)
 	 */
-	public static int[][] rond(int r){
-		int[][] tab = new int[2*r][2*r];
+	public static int[][] rond(int d){
+		int[][] tab = new int[d][d];
+		int rayon = (int)((d)*0.5); // On recupère en fait le diamètre !
 
 		for(int i=0 ; i<tab.length; i++){
 			for(int j=0 ; j<tab[0].length ; j++){
-				if((r*r)<(((i-r)*(i-r))+((j-r)*(j-r)))){
-					tab[i][j]= -2;
+				if(  (rayon*rayon) <= ( (((i+.5)-rayon)*((i+.5)-rayon)) + (((j+.5)-rayon)*((j+.5)-rayon)) )  ){ // Ne me demande pas pourquoi il faut mettre 0.5, c'est ce qui marche.
+					tab[i][j]= -2; // On mes des cases interdites.
 				} else {
 					tab[i][j] = 0 ; // on remplis le tableau de case "0" équivalente à de l'eau.
 				}
