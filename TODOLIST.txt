@@ -35,7 +35,7 @@
  * Rectangulaire fixe, nb de bateaux fixe : DONE
  * Rectangulaire taille variable par l'utilisateur, nb de bateaux avec les tailles : DONE
  * REctangulaire avec nb de bateaux automatiquement : A COMPLETER (une méthode est prête à être remplie)
- * Autres formes de plateaux : A COMPLETER (La méthode dans "Type.java" est à compléter.
+ * Autres formes de plateaux : DONE
  * 
  * AFFICHAGE ------------------------------ A COMPLETER --------------------------------------
  * Simple Terminal : DONE (inclus)
