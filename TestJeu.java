@@ -1,10 +1,12 @@
-import java.awt.*;
+/**
+ * @author Vincent F et Thomas B
+ */
+
 import java.util.Scanner;
 
-import javax.swing.*;
-import javax.swing.border.Border;
-
-
+/**
+ * Classe du MAIN
+ */
 public class TestJeu {
 	public static void main(String[] args) {
 
@@ -70,7 +72,6 @@ public class TestJeu {
 		System.out.println("Mode HvsH lancé");// Ici est géré le mode de jeu Humain contre Humain
 
 		//On instancie les variables utiles pour les demandes utilisateur
-		char choix = ' ';
 		String answer = "";
 		Scanner sc = new Scanner(System.in); 
 		int tailleX = 0;
@@ -104,7 +105,7 @@ public class TestJeu {
 			joueur1 = new Plateau(pseudo1, tailleX, tailleX, 0); // C'est un cercle ! Donc de taille r*2 
 			joueur2 = new Plateau(pseudo2, tailleX, tailleX, 0);
 			nombreBateauMax=tailleX*tailleX; // Environ le nombre de cases.
-			
+
 		} else if(type==1){
 
 			tailleX = Joueur.taillePlateauRond();
@@ -141,7 +142,7 @@ public class TestJeu {
 			joueur1 = new Plateau(pseudo1, tailleX, tailleY, 4); 
 			joueur2 = new Plateau(pseudo2, tailleX, tailleY, 4); 
 			nombreBateauMax = tailleX*tailleY;
-			
+
 		} else {
 			while(tailleX<=0 || tailleY<=0){ 
 				answer = "";
@@ -170,7 +171,7 @@ public class TestJeu {
 		if(Joueur.veutChoisirCompositionDeFlotte()==true){ // Si les joueurs veulent composer la flotte
 			nombreBateau = joueurs.utilitaireTypeDeFlotte(longueurMax,nombreBateauMax);	 // Alors on lance l'utilitaire de création de flotte
 		} else {
-			nombreBateau = Joueur.calculNombreBateauxOptimal(type, nombreBateauMax);// METHODE A COMPLETER
+			nombreBateau = Joueur.calculNombreBateauxOptimal(joueur1, nombreBateauMax);// METHODE A COMPLETER
 			joueurs.utilitaireFlotteParDefaut(nombreBateau); // On lance l'utilitaire qui va créer la flotte par défaut.
 		}
 
@@ -205,138 +206,139 @@ public class TestJeu {
 	}
 
 	public static void HvsIA() {
+		
 		System.out.println("Mode HvsIA lancé");   
+		
 		//On instancie les variables utiles pour les demandes utilisateur
-				char choix = ' ';
-				String answer = "";
-				Scanner sc = new Scanner(System.in); 
-				int tailleX = 0;
-				int tailleY = 0;
-				int nombreBateau =0;
+		String answer = "";
+		Scanner sc = new Scanner(System.in); 
+		int tailleX = 0;
+		int tailleY = 0;
+		int nombreBateau =0;
 
-				//On instancie les variables utiles pour les "Max" : le nombre de bateaux maximal autorisé, la longueur maximal autorisée etc ... 
-				int nombreBateauMax = 0;
-				int longueurMax = 5;
+		//On instancie les variables utiles pour les "Max" : le nombre de bateaux maximal autorisé, la longueur maximal autorisée etc ... 
+		int nombreBateauMax = 0;
+		int longueurMax = 5;
 
-				//On instancie les variables utiles pour les données sur les plateaux de jeux.
-				int type = -1 ;
-				String pseudo1 = "";
-				String pseudo2 = "";
-				Plateau joueur1;
-				Plateau joueur2 ;
+		//On instancie les variables utiles pour les données sur les plateaux de jeux.
+		int type = -1 ;
+		String pseudo1 = "";
+		String pseudo2 = "";
+		Plateau joueur1;
+		Plateau joueur2 ;
 
-				// **** DEMANDE AU JOUEUR 1 DE S'IDENTIFIER ****
-				pseudo1 = Joueur.identification(1);
+		// **** DEMANDE AU JOUEUR 1 DE S'IDENTIFIER ****
+		pseudo1 = Joueur.identification(1);
 
-				// **** DEMANDE AU JOUEUR 2 DE S'IDENTIFIER ****
-				IA iaDeJeu = new IA();
-				pseudo2 = iaDeJeu.typeIA();
+		// **** DEMANDE AU JOUEUR 1 DE DONNER LA DIFFICULTE DE L'IA ****
+		IA iaDeJeu = new IA();
+		pseudo2 = iaDeJeu.typeIA();
 
-				// **** DEMANDE AU JOUEURS LE TYPE DU PLATEAU ****
-				type = Joueur.typeDePlateau();
+		// **** DEMANDE AU JOUEURS LE TYPE DU PLATEAU ****
+		type = Joueur.typeDePlateau();
 
-				// **** DEMANDE AU JOUEURS LA TAILLE DU PLATEAU ET LE GENERE ****
-				if( type==0){
-					tailleX = Joueur.taillePlateauCarre();
-					//On va créer le plateau du joueur 1 et du joueur 2
-					joueur1 = new Plateau(pseudo1, tailleX, tailleX, 0); // C'est un cercle ! Donc de taille r*2 
-					joueur2 = new Plateau(pseudo2, tailleX, tailleX, 0);
-					nombreBateauMax=tailleX*tailleX; // Environ le nombre de cases.
-					
-				} else if(type==1){
+		// **** DEMANDE AU JOUEURS LA TAILLE DU PLATEAU ET LE GENERE ****
+		if( type==0){
+			tailleX = Joueur.taillePlateauCarre();
+			//On va créer le plateau du joueur 1 et du joueur 2
+			joueur1 = new Plateau(pseudo1, tailleX, tailleX, 0); // C'est un cercle ! Donc de taille r*2 
+			joueur2 = new Plateau(pseudo2, tailleX, tailleX, 0);
+			nombreBateauMax=tailleX*tailleX; // Environ le nombre de cases.
 
-					tailleX = Joueur.taillePlateauRond();
-					//On va créer le plateau du joueur 1 et du joueur 2
-					joueur1 = new Plateau(pseudo1, tailleX*2, tailleX*2, 1); // C'est un cercle ! Donc de taille r*2 
-					joueur2 = new Plateau(pseudo2, tailleX*2, tailleX*2, 1);
-					nombreBateauMax=10*tailleX; // Environ 2Pi*r soit le nombre maximal de cases.
+		} else if(type==1){
 
-				} else if(type==2){
+			tailleX = Joueur.taillePlateauRond();
+			//On va créer le plateau du joueur 1 et du joueur 2
+			joueur1 = new Plateau(pseudo1, tailleX*2, tailleX*2, 1); // C'est un cercle ! Donc de taille r*2 
+			joueur2 = new Plateau(pseudo2, tailleX*2, tailleX*2, 1);
+			nombreBateauMax=10*tailleX; // Environ 2Pi*r soit le nombre maximal de cases.
 
-					tailleX = Joueur.taillePlateauTriangle();
-					//On va créer le plateau du joueur 1 et du joueur 2
-					joueur1 = new Plateau(pseudo1, (int)(tailleX*0.88660), tailleX, 2); // Un peu de trigo. Si on considère un triangle équilatéral, on a la hauteur du triangle qui est égale à 0,8*coté.
-					joueur2 = new Plateau(pseudo2, (int)(tailleX*0.88660), tailleX, 2);
-					nombreBateauMax=(int)(tailleX*tailleX*0.88660*0.5); // Environ la surface d'un triangle de hauteur cote*0,8 
+		} else if(type==2){
 
-				} else if (type==4){
-					while(tailleX<=0 || tailleY<=0){ 
-						answer = "";
-						System.out.println( pseudo1 + " , " + pseudo2 + ": Sur quelle taille de plateau voulez-vous jouer ? Hauteur ?");
-						answer = sc.nextLine();
-						if(answer.length()!=0){
-							tailleX = Integer.parseInt(answer);
-						}
-						answer = "";
-						System.out.println("Largeur ?");
-						answer = sc.nextLine();
-						if(answer.length()!=0){
-							tailleY = Integer.parseInt(answer);
-						}
-					}
+			tailleX = Joueur.taillePlateauTriangle();
+			//On va créer le plateau du joueur 1 et du joueur 2
+			joueur1 = new Plateau(pseudo1, (int)(tailleX*0.88660), tailleX, 2); // Un peu de trigo. Si on considère un triangle équilatéral, on a la hauteur du triangle qui est égale à 0,8*coté.
+			joueur2 = new Plateau(pseudo2, (int)(tailleX*0.88660), tailleX, 2);
+			nombreBateauMax=(int)(tailleX*tailleX*0.88660*0.5); // Environ la surface d'un triangle de hauteur cote*0,8 
 
-					//On va créer le plateau du joueur 1 et du joueur 2
-					joueur1 = new Plateau(pseudo1, tailleX, tailleY, 4); 
-					joueur2 = new Plateau(pseudo2, tailleX, tailleY, 4); 
-					nombreBateauMax = tailleX*tailleY;
-					
-				} else {
-					while(tailleX<=0 || tailleY<=0){ 
-						answer = "";
-						System.out.println( pseudo1 + " , " + pseudo2 + ": Sur quelle taille de plateau voulez-vous jouer ? Hauteur ?");
-						answer = sc.nextLine();
-						if(answer.length()!=0){
-							tailleX = Integer.parseInt(answer);
-						}
-						answer = "";
-						System.out.println("Largeur ?");
-						answer = sc.nextLine();
-						if(answer.length()!=0){
-							tailleY = Integer.parseInt(answer);
-						}
-					}
-
-					//On va créer le plateau du joueur 1 et du joueur 2
-					joueur1 = new Plateau(pseudo1, tailleX, tailleY); 
-					joueur2 = new Plateau(pseudo2, tailleX, tailleY); 
-					nombreBateauMax = tailleX*tailleY;
+		} else if (type==4){
+			while(tailleX<=0 || tailleY<=0){ 
+				answer = "";
+				System.out.println( pseudo1 + " , " + pseudo2 + ": Sur quelle taille de plateau voulez-vous jouer ? Hauteur ?");
+				answer = sc.nextLine();
+				if(answer.length()!=0){
+					tailleX = Integer.parseInt(answer);
 				}
-
-				// ON CREE UN PATTERN DE FLOTTE QUI SERA APPLIQUE A CHAQUE JOUEUR.
-				Joueur joueurs = new Joueur(); // On initialise une instance de la classe joueur pour qu'elle garde en mémoire le tableau des
-
-				if(Joueur.veutChoisirCompositionDeFlotte()==true){ // Si les joueurs veulent composer la flotte
-					nombreBateau = joueurs.utilitaireTypeDeFlotte(longueurMax,nombreBateauMax);	 // Alors on lance l'utilitaire de création de flotte
-				} else {
-					nombreBateau = Joueur.calculNombreBateauxOptimal(type, nombreBateauMax);// METHODE A COMPLETER
-					joueurs.utilitaireFlotteParDefaut(nombreBateau); // On lance l'utilitaire qui va créer la flotte par défaut.
+				answer = "";
+				System.out.println("Largeur ?");
+				answer = sc.nextLine();
+				if(answer.length()!=0){
+					tailleY = Integer.parseInt(answer);
 				}
+			}
 
-				// **** DEMANDE AU JOUEUR 1 LE CHOIX PLACEMENT DE SES BATEAUX ****
-				joueurs.utilitairePlacementDesBateaux(joueur1, nombreBateau ,nombreBateauMax, longueurMax);	
+			//On va créer le plateau du joueur 1 et du joueur 2
+			joueur1 = new Plateau(pseudo1, tailleX, tailleY, 4); 
+			joueur2 = new Plateau(pseudo2, tailleX, tailleY, 4); 
+			nombreBateauMax = tailleX*tailleY;
 
-				// **** DEMANDE AU JOUEUR 2 LE PLACEMENT DE SES BATEAUX ****
-				iaDeJeu.placementBateauIA(joueur2, joueurs);
-
-				//Pour tester l'affichage : on affiche le plateau du joueur 1
-				Affichage.afficherGrille(joueur1);
-				//Pour tester l'affichage : on affiche le plateau du joueur 2
-				Affichage.afficherGrille(joueur2);
-
-				//on gère les tours
-				while(joueur1.aPerdu()==false && joueur2.aPerdu()==false){ // Tant que l'un ou l'autre n'a pas perdu
-					System.out.println("\n ---------- \n" + joueur1.name + " : Vous tirez. Voici votre tableau de tir."); // On annonce le joueur
-					Affichage.afficherGrilleEnnemi(joueur2); // On affiche la grille de tir du joueur envers l'ennemi
-					Joueur.recupCoordonnesVerifierTirer(joueur1, joueur2); // On lui demande de tirer.
-					System.out.println("\n ---------- \n" + joueur2.name + " : Vous tirez."); // On annonce l'IA
-					iaDeJeu.tirSelonNiveau(joueur2, joueur1); // On lui demande de tirer.
+		} else {
+			while(tailleX<=0 || tailleY<=0){ 
+				answer = "";
+				System.out.println( pseudo1 + " , " + pseudo2 + ": Sur quelle taille de plateau voulez-vous jouer ? Hauteur ?");
+				answer = sc.nextLine();
+				if(answer.length()!=0){
+					tailleX = Integer.parseInt(answer);
 				}
-
-				if(joueur1.aPerdu()==true){
-					System.out.println(joueur1.name + " a perdu ! " + joueur2.name + " a gagné !");
-				} else if(joueur2.aPerdu()==true){
-					System.out.println(joueur2.name + " a perdu ! " + joueur1.name + " a gagné !");
+				answer = "";
+				System.out.println("Largeur ?");
+				answer = sc.nextLine();
+				if(answer.length()!=0){
+					tailleY = Integer.parseInt(answer);
 				}
+			}
+
+			//On va créer le plateau du joueur 1 et du joueur 2
+			joueur1 = new Plateau(pseudo1, tailleX, tailleY); 
+			joueur2 = new Plateau(pseudo2, tailleX, tailleY); 
+			nombreBateauMax = tailleX*tailleY;
+		}
+
+		// ON CREE UN PATTERN DE FLOTTE QUI SERA APPLIQUE A CHAQUE JOUEUR.
+		Joueur joueurs = new Joueur(); // On initialise une instance de la classe joueur pour qu'elle garde en mémoire le tableau des
+
+		if(Joueur.veutChoisirCompositionDeFlotte()==true){ // Si les joueurs veulent composer la flotte
+			nombreBateau = joueurs.utilitaireTypeDeFlotte(longueurMax,nombreBateauMax);	 // Alors on lance l'utilitaire de création de flotte
+		} else {
+			nombreBateau = Joueur.calculNombreBateauxOptimal(joueur1, nombreBateauMax);// METHODE A COMPLETER
+			joueurs.utilitaireFlotteParDefaut(nombreBateau); // On lance l'utilitaire qui va créer la flotte par défaut.
+		}
+
+		// **** DEMANDE AU JOUEUR 1 LE CHOIX PLACEMENT DE SES BATEAUX ****
+		joueurs.utilitairePlacementDesBateaux(joueur1, nombreBateau ,nombreBateauMax, longueurMax);	
+
+		// **** DEMANDE AU JOUEUR 2 LE PLACEMENT DE SES BATEAUX ****
+		iaDeJeu.placementBateauIA(joueur2, joueurs);
+
+		//Pour tester l'affichage : on affiche le plateau du joueur 1
+		Affichage.afficherGrille(joueur1);
+		//Pour tester l'affichage : on affiche le plateau du joueur 2
+		Affichage.afficherGrille(joueur2);
+
+		//on gère les tours
+		while(joueur1.aPerdu()==false && joueur2.aPerdu()==false){ // Tant que l'un ou l'autre n'a pas perdu
+			System.out.println("\n ---------- \n" + joueur1.name + " : Vous tirez. Voici votre tableau de tir."); // On annonce le joueur
+			Affichage.afficherGrilleEnnemi(joueur2); // On affiche la grille de tir du joueur envers l'ennemi
+			Joueur.recupCoordonnesVerifierTirer(joueur1, joueur2); // On lui demande de tirer.
+			System.out.println("\n ---------- \n" + joueur2.name + " : Vous tirez."); // On annonce l'IA
+			iaDeJeu.tirSelonNiveau(joueur2, joueur1); // On lui demande de tirer.
+		}
+
+		if(joueur1.aPerdu()==true){
+			System.out.println(joueur1.name + " a perdu ! " + joueur2.name + " a gagné !");
+		} else if(joueur2.aPerdu()==true){
+			System.out.println(joueur2.name + " a perdu ! " + joueur1.name + " a gagné !");
+		}
 		// Ici est géré le mode de jeu Humain contre IA
 
 		System.out.println("Mode HvsIA stoppé");   
@@ -346,7 +348,6 @@ public class TestJeu {
 		System.out.println("Mode Hvsh..vsH circulaire lancé");   
 
 		//On instancie les variables utiles pour les demandes utilisateur
-		char choix = ' ';
 		String answer = "";
 		Scanner sc = new Scanner(System.in); 
 		int tailleX = 0;
@@ -378,35 +379,30 @@ public class TestJeu {
 
 		// **** DEMANDE AU JOUEURS LA TAILLE DU PLATEAU ET LE GENERE ****
 		if( type==0){
-			tailleX = Joueur.taillePlateauCarre();
 			
+			tailleX = Joueur.taillePlateauCarre();
 			//On va créer le plateau des joueurs.
 			for(int i = 0; i<listeJoueurs.length ; i++){
 				listeJoueurs[i] = new Plateau(pseudoJoueurs[i], tailleX, tailleX, 0); 
 			}
-			
 			nombreBateauMax=tailleX*tailleX; // Environ le nombre de cases.
-			
+
 		} else if(type==1){
 
 			tailleX = Joueur.taillePlateauRond();
-
 			//On va créer le plateau des joueurs.
 			for(int i = 0; i<listeJoueurs.length ; i++){
 				listeJoueurs[i] = new Plateau(pseudoJoueurs[i], tailleX*2, tailleX*2, 1); // C'est un cercle ! Donc de taille r*2
 			}
-
 			nombreBateauMax=10*tailleX; // Environ 2Pi*r soit le nombre maximal de cases.
 
 		} else if(type==2){
 
 			tailleX = Joueur.taillePlateauTriangle();
-
 			//On va créer le plateau des joueurs
 			for(int i = 0; i<listeJoueurs.length ; i++){
 				listeJoueurs[i] = new Plateau(pseudoJoueurs[i], (int)(tailleX*0.88660), tailleX, 2); // Un peu de trigo. Si on considère un triangle équilatéral, on a la hauteur du triangle qui est égale à 0,8*coté.
 			}
-
 			nombreBateauMax=(int)(tailleX*tailleX*0.88660*0.5); // Environ la surface d'un triangle de hauteur cote*0,8 
 
 		}  else if (type==4){
@@ -429,9 +425,8 @@ public class TestJeu {
 			for(int i = 0; i<listeJoueurs.length ; i++){
 				listeJoueurs[i] = new Plateau(pseudoJoueurs[i],  tailleX, tailleY, 4); // Un peu de trigo. Si on considère un triangle équilatéral, on a la hauteur du triangle qui est égale à 0,8*coté.
 			}
-
 			nombreBateauMax = tailleX*tailleY;
-			
+
 		} else {
 			while(tailleX<=0 || tailleY<=0){ 
 				answer = "";
@@ -452,7 +447,6 @@ public class TestJeu {
 			for(int i = 0; i<listeJoueurs.length ; i++){
 				listeJoueurs[i] = new Plateau(pseudoJoueurs[i], tailleX, tailleY); // Un peu de trigo. Si on considère un triangle équilatéral, on a la hauteur du triangle qui est égale à 0,8*coté.
 			}
-
 			nombreBateauMax = tailleX*tailleY;
 		}
 
@@ -462,7 +456,7 @@ public class TestJeu {
 		if(Joueur.veutChoisirCompositionDeFlotte()==true){ // Si les joueurs veulent composer la flotte
 			nombreBateau = joueurs.utilitaireTypeDeFlotte(longueurMax,nombreBateauMax);	 // Alors on lance l'utilitaire de création de flotte
 		} else {
-			nombreBateau = Joueur.calculNombreBateauxOptimal(type, nombreBateauMax);// METHODE A COMPLETER
+			nombreBateau = Joueur.calculNombreBateauxOptimal(listeJoueurs[0], nombreBateauMax);// METHODE A COMPLETER
 			joueurs.utilitaireFlotteParDefaut(nombreBateau); // On lance l'utilitaire qui va créer la flotte par défaut.
 		}
 
@@ -521,7 +515,6 @@ public class TestJeu {
 		System.out.println("Mode HVSH Non circulaire lancé");   
 
 		//On instancie les variables utiles pour les demandes utilisateur
-		char choix = ' ';
 		String answer = "";
 		Scanner sc = new Scanner(System.in); 
 		int tailleX = 0;
@@ -604,7 +597,7 @@ public class TestJeu {
 		if(Joueur.veutChoisirCompositionDeFlotte()==true){ // Si les joueurs veulent composer la flotte
 			nombreBateau = joueurs.utilitaireTypeDeFlotte(longueurMax,nombreBateauMax);	 // Alors on lance l'utilitaire de création de flotte
 		} else {
-			nombreBateau = Joueur.calculNombreBateauxOptimal(type, nombreBateauMax);// METHODE A COMPLETER
+			nombreBateau = Joueur.calculNombreBateauxOptimal(listeJoueurs[0], nombreBateauMax);// METHODE A COMPLETER
 			joueurs.utilitaireFlotteParDefaut(nombreBateau); // On lance l'utilitaire qui va créer la flotte par défaut.
 		}
 
@@ -651,6 +644,5 @@ public class TestJeu {
 		}
 
 		System.out.println("Mode HVSH Non circulaire stoppé");   
-
 	}
 }

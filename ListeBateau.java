@@ -1,10 +1,13 @@
 /**
  * @author Vincent F et Thomas B
- * Classe de gestion de la liste des bateaux sur le plateau.
  */
 
+/**
+ * Classe de gestion de la liste des bateaux sur le plateau.
+ */
 public class ListeBateau {
-	Bateau[] listeBat; // Liste des bateaux en tant qu'objet.
+	// Liste des bateaux en tant qu'objet.
+	Bateau[] listeBat; 
 
 	/** Créé une liste d'objet de type "Bateau"
 	 *  @param nombreDeBateau : créer la liste avec le nombre de Bateau indiqué comme longuer de la liste.
@@ -13,7 +16,7 @@ public class ListeBateau {
 		listeBat = new Bateau[nombreDeBateau];
 	}
 
-	/**
+	/** Méthode qui demande à un bateau si il est toujours vivant.
 	 * @param numeroBateau : correspond au numero qui sera inscrit sur les cases du plateau, correspond à cet unique bateau
 	 * @return Un boolean, vrai si le bateau existe encore, faux si le bateau a été détruit
 	 */
@@ -21,7 +24,7 @@ public class ListeBateau {
 		boolean existant = false;
 
 		if(numeroBateau<=listeBat.length){			//sécurité pour éviter des boundOutOfarray
-			existant = listeBat[numeroBateau-1].alive ;
+			existant = listeBat[numeroBateau-1].isAlive() ;
 		}
 
 		return existant;
@@ -34,5 +37,21 @@ public class ListeBateau {
 		if(numeroBateau<listeBat.length){			//sécurité pour éviter des boundOutOfarray
 			listeBat[numeroBateau].rendreCouler();			//On passe le bateau en "détruit"
 		}
+	}
+
+	// ********** LES GETTERS ET SETTERS ********** //
+	
+	/**
+	 * @return the listeBat
+	 */
+	public Bateau[] getListeBat() {
+		return listeBat;
+	}
+
+	/**
+	 * @param listeBat : le listeBat à "setter"
+	 */
+	public void setListeBat(Bateau[] listeBat) {
+		this.listeBat = listeBat;
 	}
 }

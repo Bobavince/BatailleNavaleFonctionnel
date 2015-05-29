@@ -1,9 +1,11 @@
 /**
  * @author Vincent F et Thomas B
+ */
+
+/**
  * Classe de gestion de la forme du plateau;
  * Note : le mot clé static permet d'éviter d'instancier la classe pour y avoir accès (aucune sens d'instancier la classe Type)
  */
-
 public class Type {
 
 	/** Classe statique qui créé un plateau carré (tableau 2D avec toutes les cases vides à 0)
@@ -24,7 +26,7 @@ public class Type {
 	}
 
 
-	/** Classe qui gère l'appel des autres méthodes
+	/** Classe qui gère l'appel des autres méthodes qui créé les formes de plateaux.
 	 * @param x : hauteur du plateau de jeu renvoyé (taille vertical) // rayon pour le rond // diagonale pour le triangle
 	 * @param y : largeur du plateau de jeu renvoyé (taille horizontal)
 	 * @param numeroDeType : 1 pour rond, 2 pour triangle, 3 pour rectangle, défaut carré
@@ -59,7 +61,7 @@ public class Type {
 
 	}
 
-	/** Classe qui créer un plateau rond (tableau 2D avec les cases aux angles à -1)
+	/** Classe qui créer un plateau rond (tableau 2D avec les cases aux angles à -2)
 	 * @param r : rayon du cercle à créer
 	 * @return un tableau avec un cercle d'eau (de cases à 0)
 	 */
@@ -80,7 +82,7 @@ public class Type {
 		return tab;
 	}
 
-	/** Classe qui créer un plateau triangle (tableau 2D avec des cases en coin à -1)
+	/** Classe qui créer un plateau triangle (tableau 2D avec des cases en coin à -2)
 	 * @param cote : coté du triangle à créer
 	 * @return un tableau avec un trangle d'eau (de cases à 0)
 	 */
@@ -117,6 +119,11 @@ public class Type {
 		return tab; // on renvois le tableau créé.
 	}
 	
+	/** Classe qui créer un plateau rectangle avec des récifs
+	 * @param x : hauteur du plateau de jeu renvoyé (taille vertical) 
+	 * @param y : largeur du plateau de jeu renvoyé (taille horizontal)
+	 * @return un tableau rectangulaire d'eau (de cases à 0) avec des récifs (-1)
+	 */
 	public static int[][] recifs(int x, int y){
 		int[][] tab = null;
 

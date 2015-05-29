@@ -1,8 +1,10 @@
 /**
  * @author Vincent F et Thomas B
- * Classe de gestion du plateau des bateaux.
  */
 
+/**
+ * Classe de gestion du plateau des bateaux.
+ */
 public class Bateau {
 	int numero;
 	int longueur;
@@ -37,16 +39,9 @@ public class Bateau {
 			}
 		}
 
-		creerBateau(numero); // on lui attribue un numero
+		this.numero = numero; // on lui attribue un numero
 		rendreAlive();	//on le rend alive en mettant toute la colonne 2 à "1"
 
-	}
-
-	/** Créer un bateau du numéro passé en argument ( Note : classe un peu inutile, ça pourrait être viré si on veut plus de place. Mais bon, c'est une sorte de guetteur/setter)
-	 * @param numero : numéro du bateau.
-	 */
-	public void creerBateau(int numero){
-		this.numero = numero;
 	}
 
 	/** Régénère un bateau. Le rend alive en mettant toute la colonne 2 (son état) à 1. ça pourrait être vu comme un regen du bateau, quel que soit son état.
@@ -86,7 +81,7 @@ public class Bateau {
 
 	public void tir(Plateau plateauJoueur, int x, int y){
 
-
+		//C'était dans le sujet. Il n'est pas dit qu'on doit vraiment s'en servir.
 	}
 
 	/** Méthode qui permet d'effectuer une modification sur un case occupée par un bateau.
@@ -100,13 +95,15 @@ public class Bateau {
 				lieuEtat[i][2] += modification; // Le bateau subit la modification notifiée dans la colonne 3 de son tableau d'état.
 			}
 		}
-		
+		this.verifierAlive();
+		// DEBUG MODE //
+		/* Pour connaitre les etats des bateaux, cheat.
 		String etat = "";
 		for(int i =0; i<lieuEtat.length ; i++){
-			etat += "[" +lieuEtat[i][0]+lieuEtat[i][1]+"]"+lieuEtat[i][2] ;
+			etat += "[" +lieuEtat[i][0] + "," + lieuEtat[i][1]+"]"+lieuEtat[i][2] ;
 		}
-		// DEBUG MODE // System.out.println("Etat du bateau tiré : " + etat);
-		this.verifierAlive();
+		System.out.println("Etat du bateau tiré : " + etat);
+		*/
 	}
 	
 	/** Méthode qui permet de recevoir un tir, donc par défaut, une modification de -1 sur la case x/y
@@ -127,7 +124,80 @@ public class Bateau {
 				aliveOrNot = true;
 			}
 		}
+		
 		this.alive = aliveOrNot;
+	}
+
+	// ********** LES GETTERS ET SETTERS ********** //
+	
+	/**
+	 * @return the numero
+	 */
+	public int getNumero() {
+		return numero;
+	}
+
+	/**
+	 * @param numero the numero à setter
+	 */
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
+
+	/**
+	 * @return the longueur
+	 */
+	public int getLongueur() {
+		return longueur;
+	}
+
+	/**
+	 * @param longueur the longueur à setter
+	 */
+	public void setLongueur(int longueur) {
+		this.longueur = longueur;
+	}
+
+	/**
+	 * @return the horizontal
+	 */
+	public boolean isHorizontal() {
+		return horizontal;
+	}
+
+	/**
+	 * @param horizontal the horizontal à setter
+	 */
+	public void setHorizontal(boolean horizontal) {
+		this.horizontal = horizontal;
+	}
+
+	/**
+	 * @return the alive
+	 */
+	public boolean isAlive() {
+		return alive;
+	}
+
+	/**
+	 * @param alive the alive à setter
+	 */
+	public void setAlive(boolean alive) {
+		this.alive = alive;
+	}
+
+	/**
+	 * @return the lieuEtat
+	 */
+	public int[][] getLieuEtat() {
+		return lieuEtat;
+	}
+
+	/**
+	 * @param lieuEtat the lieuEtat à setter
+	 */
+	public void setLieuEtat(int[][] lieuEtat) {
+		this.lieuEtat = lieuEtat;
 	}
 		
 }

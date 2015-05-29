@@ -2,9 +2,11 @@ import java.util.Scanner;
 
 /**
  * @author Vincent F et Thomas B
- * Classe de gestion de l'IA
  */
 
+/**
+ * Classe de gestion de l'IA
+ */
 public class IA {
 
 	int type = -1 ;
@@ -13,6 +15,9 @@ public class IA {
 		
 	}
 
+	/** Méthode qui demande au joueur quel type d'IA il désire et met à jour le type.
+	 * @return un String qui contient le "pseudo" de l'IA
+	 */
 	public String typeIA(){
 		String pseudo = "" ;
 		String answer = "";
@@ -52,11 +57,14 @@ public class IA {
 			break;
 		}
 
-		 
 		this.type = type;
 		return pseudo;
 	}
 
+	/** Méthode qui gère le placement des bateaux de l'IA. Renvois sur le placement automatique.
+	 * @param plateauDuJoueur : plateau de l'IA. 
+	 * @param listedesBateaux : liste des bateaux communs à tous les joueurs.
+	 */
 	public void placementBateauIA(Plateau plateauDuJoueur, Joueur listedesBateaux){
 		//LE JOUEUR UTILISE LE PLACEMENT AUTOMATIQUE
 		System.out.println(" Mise en route du programme de placement automatique des bateaux ...");
@@ -64,6 +72,10 @@ public class IA {
 	}
 
 
+	/** Méthode qui gère le tir de l'IA selon son niveau de difficultée (type)
+	 * @param ia : plateau de l'IA
+	 * @param ennemi : plateau sur lequel tirer.
+	 */
 	public void tirSelonNiveau(Plateau ia,Plateau ennemi){
 		int[] coordonnes = new int[2];
 		
@@ -92,6 +104,11 @@ public class IA {
 		Joueur.reponseAuTir(ennemi, coordonnes[0], coordonnes[1]);
 	}
 
+	/** Méthode qui gère le tir en tant que débile profond.
+	 * @param ia : plateau de l'IA
+	 * @param ennemi : plateau sur lequel tirer.
+	 * @return un tableau de 2 int qui représente x et y.
+	 */
 	public int[] tirDebileProfond(Plateau ia,Plateau ennemi){
 		boolean correct = false;
 		int[] coordonnes = new int[2];
@@ -125,10 +142,14 @@ public class IA {
 
 		}// fin du while (bateauPossible==false)
 
-
 		return coordonnes;
 	}
 	
+	/** Méthode qui gère le tir en tant que Facile.
+	 * @param ia : plateau de l'IA
+	 * @param ennemi : plateau sur lequel tirer.
+	 * @return un tableau de 2 int qui représente x et y.
+	 */
 	public int[] tirFacile(Plateau ia,Plateau ennemi){
 		boolean correct = false;
 		int[] coordonnes = new int[2];	
@@ -138,6 +159,11 @@ public class IA {
 		return coordonnes;
 	}
 	
+	/** Méthode qui gère le tir en tant que Moyen.
+	 * @param ia : plateau de l'IA
+	 * @param ennemi : plateau sur lequel tirer.
+	 * @return un tableau de 2 int qui représente x et y.
+	 */
 	public int[] tirMoyen(Plateau ia,Plateau ennemi){
 		boolean correct = false;
 		int[] coordonnes = new int[2];	
@@ -147,6 +173,11 @@ public class IA {
 		return coordonnes;
 	}
 	
+	/** Méthode qui gère le tir en tant que Difficile.
+	 * @param ia : plateau de l'IA
+	 * @param ennemi : plateau sur lequel tirer.
+	 * @return un tableau de 2 int qui représente x et y.
+	 */
 	public int[] tirDifficile(Plateau ia,Plateau ennemi){
 		boolean correct = false;
 		int[] coordonnes = new int[2];	
@@ -156,6 +187,11 @@ public class IA {
 		return coordonnes;
 	}
 	
+	/** Méthode qui gère le tir en tant que Impossibru.
+	 * @param ia : plateau de l'IA
+	 * @param ennemi : plateau sur lequel tirer.
+	 * @return un tableau de 2 int qui représente x et y.
+	 */
 	public int[] tirImpossibru(Plateau ia,Plateau ennemi){
 		boolean correct = false;
 		int[] coordonnes = new int[2];	

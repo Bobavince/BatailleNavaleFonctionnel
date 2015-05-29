@@ -1,3 +1,7 @@
+/**
+ * @author Vincent F et Thomas B
+ */
+
 import java.awt.Color;
 import java.awt.GridLayout;
 
@@ -5,10 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- * @author Vincent F et Thomas B
  * Classe de gestion de l'affichage du plateau de jeu.
  */
-
 public class Affichage {
 
 	/** Méthode qui gère l'affichage en fenetre. NE PAS UTILISER/ PAS AU POINT
@@ -55,7 +57,7 @@ public class Affichage {
 		// **** GENERATION DES DEUX PREMIERES LIGNES D'ENTETE ****
 		for(int i=0 ; i < 2 ; i++){
 			grille += "\n";
-			for(int j=0 ; j < plateau.plateauValeurs[0].length*2 ; j++){
+			for(int j=0 ; j < plateau.getPlateauValeurs()[0].length*2 ; j++){
 
 				if(j==0){
 					grille += "  "; // Si on est dans la colonne 0 on met des espaces 
@@ -83,9 +85,9 @@ public class Affichage {
 
 		// **** GENERATION DU RESTE DES LIGNES ****
 		// Note : Comme on a déjà marqué les deux premières lignes, et qu'on recommence des boucles, on déplace le repère pour se déplacer selon i/j en prenant comme i=0, la première ligne (la A) et pour de déplacer selon les j, il faut bien aller à +2 car on a toujours les eux premières colonnes avec les lettres qui viennent s'jaouter.
-		for(int i=0 ; i < plateau.plateauValeurs.length*2 ; i++){ //Le tableau de génération (celi qu'on parcours pour placer les éléments) est bien 2 fois plus grand que le tableau qu'on dessine, à cause de l'épaisseur des traits.
+		for(int i=0 ; i < plateau.getPlateauValeurs().length*2 ; i++){ //Le tableau de génération (celi qu'on parcours pour placer les éléments) est bien 2 fois plus grand que le tableau qu'on dessine, à cause de l'épaisseur des traits.
 			grille += "\n";
-			for(int j=0 ; j < plateau.plateauValeurs[0].length*2 +2; j++){
+			for(int j=0 ; j < plateau.getPlateauValeurs()[0].length*2 +2; j++){
 
 				if(j==0){ // Dans la première colonne : 
 					if(i%2==0){
@@ -95,11 +97,11 @@ public class Affichage {
 					}
 				} else if(j%2==0) { // Dans les colonnes paires : 
 					if(i%2==0){ // Sur les lignes paires, on regarde si on met des bateaux, des récifs, rien, etc ... 
-						if(plateau.plateauValeurs[i/2][(j/2)-1][0]!=0){ //On regarde si ce n'est pas de l'eau à la position courante, sur le plateau au niveau 0.
-							if(plateau.plateauValeurs[i/2][(j/2)-1][0]<= (-1)){
+						if(plateau.getPlateauValeurs()[i/2][(j/2)-1][0]!=0){ //On regarde si ce n'est pas de l'eau à la position courante, sur le plateau au niveau 0.
+							if(plateau.getPlateauValeurs()[i/2][(j/2)-1][0]<= (-1)){
 								grille += "X "; // Si c'est un récif ou un hors plateau, on met un croix. Pour symboliser les récifs.
 							} else {
-								grille += plateau.plateauValeurs[i/2][(j/2)-1][0]+ " "; //Si ce n'est pas de l'eau, et pas un récif, on affiche la valeur de ce que c'est. 
+								grille += plateau.getPlateauValeurs()[i/2][(j/2)-1][0]+ " "; //Si ce n'est pas de l'eau, et pas un récif, on affiche la valeur de ce que c'est. 
 							}
 						} else {
 							grille += espaceDouble; // Si on est pas sur une case où se trouve un bateau, on fait simplement un espace.
@@ -125,7 +127,7 @@ public class Affichage {
 	 * @param plateau  : plateau du joueur duquel on va afficher la grille en tant qu'ami
 	 */
 	public static void afficherGrilleAmi(Plateau plateau){
-
+		// Il n'y a pas de mode avec des alliances pour l'instant. C'était au cas où.
 	}
 
 	/** Méthode qui devrait gérer l'affichage d'un plateau ennemi. On devrait voir les tirs (donc la couche 1 du plateau ennemi).
@@ -142,7 +144,7 @@ public class Affichage {
 		// **** GENERATION DES DEUX PREMIERES LIGNES D'ENTETE ****
 		for(int i=0 ; i < 2 ; i++){
 			grille += "\n";
-			for(int j=0 ; j < plateau.plateauValeurs[0].length*2 ; j++){
+			for(int j=0 ; j < plateau.getPlateauValeurs()[0].length*2 ; j++){
 
 				if(j==0){
 					grille += "  "; // Si on est dans la colonne 0 on met des espaces 
@@ -170,9 +172,9 @@ public class Affichage {
 
 		// **** GENERATION DU RESTE DES LIGNES ****
 		// Note : Comme on a déjà marqué les deux premières lignes, et qu'on recommence des boucles, on déplace le repère pour se déplacer selon i/j en prenant comme i=0, la première ligne (la A) et pour de déplacer selon les j, il faut bien aller à +2 car on a toujours les eux premières colonnes avec les lettres qui viennent s'jaouter.
-		for(int i=0 ; i < plateau.plateauValeurs.length*2 ; i++){ //Le tableau de génération (celi qu'on parcours pour placer les éléments) est bien 2 fois plus grand que le tableau qu'on dessine, à cause de l'épaisseur des traits.
+		for(int i=0 ; i < plateau.getPlateauValeurs().length*2 ; i++){ //Le tableau de génération (celi qu'on parcours pour placer les éléments) est bien 2 fois plus grand que le tableau qu'on dessine, à cause de l'épaisseur des traits.
 			grille += "\n";
-			for(int j=0 ; j < plateau.plateauValeurs[0].length*2 +2; j++){
+			for(int j=0 ; j < plateau.getPlateauValeurs()[0].length*2 +2; j++){
 
 				if(j==0){ // Dans la première colonne : 
 					if(i%2==0){
@@ -182,16 +184,16 @@ public class Affichage {
 					}
 				} else if(j%2==0) { // Dans les colonnes paires : 
 					if(i%2==0){// Sur les lignes paires, on regarde si on met des bateaux, des récifs, rien, etc ... 
-						if(plateau.plateauValeurs[i/2][(j/2)-1][0]==(-2)){
+						if(plateau.getPlateauValeurs()[i/2][(j/2)-1][0]==(-2)){
 							grille+="HH"; //Si c'est un hors plateau on met des "H" parce que ça remplis bien et que ça fait "Hors Horizon"
 						} else {
-							if(plateau.plateauValeurs[i/2][(j/2)-1][1]!=0){ // On regarde si quelqu'un a déjà tiré sur la case.
-								if(plateau.plateauValeurs[i/2][(j/2)-1][0]==(-1)){ //On regarde si ce qu'il a en dessous est un récif.
+							if(plateau.getPlateauValeurs()[i/2][(j/2)-1][1]!=0){ // On regarde si quelqu'un a déjà tiré sur la case.
+								if(plateau.getPlateauValeurs()[i/2][(j/2)-1][0]==(-1)){ //On regarde si ce qu'il a en dessous est un récif.
 									grille += "R "; // Si c'est un récif, on met un R.
-								} else if(plateau.plateauValeurs[i/2][(j/2)-1][0]==(0)){ //Si regarde si c'est de l'eau
+								} else if(plateau.getPlateauValeurs()[i/2][(j/2)-1][0]==(0)){ //Si regarde si c'est de l'eau
 									grille += "O "; // Si c'est de l'eau on met un O, comme les ronds que font un tir dans l'eau.
 								} else { //Si ce n'est pas de l'eau ou pas un récif, alors c'est un bateau. 
-									if(plateau.bateaux.listeBat[plateau.numeroBateauPresent((i/2), (j/2)-1)-1].alive == true){ //On regarde si le bateau de la case est vivant.
+									if(plateau.bateaux.getListeBat()[plateau.numeroBateauPresent((i/2), (j/2)-1)-1].isAlive() == true){ //On regarde si le bateau de la case est vivant.
 										grille += "T "; //Si le bateau est vivant, mais qu'on a tiré sur cette case, on met "touché" avec un "T".
 									} else {
 										grille += "C "; //Si le bateau est mort, et qu'on a tiré sur cette case, on l'a donc coulé. on met donc "C".

@@ -1,22 +1,22 @@
 /**
  * @author Vincent F et Thomas B
- * Classe de gestion du plateau de jeu.
  */
 
+/**
+ * Classe de gestion du plateau de jeu.
+ */
 public class Plateau {
+	
 	//Les Tableaux de la classe
 	int[][][] plateauValeurs; //Initilisation d'un tableau 3D Pour implémentation des deux niveaux de données
-
-	//Les variables internes
-
 
 	//Les variables externes
 	int nbBateaux;
 	String name = "Joueur";
 	ListeBateau bateaux;
+	int type = 0 ;
 
-
-
+	
 	/** Constructeur du plateau de jeu d'un joueur : par défaut plateau carré de la taille passée en argument.
 	 * @param name : nom à donner au plateau/joueur
 	 * @param x : largeur du plateau
@@ -52,30 +52,37 @@ public class Plateau {
 		}
 
 		this.name = name;
+		this.type = numeroDeType;
 	}
 
 
 	/** Méthode qui va remplir le plateau de (nombredeBateau) bateaux.
 	 * @param listeTailleBateaux : nombre de Bateaux à ajouter au plateau de jeu, sous forme de liste.
 	 */
-	public void remplirAleatoirement(int[] listeTailleBateaux){
-		bateaux = new ListeBateau(listeTailleBateaux.length); // On créé la liste des bateaux
+	public void remplirAleatoirement(Joueur listeTaille){
+		// On vérifie si les bateaux tiennent dans le plateau, on fait modifier la liste en conséquence.
+		//listeTaille.transformationEnlisteTailleBateauCorrecte(this, listeTaille);
+		
+		bateaux = new ListeBateau(listeTaille.getTypeDeFlotte().length); // On créé la liste des bateaux
 		boolean bateauPossible;
+		System.out.println("Longueur : " + bateaux.getListeBat().length);
 
-		for(int i=0 ; i<bateaux.listeBat.length ; i++){
+		for(int i=0 ; i<bateaux.getListeBat().length ; i++){
 
 			int x = 0;
 			int y = 0;
 			int z = 0;
 			int t = 0;
-			int longueur = listeTailleBateaux[i]; //correspond à la vrai longueur du bateau.
+			int longueur = listeTaille.getTypeDeFlotte()[i]; //correspond à la vrai longueur du bateau.
+			System.out.println("Longueur : " + listeTaille.getTypeDeFlotte()[i]);
+
 			bateauPossible = false;
 
 			while(bateauPossible==false){
 
 				// **** ON CHOISIT LES COORDONNES DU BATEAU ET SON ORIENTATION **** // Les variables ont le suffixe -p pour "possible"
-				int xMax = plateauValeurs.length; // On repère la hauteur maximal du plateau de jeu
-				int yMax = plateauValeurs[0].length; // on repère la longueur maximale du plateau de jeu
+				int xMax = getPlateauValeurs().length; // On repère la hauteur maximal du plateau de jeu
+				int yMax = getPlateauValeurs()[0].length; // on repère la longueur maximale du plateau de jeu
 
 				int xp = (int)(Math.random()*(xMax)); // on choisi une case sur les x.
 				int zp ;
@@ -89,9 +96,9 @@ public class Plateau {
 					tp = (longueur-1+yp); // le bateau est de taille "longueur" voir explication ci-dessous.
 
 					// **** ON VERIFIE QUE CE BATEAU RENTRE LA OU ON A CHOISIT ****
-					if((yp+longueur)<plateauValeurs[xp].length){
+					if((yp+longueur)<getPlateauValeurs()[xp].length){
 						for( int j=0 ; j<longueur ; j++){
-							if(plateauValeurs[xp][yp+j][0]!=0){
+							if(getPlateauValeurs()[xp][yp+j][0]!=0){
 								bateauPossible=false;
 							}
 						}
@@ -103,9 +110,9 @@ public class Plateau {
 					tp = yp; // le bateau est vertical.
 
 					// **** ON VERIFIE QUE CE BATEAU RENTRE LA OU ON A CHOISIT ****
-					if((xp+longueur)<plateauValeurs.length){
+					if((xp+longueur)<getPlateauValeurs().length){
 						for( int j=0 ; j<longueur ; j++){
-							if(plateauValeurs[xp+j][yp][0]!=0){
+							if(getPlateauValeurs()[xp+j][yp][0]!=0){
 								bateauPossible=false;
 							}
 						}
@@ -127,27 +134,28 @@ public class Plateau {
 
 			// **** ON CREE LE BATEAU SI LE bateau etait possible****
 			bateaux.listeBat[i] = new Bateau(x,y,z,t,i+1);
-			placerBateau(bateaux.listeBat[i]);
+			placerBateau(bateaux.getListeBat()[i]);
 			// **** ON LE PLACE SUR LE PLATEAU****
 
 			//DEBUG ONLY // 
 			System.out.println("Le bateau N°" + (i+1) + " de taille" + longueur + "(" + x + y + z + t + ") est créé. (xmin,ymin,xmax,ymax) donc il est horizontal :" + (bateaux.listeBat[i].horizontal) );
 
 		}
-
-
-
 	}
 
+	
 	/** Méthode qui va demander au joueur de remplir son plateau, avec les bateaux dont les tailles sont spécifié dans le tableau passé en argument "listeTailleBateau"
 	 * @param tailleMaxBateau : Spécifie la taille maximum d'un bateau
 	 * @param listeTailleBateaux : La liste des bateaux à créer en fonction de leur taille.
 	 */
-	public void remplirManuellement(int tailleMaxBateau, int[] listeTailleBateaux){
-		bateaux = new ListeBateau(listeTailleBateaux.length); // On créé la liste des bateaux
+	public void remplirManuellement(int tailleMaxBateau, Joueur listeTaille){
+		// On vérifie si les bateaux tiennent dans le plateau, on fait modifier la liste en conséquence.
+		//listeTaille.transformationEnlisteTailleBateauCorrecte(this, listeTaille);
+		
+		bateaux = new ListeBateau(listeTaille.getTypeDeFlotte().length); // On créé la liste des bateaux
 		boolean bateauPossible;
 
-		for(int i=0 ; i<bateaux.listeBat.length ; i++){
+		for(int i=0 ; i<bateaux.getListeBat().length ; i++){
 
 			System.out.println(" **** BATEAU N°" + (i+1) + " ****");
 
@@ -156,7 +164,7 @@ public class Plateau {
 			int z = 0;
 			int t = 0;
 			int[] coordonnes = new int[2];
-			int longueur = listeTailleBateaux[i]; //correspond à la vrai longueur du bateau.
+			int longueur = listeTaille.getTypeDeFlotte()[i]; //correspond à la vrai longueur du bateau.
 			bateauPossible = false;
 			boolean horizontal = false;
 
@@ -180,11 +188,11 @@ public class Plateau {
 					tp = (longueur-1+yp); // le bateau est de taille "longueur" voir explication ci-dessous.
 
 					// **** ON VERIFIE QUE CE BATEAU RENTRE LA OU ON A CHOISIT ****
-					if((yp+longueur)<plateauValeurs[xp].length){
+					if((yp+longueur)<getPlateauValeurs()[xp].length){
 						for( int j=0 ; j<longueur ; j++){
-							if(plateauValeurs[xp][yp+j][0]!=0){
+							if(getPlateauValeurs()[xp][yp+j][0]!=0){
 								bateauPossible=false;
-								System.out.println("Le bateau ne rentre pas ! Colision avec : " + plateauValeurs[xp][yp+j][0] );
+								System.out.println("Le bateau ne rentre pas ! Colision avec : " + getPlateauValeurs()[xp][yp+j][0] );
 							}
 						}
 					} else {
@@ -196,15 +204,15 @@ public class Plateau {
 					tp = yp; // le bateau est vertical.
 
 					// **** ON VERIFIE QUE CE BATEAU RENTRE LA OU ON A CHOISIT ****
-					if((xp+longueur)<plateauValeurs.length){
+					if((xp+longueur)<getPlateauValeurs().length){
 						for( int j=0 ; j<longueur ; j++){
-							if(plateauValeurs[xp+j][yp][0]>0){
+							if(getPlateauValeurs()[xp+j][yp][0]>0){
 								bateauPossible=false;
-								System.out.println("Le bateau ne rentre pas ! Colision avec : " + plateauValeurs[xp+j][yp][0] );
-							} else if (plateauValeurs[xp+j][yp][0]==-2){
+								System.out.println("Le bateau ne rentre pas ! Colision avec : " + getPlateauValeurs()[xp+j][yp][0] );
+							} else if (getPlateauValeurs()[xp+j][yp][0]==-2){
 								bateauPossible=false;
 								System.out.println("Le bateau ne rentre pas ! Hors de la zone de jeu autorisée" );
-							} else if (plateauValeurs[xp+j][yp][0]==-1){
+							} else if (getPlateauValeurs()[xp+j][yp][0]==-1){
 								bateauPossible=false;
 								System.out.println("Le bateau ne rentre pas ! Colision avec des récifs ! ");
 							} else {
@@ -231,16 +239,53 @@ public class Plateau {
 
 			// **** ON CREE LE BATEAU SI LE bateau etait possible****
 			bateaux.listeBat[i] = new Bateau(x,y,z,t,i+1);
-			placerBateau(bateaux.listeBat[i]);
+			placerBateau(bateaux.getListeBat()[i]);
 			// **** ON LE PLACE SUR LE PLATEAU****
 
 			//DEBUG ONLY // 
-			System.out.println("Le bateau N°" + (i+1) + " de taille" + longueur + "(" + x + y + z + t + ") est créé. (xmin,ymin,xmax,ymax) donc il est horizontal :" + (bateaux.listeBat[i].horizontal) );
+			//System.out.println("Le bateau N°" + (i+1) + " de taille" + longueur + "(" + x + y + z + t + ") est créé. (xmin,ymin,xmax,ymax) donc il est horizontal :" + (bateaux.listeBat[i].horizontal) );
 			
 		}
 
 	}
 
+
+	/** Méthode qui renvois une liste de Taille de bateaux correcte, pour permettre que ça tienne dans le plateau.
+	 * @param listeTailleBateaux
+	 * @return
+	 */
+	public int[] transformationEnlisteTailleBateauCorrecte(int[] listeTailleBateaux){
+		// **** ON VERIFIE QUE LE NOMBRE DE BATEAU ENTRE PAR L'UTILISATEUR EST COHERENT ***//
+		int placeTotal = 0;
+		int[] listeTailleBateauxRemplacement = listeTailleBateaux;
+		int tailleNouveauTableau = 0;
+
+		for(int i=0; i<listeTailleBateaux.length ; i++){
+			placeTotal += listeTailleBateaux[i];
+		}
+
+		if(Joueur.calculNombreBateauxOptimal(this, listeTailleBateaux.length)>placeTotal){
+			boolean correct = true ;
+			int placePriseParNouveauTableau = 0;
+			for(int i=0; i<listeTailleBateaux.length && placePriseParNouveauTableau < placeTotal && correct == true; i++){
+				if(placePriseParNouveauTableau+listeTailleBateaux[i]<placeTotal){
+					placePriseParNouveauTableau += listeTailleBateaux[i];
+					tailleNouveauTableau++;
+				} else if(placePriseParNouveauTableau+listeTailleBateaux[i]>placeTotal && i==0){
+					tailleNouveauTableau = 1;
+					listeTailleBateaux[0] = 2;
+				} else {
+					correct = false;
+				}
+			}
+
+			listeTailleBateauxRemplacement = new int[tailleNouveauTableau];
+			for(int i=0; i<listeTailleBateaux.length && i<listeTailleBateauxRemplacement.length ; i++){
+				listeTailleBateauxRemplacement[i] = listeTailleBateaux[i];
+			}
+		}
+		return listeTailleBateauxRemplacement;
+	}
 	
 	/** Méthode qui teste si un bateau est présent sur la case considérée. Il parcourt la liste des bateau affiliée au plateau du joueur, et demande à chaque bateau si il est sur la case considérée.
 	 * @param x : ordonnées de la case (vertical)
@@ -250,8 +295,8 @@ public class Plateau {
 	public boolean bateauPresent(int x, int y){
 		boolean estPresent = false; // On pose une variable à retourner.
 
-		for(int i =0; i < bateaux.listeBat.length ; i++) { // on parcours la liste des bateaux sans dépasser
-			if(bateaux.listeBat[i].estPresentSurCetteCase(x, y)==true){ //on demande à chaque bateau si il est sur la case qu'on considère
+		for(int i =0; i < bateaux.getListeBat().length ; i++) { // on parcours la liste des bateaux sans dépasser
+			if(bateaux.getListeBat()[i].estPresentSurCetteCase(x, y)==true){ //on demande à chaque bateau si il est sur la case qu'on considère
 				estPresent = true; // Si oui on passe la variable à True : il y a un bateau sur cette case
 			} 
 		}
@@ -267,9 +312,9 @@ public class Plateau {
 	public int numeroBateauPresent(int x, int y){
 		int numeroDuBateau = 0; // On pose une variable à retourner.
 
-		for(int i =0; i < bateaux.listeBat.length ; i++) { // on parcours la liste des bateaux sans dépasser
-			if(bateaux.listeBat[i].estPresentSurCetteCase(x, y)==true){ //on demande à chaque bateau si il est sur la case qu'on considère
-				numeroDuBateau = bateaux.listeBat[i].numero; // Si oui on récupère son numéro
+		for(int i =0; i < bateaux.getListeBat().length ; i++) { // on parcours la liste des bateaux sans dépasser
+			if(bateaux.getListeBat()[i].estPresentSurCetteCase(x, y)==true){ //on demande à chaque bateau si il est sur la case qu'on considère
+				numeroDuBateau = bateaux.getListeBat()[i].getNumero(); // Si oui on récupère son numéro
 			} 
 		}
 		return numeroDuBateau;
@@ -279,12 +324,10 @@ public class Plateau {
 	 * @param boat Un objet de type bateau, qui sera placé sur le plateau de jeu, en récupérant ses coordonnées directement dans la classe bateau.
 	 */
 	public void placerBateau(Bateau boat){
-		for (int i=0 ; i<boat.lieuEtat.length ; i++){ // pour toutes les couples de coordonnées du bateau donné
-			plateauValeurs[boat.lieuEtat[i][0]][boat.lieuEtat[i][1]][0] = boat.numero;	//on met le numero du bateau sur la couche 0
+		for (int i=0 ; i<boat.getLieuEtat().length ; i++){ // pour toutes les couples de coordonnées du bateau donné
+			plateauValeurs[boat.getLieuEtat()[i][0]][boat.getLieuEtat()[i][1]][0] = boat.getNumero();	//on met le numero du bateau sur la couche 0
 		}
 	}
-
-	
 
 	/** Méthode qui tire sur un plateau ennemi aux coordonnées passées en argument.
 	 * @param coordonnes : tableau qui prend x en [0] et y en [1]
@@ -299,21 +342,12 @@ public class Plateau {
 	 * @param y : coordonnées de tir (horizontal/abscisse)
 	 */
 	public void recevoirTir(int x, int y){
-		this.mettreAJourCase(x, y, 1); // on met à jour la couche 1 du plateau en mettant un "1" pour signaler un tir ennemi. - NOTE : on pourrait mettre le numéro du joueur qui a tiré.
+		this.plateauValeurs[x][y][1] = 1; // on met à jour la couche 1 du plateau en mettant un "1" pour signaler un tir ennemi.
 		if(this.bateauPresent(x, y)==true){
-			this.bateaux.listeBat[this.numeroBateauPresent(x, y)-1].recevoirTir(x, y); // On prend le plateau du joueur, la liste de bateau associée, on récupère la liste des bateaux, dont on sélectionne le numéro du bateau qui nous intéresse, et on lui demande de recevoir un tir.			
+			this.bateaux.getListeBat()[this.numeroBateauPresent(x, y)-1].recevoirTir(x, y); // On prend le plateau du joueur, la liste de bateau associée, on récupère la liste des bateaux, dont on sélectionne le numéro du bateau qui nous intéresse, et on lui demande de recevoir un tir.			
 		}
 	}
 	
-	/** Méthode pour mettre à jour une case de coordonées x/y avec en argument la modification à faire. On fait + modificaiton, donc si on veut faire case -1 il faut bien envoyer "-1" comme modification
-	 * @param x : ordonnée
-	 * @param y : abscisse
-	 * @param modification : mettre la valeur signée (avec le - ou sans) qu'on veut donner (on modifie la couche 1 du plateau)
-	 */
-	public void mettreAJourCase(int x, int y, int modification){
-			this.plateauValeurs[x][y][1] = modification; // On ajoute la modification sur la couche 1 pour signaler le tir. 
-	}
-
 	/** Méthode qui calcul le nombre de bateaux alive restant. Retourne si le joueur a perdu ou non.
 	 * @return un boolean qui vaut true si tous les bateaux sont à "mort"
 	 */
@@ -330,8 +364,8 @@ public class Plateau {
 	 */
 	public void calculNombreDeBateauRestant(){
 		int nombreDeBateauxAlive = 0;
-		for(int i =0; i < bateaux.listeBat.length ; i++) { // on parcours la liste des bateaux sans dépasser
-			if(bateaux.listeBat[i].alive==true){ //on demande à chaque bateau si il est vivant
+		for(int i =0; i < bateaux.getListeBat().length ; i++) { // on parcours la liste des bateaux sans dépasser
+			if(bateaux.getListeBat()[i].isAlive()==true){ //on demande à chaque bateau si il est vivant
 				nombreDeBateauxAlive++;
 			} 
 		}
@@ -349,5 +383,93 @@ public class Plateau {
 			dejaSubiTir=true;
 		}
 		return dejaSubiTir;
+	}
+	
+	/** Méthode qui compte le nombre de cases libres sur un plateau de jeu.
+	 * @return un int qui représente le nombre de cases libres (0) sur le plateau.
+	 */
+	public int compterCasesLibres(){
+		int casesLibres = 0;
+		
+		for(int i = 0; i<this.plateauValeurs.length ; i++){
+			for(int j =0; j<this.plateauValeurs[i].length ; j++){
+				if(this.plateauValeurs[i][j][0]==0){
+					casesLibres++;
+				}
+			}
+		}
+		return casesLibres;
+	}
+	
+	// ********** LES GETTERS ET SETTERS ********** //
+	
+	/**
+	 * @return the plateauValeurs
+	 */
+	public int[][][] getPlateauValeurs() {
+		return plateauValeurs;
+	}
+
+	/**
+	 * @param plateauValeurs le plateauValeurs à "setter"
+	 */
+	public void setPlateauValeurs(int[][][] plateauValeurs) {
+		this.plateauValeurs = plateauValeurs;
+	}
+
+	/**
+	 * @return the nbBateaux
+	 */
+	public int getNbBateaux() {
+		return nbBateaux;
+	}
+
+	/**
+	 * @param nbBateaux le nbBateaux à "setter"
+	 */
+	public void setNbBateaux(int nbBateaux) {
+		this.nbBateaux = nbBateaux;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name le name à "setter"
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the bateaux
+	 */
+	public ListeBateau getBateaux() {
+		return bateaux;
+	}
+
+	/**
+	 * @param bateaux le bateaux à "setter"
+	 */
+	public void setBateaux(ListeBateau bateaux) {
+		this.bateaux = bateaux;
+	}
+
+	/**
+	 * @return the type
+	 */
+	public int getType() {
+		return type;
+	}
+
+	/**
+	 * @param type le type à "setter"
+	 */
+	public void setType(int type) {
+		this.type = type;
 	}
 }

@@ -1,7 +1,6 @@
 LISTE DE CHOSES A FAIRE (NON OFFICIELLES)
 - compléter les méthodes des différentes IA dans la classe IA.java
 - compléter la méthode pour créer un plateau avec des récifs dans Type.java
-- mettre en place une méthode qui calcul le nombre de cases libres sur un plateau. 
 - mettre en place une méthode qui calcul le nombre maximum de bateau sur un plateau en fonction de la fonction précédente.
 - Checker les erreurs et fautes de frappes sur tout ce qui est dit dans le terminal.
 
