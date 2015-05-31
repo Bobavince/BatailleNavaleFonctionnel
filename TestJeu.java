@@ -24,9 +24,9 @@ public class TestJeu {
 
 			System.out.println("A quel mode de jeu voulez vous jouer ?");
 
-			while(choix != '1' && choix != '2' && choix != '3' && choix != '4'){ // Boucle secondaire concernant le choix du mode de jeu.
+			while(choix != '1' && choix != '2' && choix != '3' && choix != '4' && choix != '5'){ // Boucle secondaire concernant le choix du mode de jeu.
 
-				System.out.println("1 - Humain contre Humain \n2 - Humain contre IA\n3 - Humain contre ... contre Humain circulaire\n4 - Humain contre ... contre Humain non circulaire");
+				System.out.println("1 - Humain contre Humain \n2 - Humain contre IA\n3 - Humain contre ... contre Humain circulaire\n4 - Humain contre ... contre Humain non circulaire\n5 - Fenetré 2 joueurs humains");
 				System.out.println("Veuillez saisir le numéro de votre réponse :");
 
 				answer = sc.nextLine();
@@ -48,6 +48,9 @@ public class TestJeu {
 					break;
 				case '4' :
 					HvsHNC();
+					break;
+				case 5 :
+					fenetre();
 					break;
 				default:
 					System.out.println("Vous ne savez pas lire =)");   
@@ -72,8 +75,6 @@ public class TestJeu {
 		System.out.println("Mode HvsH lancé");// Ici est géré le mode de jeu Humain contre Humain
 
 		//On instancie les variables utiles pour les demandes utilisateur
-		String answer = "";
-		Scanner sc = new Scanner(System.in); 
 		int tailleX = 0;
 		int tailleY = 0;
 		int nombreBateau =0;
@@ -123,19 +124,12 @@ public class TestJeu {
 			nombreBateauMax=(int)(tailleX*tailleX*0.88660*0.5); // Environ la surface d'un triangle de hauteur cote*0,8 
 
 		} else if (type==4){
-			while(tailleX<=0 || tailleY<=0){ 
-				answer = "";
+			while((tailleX<=5 || tailleY<=5) && (tailleX + tailleY <= 10)){ 
+
 				System.out.println( pseudo1 + " , " + pseudo2 + ": Sur quelle taille de plateau voulez-vous jouer ? Hauteur ?");
-				answer = sc.nextLine();
-				if(answer.length()!=0){
-					tailleX = Integer.parseInt(answer);
-				}
-				answer = "";
+				tailleX = Joueur.demanderInt();
 				System.out.println("Largeur ?");
-				answer = sc.nextLine();
-				if(answer.length()!=0){
-					tailleY = Integer.parseInt(answer);
-				}
+				tailleY = Joueur.demanderInt();
 			}
 
 			//On va créer le plateau du joueur 1 et du joueur 2
@@ -144,19 +138,11 @@ public class TestJeu {
 			nombreBateauMax = tailleX*tailleY;
 
 		} else {
-			while(tailleX<=0 || tailleY<=0){ 
-				answer = "";
+			while((tailleX<=5 || tailleY<=5) && (tailleX + tailleY <= 10)){ 
 				System.out.println( pseudo1 + " , " + pseudo2 + ": Sur quelle taille de plateau voulez-vous jouer ? Hauteur ?");
-				answer = sc.nextLine();
-				if(answer.length()!=0){
-					tailleX = Integer.parseInt(answer);
-				}
-				answer = "";
+				tailleX = Joueur.demanderInt();
 				System.out.println("Largeur ?");
-				answer = sc.nextLine();
-				if(answer.length()!=0){
-					tailleY = Integer.parseInt(answer);
-				}
+				tailleY = Joueur.demanderInt();
 			}
 
 			//On va créer le plateau du joueur 1 et du joueur 2
@@ -191,6 +177,7 @@ public class TestJeu {
 			System.out.println("\n ---------- \n" + joueur1.name + " : Vous tirez. Voici votre tableau de tir."); // On annonce le joueur
 			Affichage.afficherGrilleEnnemi(joueur2); // On affiche la grille de tir du joueur envers l'ennemi
 			Joueur.recupCoordonnesVerifierTirer(joueur1, joueur2); // On lui demande de tirer.
+
 			System.out.println("\n ---------- \n" + joueur2.name + " : Vous tirez. Voici votre tableau de tir."); // On annonce le joueur
 			Affichage.afficherGrilleEnnemi(joueur1); // On affiche la grille de tir du joueur nevers l'ennemi
 			Joueur.recupCoordonnesVerifierTirer(joueur2, joueur1); // On lui demande de tirer.
@@ -206,12 +193,10 @@ public class TestJeu {
 	}
 
 	public static void HvsIA() {
-		
+
 		System.out.println("Mode HvsIA lancé");   
-		
+
 		//On instancie les variables utiles pour les demandes utilisateur
-		String answer = "";
-		Scanner sc = new Scanner(System.in); 
 		int tailleX = 0;
 		int tailleY = 0;
 		int nombreBateau =0;
@@ -262,19 +247,12 @@ public class TestJeu {
 			nombreBateauMax=(int)(tailleX*tailleX*0.88660*0.5); // Environ la surface d'un triangle de hauteur cote*0,8 
 
 		} else if (type==4){
-			while(tailleX<=0 || tailleY<=0){ 
-				answer = "";
+			while((tailleX<=5 || tailleY<=5) && (tailleX + tailleY <= 10)){ 
 				System.out.println( pseudo1 + " , " + pseudo2 + ": Sur quelle taille de plateau voulez-vous jouer ? Hauteur ?");
-				answer = sc.nextLine();
-				if(answer.length()!=0){
-					tailleX = Integer.parseInt(answer);
-				}
-				answer = "";
+				tailleX = Joueur.demanderInt();
+
 				System.out.println("Largeur ?");
-				answer = sc.nextLine();
-				if(answer.length()!=0){
-					tailleY = Integer.parseInt(answer);
-				}
+				tailleY = Joueur.demanderInt();
 			}
 
 			//On va créer le plateau du joueur 1 et du joueur 2
@@ -283,19 +261,12 @@ public class TestJeu {
 			nombreBateauMax = tailleX*tailleY;
 
 		} else {
-			while(tailleX<=0 || tailleY<=0){ 
-				answer = "";
+			while((tailleX<=5 || tailleY<=5) && (tailleX + tailleY <= 10)){ 
 				System.out.println( pseudo1 + " , " + pseudo2 + ": Sur quelle taille de plateau voulez-vous jouer ? Hauteur ?");
-				answer = sc.nextLine();
-				if(answer.length()!=0){
-					tailleX = Integer.parseInt(answer);
-				}
-				answer = "";
+				tailleX = Joueur.demanderInt();
+
 				System.out.println("Largeur ?");
-				answer = sc.nextLine();
-				if(answer.length()!=0){
-					tailleY = Integer.parseInt(answer);
-				}
+				tailleY = Joueur.demanderInt();
 			}
 
 			//On va créer le plateau du joueur 1 et du joueur 2
@@ -348,8 +319,6 @@ public class TestJeu {
 		System.out.println("Mode Hvsh..vsH circulaire lancé");   
 
 		//On instancie les variables utiles pour les demandes utilisateur
-		String answer = "";
-		Scanner sc = new Scanner(System.in); 
 		int tailleX = 0;
 		int tailleY = 0;
 		int nombreBateau =0;
@@ -379,7 +348,7 @@ public class TestJeu {
 
 		// **** DEMANDE AU JOUEURS LA TAILLE DU PLATEAU ET LE GENERE ****
 		if( type==0){
-			
+
 			tailleX = Joueur.taillePlateauCarre();
 			//On va créer le plateau des joueurs.
 			for(int i = 0; i<listeJoueurs.length ; i++){
@@ -406,19 +375,13 @@ public class TestJeu {
 			nombreBateauMax=(int)(tailleX*tailleX*0.88660*0.5); // Environ la surface d'un triangle de hauteur cote*0,8 
 
 		}  else if (type==4){
-			while(tailleX<=0 || tailleY<=0){ 
-				answer = "";
+			while((tailleX<=5 || tailleY<=5) && (tailleX + tailleY <= 10)){ 
+
 				System.out.println("Sur quelle taille de plateau voulez-vous jouer ? Hauteur ?");
-				answer = sc.nextLine();
-				if(answer.length()!=0){
-					tailleX = Integer.parseInt(answer);
-				}
-				answer = "";
+				tailleX = Joueur.demanderInt();
+
 				System.out.println("Largeur ?");
-				answer = sc.nextLine();
-				if(answer.length()!=0){
-					tailleY = Integer.parseInt(answer);
-				}
+				tailleY = Joueur.demanderInt();
 			}
 
 			//On va créer le plateau des joueurs
@@ -428,19 +391,13 @@ public class TestJeu {
 			nombreBateauMax = tailleX*tailleY;
 
 		} else {
-			while(tailleX<=0 || tailleY<=0){ 
-				answer = "";
+			while((tailleX<=5 || tailleY<=5) && (tailleX + tailleY <= 10)){ 
+
 				System.out.println( "Joueurs : Sur quelle taille de plateau voulez-vous jouer ? Hauteur ?");
-				answer = sc.nextLine();
-				if(answer.length()!=0){
-					tailleX = Integer.parseInt(answer);
-				}
-				answer = "";
+				tailleX = Joueur.demanderInt();
+
 				System.out.println("Largeur ?");
-				answer = sc.nextLine();
-				if(answer.length()!=0){
-					tailleY = Integer.parseInt(answer);
-				}
+				tailleY = Joueur.demanderInt();
 			}
 
 			//On va créer le plateau des joueurs
@@ -515,8 +472,6 @@ public class TestJeu {
 		System.out.println("Mode HVSH Non circulaire lancé");   
 
 		//On instancie les variables utiles pour les demandes utilisateur
-		String answer = "";
-		Scanner sc = new Scanner(System.in); 
 		int tailleX = 0;
 		int tailleY = 0;
 		int nombreBateau =0;
@@ -567,20 +522,29 @@ public class TestJeu {
 
 			nombreBateauMax=(int)(tailleX*tailleX*0.88660*0.5); // Environ la surface d'un triangle de hauteur cote*0,8 
 
-		} else {
-			while(tailleX<=0 || tailleY<=0){ 
-				answer = "";
-				System.out.println( "Joueurs : Sur quelle taille de plateau voulez-vous jouer ? Hauteur ?");
-				answer = sc.nextLine();
-				if(answer.length()!=0){
-					tailleX = Integer.parseInt(answer);
-				}
-				answer = "";
+		} else if (type==4){
+			while((tailleX<=5 || tailleY<=5) && (tailleX + tailleY <= 10)){ 
+
+				System.out.println( "Sur quelle taille de plateau voulez-vous jouer ? Hauteur ?");
+				tailleX = Joueur.demanderInt();
 				System.out.println("Largeur ?");
-				answer = sc.nextLine();
-				if(answer.length()!=0){
-					tailleY = Integer.parseInt(answer);
-				}
+				tailleY = Joueur.demanderInt();
+			}
+
+			//On va créer le plateau du joueur 1 et du joueur 2
+			for(int i = 0; i<listeJoueurs.length ; i++){
+				listeJoueurs[i] = new Plateau(pseudoJoueurs[i], tailleX, tailleY, 4); 
+			}
+			nombreBateauMax = tailleX*tailleY;
+
+		} else {
+			while((tailleX<=5 || tailleY<=5) && (tailleX + tailleY <= 10)){ 
+
+				System.out.println( "Joueurs : Sur quelle taille de plateau voulez-vous jouer ? Hauteur ?");
+				tailleX = Joueur.demanderInt();
+
+				System.out.println("Largeur ?");
+				tailleY = Joueur.demanderInt();
 			}
 
 			//On va créer le plateau des joueurs
@@ -644,5 +608,133 @@ public class TestJeu {
 		}
 
 		System.out.println("Mode HVSH Non circulaire stoppé");   
+	}
+
+
+	public static void fenetre() {
+		System.out.println("Mode fenetre lancé");// Ici est géré le mode de jeu Humain contre Humain
+
+		//On instancie les variables utiles pour les demandes utilisateur
+		int tailleX = 0;
+		int tailleY = 0;
+		int nombreBateau =0;
+
+		//On instancie les variables utiles pour les "Max" : le nombre de bateaux maximal autorisé, la longueur maximal autorisée etc ... 
+		int nombreBateauMax = 0;
+		int longueurMax = 5;
+
+		//On instancie les variables utiles pour les données sur les plateaux de jeux.
+		int type = -1 ;
+		String pseudo1 = "";
+		String pseudo2 = "";
+		Plateau joueur1;
+		Plateau joueur2 ;
+
+		// **** DEMANDE AU JOUEUR 1 DE S'IDENTIFIER ****
+		pseudo1 = Joueur.identification(1);
+
+		// **** DEMANDE AU JOUEUR 2 DE S'IDENTIFIER ****
+		pseudo2 = Joueur.identification(2);
+
+		// **** DEMANDE AU JOUEURS LA TYPE DU PLATEAU ****
+		type = Joueur.typeDePlateau();
+
+		// **** DEMANDE AU JOUEURS LA TAILLE DU PLATEAU ET LE GENERE ****
+		if( type==0){
+			tailleX = Joueur.taillePlateauCarre();
+			//On va créer le plateau du joueur 1 et du joueur 2
+			joueur1 = new Plateau(pseudo1, tailleX, tailleX, 0); // C'est un cercle ! Donc de taille r*2 
+			joueur2 = new Plateau(pseudo2, tailleX, tailleX, 0);
+			nombreBateauMax=tailleX*tailleX; // Environ le nombre de cases.
+
+		} else if(type==1){
+
+			tailleX = Joueur.taillePlateauRond();
+			//On va créer le plateau du joueur 1 et du joueur 2
+			joueur1 = new Plateau(pseudo1, tailleX*2, tailleX*2, 1); // C'est un cercle ! Donc de taille r*2 
+			joueur2 = new Plateau(pseudo2, tailleX*2, tailleX*2, 1);
+			nombreBateauMax=10*tailleX; // Environ 2Pi*r soit le nombre maximal de cases.
+
+		} else if(type==2){
+
+			tailleX = Joueur.taillePlateauTriangle();
+			//On va créer le plateau du joueur 1 et du joueur 2
+			joueur1 = new Plateau(pseudo1, (int)(tailleX*0.88660), tailleX, 2); // Un peu de trigo. Si on considère un triangle équilatéral, on a la hauteur du triangle qui est égale à 0,8*coté.
+			joueur2 = new Plateau(pseudo2, (int)(tailleX*0.88660), tailleX, 2);
+			nombreBateauMax=(int)(tailleX*tailleX*0.88660*0.5); // Environ la surface d'un triangle de hauteur cote*0,8 
+
+		} else if (type==4){
+			while(tailleX<=0 || tailleY<=0){ 
+				System.out.println( pseudo1 + " , " + pseudo2 + ": Sur quelle taille de plateau voulez-vous jouer ? Hauteur ?");
+				tailleX = Joueur.demanderInt();
+				
+				System.out.println("Largeur ?");
+				tailleY = Joueur.demanderInt();
+			}
+
+			//On va créer le plateau du joueur 1 et du joueur 2
+			joueur1 = new Plateau(pseudo1, tailleX, tailleY, 4); 
+			joueur2 = new Plateau(pseudo2, tailleX, tailleY, 4); 
+			nombreBateauMax = tailleX*tailleY;
+
+		} else {
+			while(tailleX<=0 || tailleY<=0){ 
+				System.out.println( pseudo1 + " , " + pseudo2 + ": Sur quelle taille de plateau voulez-vous jouer ? Hauteur ?");
+				tailleX = Joueur.demanderInt();
+				
+				System.out.println("Largeur ?");
+				tailleY = Joueur.demanderInt();
+			}
+
+			//On va créer le plateau du joueur 1 et du joueur 2
+			joueur1 = new Plateau(pseudo1, tailleX, tailleY); 
+			joueur2 = new Plateau(pseudo2, tailleX, tailleY); 
+			nombreBateauMax = tailleX*tailleY;
+		}
+
+		// ON CREE UN PATTERN DE FLOTTE QUI SERA APPLIQUE A CHAQUE JOUEUR.
+		Joueur joueurs = new Joueur(); // On initialise une instance de la classe joueur pour qu'elle garde en mémoire le tableau des
+
+		if(Joueur.veutChoisirCompositionDeFlotte()==true){ // Si les joueurs veulent composer la flotte
+			nombreBateau = joueurs.utilitaireTypeDeFlotte(longueurMax,nombreBateauMax);	 // Alors on lance l'utilitaire de création de flotte
+		} else {
+			nombreBateau = Joueur.calculNombreBateauxOptimal(joueur1, nombreBateauMax);// METHODE A COMPLETER
+			joueurs.utilitaireFlotteParDefaut(nombreBateau); // On lance l'utilitaire qui va créer la flotte par défaut.
+		}
+
+		// **** DEMANDE AU JOUEUR 1 LE CHOIX PLACEMENT DE SES BATEAUX ****
+		joueurs.utilitairePlacementDesBateaux(joueur1, nombreBateau ,nombreBateauMax, longueurMax);	
+
+		// **** DEMANDE AU JOUEUR 2 LE PLACEMENT DE SES BATEAUX ****
+		joueurs.utilitairePlacementDesBateaux(joueur2, nombreBateau ,nombreBateauMax, longueurMax);
+
+		//Pour tester la fenetre on met :
+		Partie maPartie1 = new Partie(joueur1);
+		Partie maPartie2 = new Partie(joueur2);
+		maPartie1.setCible(joueur1, joueur2);
+		maPartie2.setCible(joueur2, joueur1);
+		PlateauGraphique fenetre1 = new PlateauGraphique(maPartie1);
+		PlateauGraphique fenetre2 = new PlateauGraphique(maPartie2);
+		int [][] plateauCourant ;
+
+		//on gère les tours
+		while(joueur1.aPerdu()==false && joueur2.aPerdu()==false){ // Tant que l'un ou l'autre n'a pas perdu
+			System.out.println("\n ---------- \n" + joueur1.name + " : Vous tirez. Voici votre tableau de tir."); // On annonce le joueur
+
+			plateauCourant = joueur2.getPlateauValeursZero();
+			fenetre1.afficher(plateauCourant, "Joueur 1 tirez !");
+			System.out.println("\n ---------- \n" + joueur2.name + " : Vous tirez. Voici votre tableau de tir."); // On annonce le joueur
+
+			plateauCourant = joueur1.getPlateauValeursZero();
+			fenetre2.afficher(plateauCourant, "Joueur 2 tirez !");
+		}
+
+		if(joueur1.aPerdu()==true){
+			System.out.println(joueur1.name + " a perdu ! " + joueur2.name + " a gagné !");
+		} else if(joueur2.aPerdu()==true){
+			System.out.println(joueur2.name + " a perdu ! " + joueur1.name + " a gagné !");
+		}
+
+		System.out.println("Mode FENETRE stoppé.\n\n");  
 	}
 }

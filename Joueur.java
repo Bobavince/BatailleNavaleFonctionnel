@@ -379,9 +379,10 @@ public class Joueur {
 				if(correct==true){ // Si les données sont correctes
 					cordA = answer.substring(0, indexEspace);	//On pose une variable tampon
 					cordB = answer.substring(indexEspace+1,answer.length()); //On pose une deuxième variable tampon.
-					if(((int)(cordA.charAt(0))>65 && (int)(cordA.charAt(0))<90)){
+
+					if(((int)(cordA.charAt(0))>=65 && (int)(cordA.charAt(0))<=90)){
 						coordonnes[0] = ((int)(cordA.charAt(0))-65); // Si c'est une majuscule on enlève la valeur d'un A majuscule pour retrouver des coordonnées valables.
-					} else if (((int)(cordA.charAt(0))>97 && (int)(cordA.charAt(0))<122)){
+					} else if (((int)(cordA.charAt(0))>=97 && (int)(cordA.charAt(0))<=122)){
 						coordonnes[0] = ((int)(cordA.charAt(0))-97); // Si c'est une minuscule on enlève la valeur d'un a minuscule pour retrouver des coordonnées valables.
 					} else {
 						coordonnes[0] = Integer.parseInt(cordA);
@@ -574,14 +575,19 @@ public class Joueur {
 		while(correct==false){
 			answer = sc.nextLine();
 			if(answer.length()!=0){		//Sécurité anti-débile qui appui sur entrée sans rien mettre
-				resultat = Integer.parseInt(answer);
-				correct = true;
+				try{
+					resultat = Integer.parseInt(answer);
+					correct = true;
+				} catch (NumberFormatException e){
+					correct = false;
+				}
 			}
 		}
 		
 		return resultat;
 	}
 	
+		
 	public static boolean demanderOuiNon(){
 		boolean resultat = false;
 		
@@ -603,8 +609,11 @@ public class Joueur {
 		while(correct==false){
 			answer = sc.nextLine();
 			if(answer.length()!=0){		//Sécurité anti-débile qui appui sur entrée sans rien mettre
-				resultat = answer.charAt(0);
-				correct = true;
+					resultat = answer.charAt(0);
+					correct = true;
+			}
+			if(((int)(resultat)<65 || (int)(resultat)>90) && ((int)(resultat)<97 || (int)(resultat)>122)){
+				correct = false;
 			}
 		}
 		

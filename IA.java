@@ -68,7 +68,7 @@ public class IA {
 	public void placementBateauIA(Plateau plateauDuJoueur, Joueur listedesBateaux){
 		//LE JOUEUR UTILISE LE PLACEMENT AUTOMATIQUE
 		System.out.println(" Mise en route du programme de placement automatique des bateaux ...");
-		plateauDuJoueur.remplirAleatoirement(listedesBateaux.typeDeFlotte); // On le fait remplir aléatoirement.
+		plateauDuJoueur.remplirAleatoirement(listedesBateaux); // On le fait remplir aléatoirement.
 	}
 
 
@@ -152,10 +152,36 @@ public class IA {
 	 */
 	public int[] tirFacile(Plateau ia,Plateau ennemi){
 		boolean correct = false;
-		int[] coordonnes = new int[2];	
-		
-		// A COMPLETER
-		
+		int[] coordonnes = new int[2];
+		int iterations = 0;
+
+		while(correct==false){	
+			int x = 0;
+			int y = 0;
+
+			// **** ON CHOISIT LES COORDONNES AU RANDOM **** //
+
+			x = (int)(Math.random()*(ennemi.plateauValeurs.length)); // on choisi une case sur les x.
+			y = (int)(Math.random()*(ennemi.plateauValeurs[0].length)); // on repère une case sur les y.
+
+			// **** On vérifie qu'elle sont sur un bateau ennemi (mode IMPOSSIBLE) ****//
+			if(ennemi.dejaSubiTir(x,y)==false && Joueur.scannerCaseInterdite(ennemi, x, y)==false && ennemi.bateauPresent(x, y)==false && Math.random()>0.4){ // **** On vérifie qu'un peu tirer sur la case ****//
+				correct = true;
+				coordonnes[0]=x;
+				coordonnes[1]=y;
+				iterations = 0;
+			} else if (ennemi.dejaSubiTir(x,y)==false && Joueur.scannerCaseInterdite(ennemi, x, y)==false && ennemi.bateauPresent(x, y)==true && Math.random()<0.4){ // **** si on a déjà tiré sur toutes les cases avec bateaux. Pas possible mais bon.
+				correct = true;
+				coordonnes[0]=x;
+				coordonnes[1]=y;
+				iterations = 0;
+			} else {
+				correct = false;
+				iterations++;
+			}
+
+		}// fin du while (bateauPossible==false)
+
 		return coordonnes;
 	}
 	
@@ -166,10 +192,31 @@ public class IA {
 	 */
 	public int[] tirMoyen(Plateau ia,Plateau ennemi){
 		boolean correct = false;
-		int[] coordonnes = new int[2];	
-		
-		// A COMPLETER
-		
+		int[] coordonnes = new int[2];
+		int iterations = 0;
+
+		while(correct==false){	
+			int x = 0;
+			int y = 0;
+
+			// **** ON CHOISIT LES COORDONNES AU RANDOM **** //
+
+			x = (int)(Math.random()*(ennemi.plateauValeurs.length)); // on choisi une case sur les x.
+			y = (int)(Math.random()*(ennemi.plateauValeurs[0].length)); // on repère une case sur les y.
+
+			// **** On vérifie qu'elle sont sur un bateau ennemi (mode IMPOSSIBLE) ****//
+			if(ennemi.dejaSubiTir(x,y)==false && Joueur.scannerCaseInterdite(ennemi, x, y)==false){ // **** On vérifie qu'un peu tirer sur la case ****//
+				correct = true;
+				coordonnes[0]=x;
+				coordonnes[1]=y;
+				iterations = 0;
+			} else {
+				correct = false;
+				iterations++;
+			}
+
+		}// fin du while (bateauPossible==false)
+
 		return coordonnes;
 	}
 	
@@ -180,10 +227,36 @@ public class IA {
 	 */
 	public int[] tirDifficile(Plateau ia,Plateau ennemi){
 		boolean correct = false;
-		int[] coordonnes = new int[2];	
-		
-		// A COMPLETER
-		
+		int[] coordonnes = new int[2];
+		int iterations = 0;
+
+		while(correct==false){	
+			int x = 0;
+			int y = 0;
+
+			// **** ON CHOISIT LES COORDONNES AU RANDOM **** //
+
+			x = (int)(Math.random()*(ennemi.plateauValeurs.length)); // on choisi une case sur les x.
+			y = (int)(Math.random()*(ennemi.plateauValeurs[0].length)); // on repère une case sur les y.
+
+			// **** On vérifie qu'elle sont sur un bateau ennemi (mode IMPOSSIBLE) ****//
+			if(ennemi.dejaSubiTir(x,y)==false && Joueur.scannerCaseInterdite(ennemi, x, y)==false && ennemi.bateauPresent(x, y)==true && Math.random()>0.4){ // **** On vérifie qu'un peu tirer sur la case ****//
+				correct = true;
+				coordonnes[0]=x;
+				coordonnes[1]=y;
+				iterations = 0;
+			} else if (ennemi.dejaSubiTir(x,y)==false && Joueur.scannerCaseInterdite(ennemi, x, y)==false && ennemi.bateauPresent(x, y)==false && Math.random()<0.4){ // **** si on a déjà tiré sur toutes les cases avec bateaux. Pas possible mais bon.
+				correct = true;
+				coordonnes[0]=x;
+				coordonnes[1]=y;
+				iterations = 0;
+			} else {
+				correct = false;
+				iterations++;
+			}
+
+		}// fin du while (bateauPossible==false)
+
 		return coordonnes;
 	}
 	
@@ -194,10 +267,37 @@ public class IA {
 	 */
 	public int[] tirImpossibru(Plateau ia,Plateau ennemi){
 		boolean correct = false;
-		int[] coordonnes = new int[2];	
-		
-		// A COMPLETER
-		
+		int[] coordonnes = new int[2];
+		int iterations = 0;
+		int taillePlateauEnnemi = ennemi.plateauValeurs.length*ennemi.plateauValeurs[0].length ;
+
+		while(correct==false){	
+			int x = 0;
+			int y = 0;
+
+			// **** ON CHOISIT LES COORDONNES AU RANDOM **** //
+
+			x = (int)(Math.random()*(ennemi.plateauValeurs.length)); // on choisi une case sur les x.
+			y = (int)(Math.random()*(ennemi.plateauValeurs[0].length)); // on repère une case sur les y.
+
+			// **** On vérifie qu'elle sont sur un bateau ennemi (mode IMPOSSIBLE) ****//
+			if(ennemi.dejaSubiTir(x,y)==false && Joueur.scannerCaseInterdite(ennemi, x, y)==false && ennemi.bateauPresent(x, y)==true){ // **** On vérifie qu'un peu tirer sur la case ****//
+				correct = true;
+				coordonnes[0]=x;
+				coordonnes[1]=y;
+				iterations = 0;
+			} else if (ennemi.dejaSubiTir(x,y)==false && Joueur.scannerCaseInterdite(ennemi, x, y)==false && ennemi.bateauPresent(x, y)==false && iterations > taillePlateauEnnemi*2){ // **** si on a déjà tiré sur toutes les cases avec bateaux. Pas possible mais bon.
+				correct = true;
+				coordonnes[0]=x;
+				coordonnes[1]=y;
+				iterations = 0;
+			} else {
+				correct = false;
+				iterations++;
+			}
+
+		}// fin du while (bateauPossible==false)
+
 		return coordonnes;
 	}
 }

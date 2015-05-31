@@ -1,8 +1,4 @@
 LISTE DE CHOSES A FAIRE (NON OFFICIELLES)
-- compléter les méthodes des différentes IA dans la classe IA.java
-- compléter la méthode pour créer un plateau avec des récifs dans Type.java
-- mettre en place une méthode qui calcul le nombre maximum de bateau sur un plateau en fonction de la fonction précédente.
-- Checker les erreurs et fautes de frappes sur tout ce qui est dit dans le terminal.
 
 /**
  * Le plateau est composé de deux niveaux. Un niveau 0 qui sert à connaitre ce qu'il y a sur le le plateau et un niveau 1 qui sert à savoir les actions subit par le plateau.
@@ -27,10 +23,10 @@ LISTE DE CHOSES A FAIRE (NON OFFICIELLES)
 /**   AVANCEMENT CAHIER DES CHARGES
  *  Au début chaque participant place ses bateaux : DONE
  *  
- * BRANCHE IA ------------------------------ A COMPLETER --------------------------------------
+ * BRANCHE IA ------------------------------ DONE --------------------------------------
  * Soit HvsH soit IAvsH : DONE
  * Les Deux : DONE
- * Plusieurs niveaux d'IA : A FAIRE
+ * Plusieurs niveaux d'IA : DONE
  * 
  * NOMBRE DE JOUEUR ------------------------------ DONE --------------------------------------
  * 2 Joueurs : DONE
@@ -45,12 +41,12 @@ LISTE DE CHOSES A FAIRE (NON OFFICIELLES)
  * 
  * AFFICHAGE ------------------------------ A COMPLETER --------------------------------------
  * Simple Terminal : DONE (inclus)
- * affichage graphique (depuis classe donnée) : A FAIRE
+ * affichage graphique (depuis classe donnée) : A COMPLETER
  * affichage complet Terminal : DONE
  * 
  * SAISIE ------------------------------ A COMPLETER --------------------------------------
  * numéo et ligne séparéemment : DONE
- * Clic sur les cases : A FAIRe
+ * Clic sur les cases : A COMPLETER
  * chaine avec lettres suivis de chiffres : DONE (La méthode existe, elle s'apelle "coordonnes")
  */
 

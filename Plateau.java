@@ -65,7 +65,7 @@ public class Plateau {
 		
 		bateaux = new ListeBateau(listeTaille.getTypeDeFlotte().length); // On créé la liste des bateaux
 		boolean bateauPossible;
-		System.out.println("Longueur : " + bateaux.getListeBat().length);
+		//DEBUG //System.out.println("Longueur : " + bateaux.getListeBat().length);
 
 		for(int i=0 ; i<bateaux.getListeBat().length ; i++){
 
@@ -74,7 +74,7 @@ public class Plateau {
 			int z = 0;
 			int t = 0;
 			int longueur = listeTaille.getTypeDeFlotte()[i]; //correspond à la vrai longueur du bateau.
-			System.out.println("Longueur : " + listeTaille.getTypeDeFlotte()[i]);
+			//DEBUG // System.out.println("Longueur : " + listeTaille.getTypeDeFlotte()[i]);
 
 			bateauPossible = false;
 
@@ -138,7 +138,7 @@ public class Plateau {
 			// **** ON LE PLACE SUR LE PLATEAU****
 
 			//DEBUG ONLY // 
-			System.out.println("Le bateau N°" + (i+1) + " de taille" + longueur + "(" + x + y + z + t + ") est créé. (xmin,ymin,xmax,ymax) donc il est horizontal :" + (bateaux.listeBat[i].horizontal) );
+			//System.out.println("Le bateau N°" + (i+1) + " de taille" + longueur + "(" + x + y + z + t + ") est créé. (xmin,ymin,xmax,ymax) donc il est horizontal :" + (bateaux.listeBat[i].horizontal) );
 
 		}
 	}
@@ -410,6 +410,24 @@ public class Plateau {
 		return plateauValeurs;
 	}
 
+	public int[][] getPlateauValeursZero() {
+		int[][] plateauCourant = new int[plateauValeurs.length][plateauValeurs[0].length];
+		for(int i = 0; i< this.plateauValeurs.length ; i++){
+			for(int j = 0; j< this.plateauValeurs[i].length ; j++){
+				if(plateauValeurs[i][j][1]==1 && plateauValeurs[i][j][0]>0){
+					plateauCourant[i][j] = 2;	
+				} else if (plateauValeurs[i][j][1]==1 && (plateauValeurs[i][j][0]==0 || plateauValeurs[i][j][0]==-1)){
+						plateauCourant[i][j] = 1;
+				} else if (plateauValeurs[i][j][1]==0){
+					plateauCourant[i][j] = 0;
+				} else if(plateauValeurs[i][j][0]==-2){
+					plateauCourant[i][j] = -1;
+				}
+			}
+		}
+		return plateauCourant;
+	}
+	
 	/**
 	 * @param plateauValeurs le plateauValeurs à "setter"
 	 */
