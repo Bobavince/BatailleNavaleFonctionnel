@@ -9,13 +9,8 @@ import java.util.Scanner;
  */
 public class TestJeu {
 	public static void main(String[] args) {
-
-		//Creations des instances nécessaires (Scanner, fenetre...)
-		Scanner sc = new Scanner(System.in); 
-
 		//Creation des variables 
-		String answer = ""; // Utilisée pour le choix de l'utilsateur du mode de jeu
-		char choix = '0';
+		int choixNum = 0;
 		boolean rejouer = true;
 
 		System.out.println("**** Bienvenue dans notre jeu ****");
@@ -24,18 +19,16 @@ public class TestJeu {
 
 			System.out.println("A quel mode de jeu voulez vous jouer ?");
 
-			while(choix != '1' && choix != '2' && choix != '3' && choix != '4' && choix != '5'){ // Boucle secondaire concernant le choix du mode de jeu.
+			while(choixNum != '1' && choixNum != '2' && choixNum != '3' && choixNum != '4' && choixNum != '5'){ // Boucle secondaire concernant le choix du mode de jeu.
 
 				System.out.println("1 - Humain contre Humain \n2 - Humain contre IA\n3 - Humain contre ... contre Humain circulaire\n4 - Humain contre ... contre Humain non circulaire\n5 - Fenetré 2 joueurs humains");
 				System.out.println("Veuillez saisir le numéro de votre réponse :");
+				
+				choixNum = Joueur.demanderInt();
+				System.out.println("Vous avez saisi : " + choixNum);
+				
 
-				answer = sc.nextLine();
-				if(answer.length()!=0){		//Sécurité anti-débile qui appuis sur entrée sans rien mettre
-					choix = answer.charAt(0);
-					System.out.println("Vous avez saisi : " + choix);
-				}
-
-				switch (choix) // Lancement du mode de jeu choisi
+				switch (choixNum) // Lancement du mode de jeu choisi
 				{
 				case '1' :
 					HvsH();
@@ -57,16 +50,9 @@ public class TestJeu {
 					break;
 				}	    
 			}
-			choix = 0;
-			System.out.println("Voulez vous rejouer ?"); //Pour rejouer.
-			answer = sc.nextLine();
-			if(answer.length()!=0 && answer.charAt(0) == 'n'){		//Sécurité anti-débile qui appuis sur entrée sans rien mettre
-				if(answer.charAt(0) == 'n'){
-					rejouer = false;
-				} else if (answer.charAt(0)== 'O'){
-					rejouer = true;
-				}
-			}
+			choixNum = 0;
+			System.out.println("Voulez vous rejouer ? O/n"); //Pour rejouer.
+			rejouer = Joueur.demanderOuiNon();
 
 		}
 	}
@@ -223,7 +209,7 @@ public class TestJeu {
 		type = Joueur.typeDePlateau();
 
 		// **** DEMANDE AU JOUEURS LA TAILLE DU PLATEAU ET LE GENERE ****
-		if( type==0){
+		if(type==0){
 			tailleX = Joueur.taillePlateauCarre();
 			//On va créer le plateau du joueur 1 et du joueur 2
 			joueur1 = new Plateau(pseudo1, tailleX, tailleX, 0); // C'est un cercle ! Donc de taille r*2 
@@ -730,9 +716,9 @@ public class TestJeu {
 		}
 
 		if(joueur1.aPerdu()==true){
-			System.out.println(joueur1.name + " a perdu ! " + joueur2.name + " a gagné !");
+			System.out.println(joueur1.name + " a perdu ! " + joueur2.name + " a gagné ! ");
 		} else if(joueur2.aPerdu()==true){
-			System.out.println(joueur2.name + " a perdu ! " + joueur1.name + " a gagné !");
+			System.out.println(joueur2.name + " a perdu ! " + joueur1.name + " a gagné ! ");
 		}
 
 		System.out.println("Mode FENETRE stoppé.\n\n");  

@@ -31,7 +31,6 @@ public class Partie {
 		coordonnes[1] = y;
 
 		while(correct==false){
-			coordonnes = Joueur.choixCoordonnes(cible);
 			if(cible.dejaSubiTir(coordonnes[0], coordonnes[1])==false && Joueur.scannerCaseInterdite(cible, coordonnes[0], coordonnes[1])==false){
 				correct = true;
 			} else if (Joueur.scannerCaseInterdite(cible, coordonnes[0], coordonnes[1])==true){

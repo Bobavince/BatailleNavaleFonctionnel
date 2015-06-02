@@ -127,27 +127,18 @@ public class Type {
 	public static int[][] recifs(int x, int y){
 		int[][] tab = new int[x][y];
 		double pourcentage = 0;
-		
+		/*
 		System.out.println("Quel pourcentage de récifs voulez vous ? (ciffre de 5 à 40 (en pourcent))");
 		while(pourcentage < 0.05 || pourcentage > 0.40){
 			pourcentage = 0.01*Joueur.demanderInt();
-		}
-
+		}*/
+		pourcentage = 0.3; // On a des problèmes avec la saisie joueur. Il faudrait déclarer cette classe pour créer en fait un seul pourcentage pour tous les joueurs ! 
 		for(int i=0 ; i<x; i++){
 			for(int j=0 ; j<y ; j++){
 				tab[i][j] = 0; // on remplis le tableau de case "0" équivalente à de l'eau.
 			}
 		}
 		
-		/* RECIFS DEBILES ****
-		for(int i=0 ; i<x; i++){
-			for(int j=0 ; j<y ; j++){
-				if(Math.random()<0.2){
-					tab[i][j] = -2;
-				}
-			}
-		} RECIFS DEBILES **** */ 
-				
 		for(int i=0 ; i<x; i++){
 			for(int j=0 ; j<y ; j++){
 				if(Math.random()<pourcentage*0.2){
