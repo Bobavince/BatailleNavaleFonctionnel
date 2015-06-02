@@ -11,7 +11,7 @@ public class Joueur {
 
 	//Variables internes de la classe 
 	int[] typeDeFlotte;
-	
+
 	/** Méthode qui demande le nombre de joueur voulu par le lanceur du jeu
 	 * @return un int qui contient le nombre de joueurs choisi.
 	 */
@@ -23,7 +23,7 @@ public class Joueur {
 			System.out.println( "Combien de joueurs veulent jouer ? 2/3/4/5.. ");
 			nombreJoueurs = demanderInt();
 		}
-		
+
 		return nombreJoueurs;
 	}
 
@@ -62,10 +62,10 @@ public class Joueur {
 		while(type!= 0 && type != 1 && type!=2 && type!=3 && type!=4){ 
 			System.out.println("Joueurs : Sur quel type de plateau voulez-vous jouer ? 0/1/2/3 ");
 			System.out.println("0 - carré \n1 - rond \n2 - triangle\n3 - rectangle\n4 - rectangle avec récifs");
-			
+
 			type = demanderInt();
 		}
-		
+
 		return type;
 	} 
 
@@ -88,17 +88,17 @@ public class Joueur {
 	 */
 	public static int taillePlateauTriangle(){
 		int tailleX = 0;
-		
+
 		// **** DEMANDE AU JOUEUR LA TAILLE DU PLATEAU TRIANGULAIRE VOULU ****
 		while(tailleX<=0){ 
 			System.out.println( "Joueurs : Sur quelle taille de plateau voulez-vous jouer ? Coté ? ");
 			tailleX = demanderInt();
 		}
-		
+
 		return tailleX;
 	}
 
-	
+
 	/** Méthode qui demande la taille d'un plateau rectangulaire (donc les cotés): "quel taille voulez vous ? " 
 	 * @return Le coté du plateau sous forme d'un INT. PROBLEME ON DEVRAIT EN RENVOYER 2 ...  NE PAS UTILISER CETTE CLASSE DONC =) 
 	 */
@@ -115,8 +115,8 @@ public class Joueur {
 		}
 		return tailleX;
 	} // FIN DE " taillePlateauRectangle " PROBLEME ON DEVRAIT EN RENVOYER 2 ...  NE PAS UTILISER CETTE CLASSE DONC
-	*/
-	
+	 */
+
 	/** Méthode qui demande la taille d'un plateau carre (donc les cotés): "quel taille voulez vous ? " 
 	 * @return Le coté du plateau sous forme d'un INT.
 	 */
@@ -127,7 +127,7 @@ public class Joueur {
 			System.out.println( "Joueurs : Sur quelle taille de plateau voulez-vous jouer ? Cote ?");
 			tailleX = demanderInt();
 		}
-		
+
 		return tailleX;
 	}
 
@@ -169,7 +169,7 @@ public class Joueur {
 			System.out.println("Combien voulez vous de bateau(x) ?");
 			nombreBateaux = demanderInt();
 		}
-		
+
 		return nombreBateaux;
 	}
 
@@ -181,7 +181,7 @@ public class Joueur {
 	public static int calculNombreBateauxOptimal(Plateau plateau, int nombreBateauxMax){
 		int nombreBateaux = 5;
 		double ratio = 0.2;
-		
+
 		switch (plateau.getType()){
 		case 1:
 			nombreBateaux = (int)(plateau.compterCasesLibres()*ratio);
@@ -196,7 +196,7 @@ public class Joueur {
 			nombreBateaux = (int)(plateau.compterCasesLibres()*ratio);
 			break;
 		}
-		
+
 		if(nombreBateaux>10){
 			nombreBateaux = 10;
 		} else if(nombreBateaux>nombreBateauxMax){
@@ -221,7 +221,7 @@ public class Joueur {
 		for(int i=0; i<joueur.typeDeFlotte.length ; i++){
 			placeTotal += joueur.typeDeFlotte[i];
 		}
-/* A REVOIR
+		/* A REVOIR
 		if(calculNombreBateauxOptimal(aVerifier, joueur.typeDeFlotte.length)>placeTotal){
 			boolean correct = true ;
 			int placePriseParNouveauTableau = 0;
@@ -241,17 +241,17 @@ public class Joueur {
 			for(int i=0; i<joueur.typeDeFlotte.length && i<listeTailleBateauxRemplacement.length ; i++){
 				listeTailleBateauxRemplacement[i] = joueur.typeDeFlotte[i];
 			}
-			
+
 			joueur.typeDeFlotte = new int[listeTailleBateauxRemplacement.length];
-			
+
 			for(int i=0; i<joueur.typeDeFlotte.length && i<listeTailleBateauxRemplacement.length ; i++){
 				joueur.typeDeFlotte[i] = listeTailleBateauxRemplacement[i];
 			}
 		}*/
-		
-		
+
+
 	}
-	
+
 	/** Méthode qui gère les demandes du joueur quand à son choix de placer ses bateaux, et leur nombre. Tout est automatisé. 
 	 * @param plateauDuJoueur : Plateau concerné par le placement des bateaux.
 	 * @param nombreBateau : Nombre calculé en amont, qui fixe la limite haute du nombre de bateaux sur le plateau de jeu. (Suivant le type de plateau, le calcul devra être différent)
@@ -290,7 +290,7 @@ public class Joueur {
 			if(i==0){ // On gère le premier bateau à part. C'est le bateau 'maitre'/Tireur	
 				//System.out.println("Le premier bateau est votre bateau tireur. C'est le bateau principal de votre jeu. Si vous le perdez, vous avez perdu.");
 			}
-			
+
 			while(tailleBateau <= 0 || tailleBateau>tailleMaxBateau){ // Boucle concernant le choix de l'utilisateur.
 				System.out.println("Quelle taille de bateau désirez vous pour votre bateau N°" + (i+1) + " ? ");
 				tailleBateau = demanderInt(); // On récupère la taille du bateau entrée par l'utilisateur
@@ -367,15 +367,16 @@ public class Joueur {
 						correct = false;
 					}
 				}
-				for(int i= 0; correct==true && i<answer.length() ; i++){
-					if(i<indexEspace && ((int)(answer.charAt(i))<65 || (int)(answer.charAt(i))>90) && ((int)(answer.charAt(i))<97 || (int)(answer.charAt(i))>122) && ((int)(answer.charAt(i))<48 || (int)(answer.charAt(i))>57)){
-						correct = false; // Tant qu'on est pas dans la zone  a....z ou A....Z ou 1...9 on n'en veut pas.
-					} 
-					if(i>indexEspace && ((int)(answer.charAt(i))<48 || (int)(answer.charAt(i))>57)){
-						correct = false; // Tant qu'on est pas dans la zone 1...9 on n'en veut pas.
-					}
+				if(correct == true){
+					for(int i= 0; correct==true && i<answer.length() ; i++){
+						if(i<indexEspace && ((int)(answer.charAt(i))<65 || (int)(answer.charAt(i))>90) && ((int)(answer.charAt(i))<97 || (int)(answer.charAt(i))>122) && ((int)(answer.charAt(i))<48 || (int)(answer.charAt(i))>57)){
+							correct = false; // Tant qu'on est pas dans la zone  a....z ou A....Z ou 1...9 on n'en veut pas.
+						} 
+						if(i>indexEspace && ((int)(answer.charAt(i))<48 || (int)(answer.charAt(i))>57)){
+							correct = false; // Tant qu'on est pas dans la zone 1...9 on n'en veut pas.
+						}
+					}	
 				}
-
 				if(correct==true){ // Si les données sont correctes
 					cordA = answer.substring(0, indexEspace);	//On pose une variable tampon
 					cordB = answer.substring(indexEspace+1,answer.length()); //On pose une deuxième variable tampon.
@@ -387,12 +388,16 @@ public class Joueur {
 					} else {
 						coordonnes[0] = Integer.parseInt(cordA);
 					}
-					coordonnes[1] = Integer.parseInt(cordB);
+					if(cordB.length() != 0){
+						coordonnes[1] = Integer.parseInt(cordB);	
+					} else {
+						correct = false;
+					}
 				}
 			}
 		}
 		return coordonnes;
-		
+
 	}// FIN choixCoordonnes
 
 
@@ -422,11 +427,11 @@ public class Joueur {
 			System.out.println("Quelle taille de bateau désirez vous ? ");
 			tailleBateau = demanderInt();
 		}
-		
+
 		return tailleBateau;
 	}
 
-	 
+
 	/** Méthode qui demande au joueur les coordonnées du bateau.
 	 * @param pseudo : permet de préciser à quel joueur on demande des coordonnées pour son bateau.
 	 * @param nombreMaxBateaux : nombre passé en argument, et calculé en dehors de cette classe, qui fixe la limite à ne pas dépasser. Fixe donc la limite haute du choix du joueur.
@@ -440,7 +445,7 @@ public class Joueur {
 			System.out.println(pseudo +": Combien voulez vous de bateau ?");
 			nombreBateaux = demanderInt();
 		}
-		
+
 		return nombreBateaux;
 	} // FIN DE " choixCoordonnéesBateau "*/
 
@@ -470,7 +475,7 @@ public class Joueur {
 			}
 			choix = demanderInt();
 		}
-		
+
 		System.out.println("Vous avez choisi de tirer sur : " + listeJoueurs[choix].name);
 		cible = listeJoueurs[choix];
 
@@ -571,7 +576,7 @@ public class Joueur {
 		String answer = "";
 		boolean correct = false;
 		Scanner sc = new Scanner(System.in);
-		
+
 		while(correct==false){
 			answer = sc.nextLine();
 			if(answer.length()!=0){		//Sécurité anti-débile qui appui sur entrée sans rien mettre
@@ -583,14 +588,14 @@ public class Joueur {
 				}
 			}
 		}
-		
+
 		return resultat;
 	}
-	
-		
+
+
 	public static boolean demanderOuiNon(){
 		boolean resultat = false;
-		
+
 		char choix = demanderLettre();
 		if(choix=='O'){
 			resultat = true;
@@ -599,30 +604,30 @@ public class Joueur {
 		}
 		return resultat;
 	}
-	
+
 	public static char demanderLettre(){
 		char resultat = ' ';
 		String answer = "";
 		boolean correct = false;
 		Scanner sc = new Scanner(System.in);
-		
+
 		while(correct==false){
 			answer = sc.nextLine();
 			if(answer.length()!=0){		//Sécurité anti-débile qui appui sur entrée sans rien mettre
-					resultat = answer.charAt(0);
-					correct = true;
+				resultat = answer.charAt(0);
+				correct = true;
 			}
 			if(((int)(resultat)<65 || (int)(resultat)>90) && ((int)(resultat)<97 || (int)(resultat)>122)){
 				correct = false;
 			}
 		}
-		
+
 		return resultat;
 	}
-	
-	
+
+
 	// ********** LES GETTERS ET SETTERS ********** //
-	
+
 	/**
 	 * @return the typeDeFlotte
 	 */

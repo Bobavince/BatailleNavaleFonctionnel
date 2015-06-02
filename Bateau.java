@@ -128,6 +128,18 @@ public class Bateau {
 		this.alive = aliveOrNot;
 	}
 
+	public int[] donnerCoordonnesAlive(){
+		int coordonnes[] = new int[2];
+		
+		for(int i =0; i<lieuEtat.length ; i++){
+			if(lieuEtat[i][2] > 0){
+				coordonnes[0] = lieuEtat[i][0];
+				coordonnes[1] = lieuEtat[i][1];
+			}
+		}
+		
+		return coordonnes;
+	}
 	// ********** LES GETTERS ET SETTERS ********** //
 	
 	/**
