@@ -23,23 +23,23 @@ public class TestJeu {
 
 				System.out.println("1 - Humain contre Humain \n2 - Humain contre IA\n3 - Humain contre ... contre Humain circulaire\n4 - Humain contre ... contre Humain non circulaire\n5 - Fenetré 2 joueurs humains");
 				System.out.println("Veuillez saisir le numéro de votre réponse :");
-				
+
 				choixNum = Joueur.demanderInt();
 				System.out.println("Vous avez saisi : " + choixNum);
-				
+
 
 				switch (choixNum) // Lancement du mode de jeu choisi
 				{
-				case '1' :
+				case 1 :
 					HvsH();
 					break;  
-				case '2' :
+				case 2 :
 					HvsIA();
 					break;
-				case '3' :
+				case 3 :
 					HvsvsH();
 					break;
-				case '4' :
+				case 4 :
 					HvsHNC();
 					break;
 				case 5 :
@@ -154,25 +154,25 @@ public class TestJeu {
 		joueurs.utilitairePlacementDesBateaux(joueur2, nombreBateau ,nombreBateauMax, longueurMax);
 
 		//Pour tester l'affichage : on affiche le plateau du joueur 1
-		Affichage.afficherGrille(joueur1);
+		//Affichage.afficherGrille(joueur1);
 		//Pour tester l'affichage : on affiche le plateau du joueur 2
-		Affichage.afficherGrille(joueur2);
+		//Affichage.afficherGrille(joueur2);
 
 		//on gère les tours
 		while(joueur1.aPerdu()==false && joueur2.aPerdu()==false){ // Tant que l'un ou l'autre n'a pas perdu
-			System.out.println("\n ---------- \n" + joueur1.name + " : Vous tirez. Voici votre tableau de tir."); // On annonce le joueur
+			System.out.println("\n ---------- \n" + joueur1.getName() + " : Vous tirez. Voici votre tableau de tir."); // On annonce le joueur
 			Affichage.afficherGrilleEnnemi(joueur2); // On affiche la grille de tir du joueur envers l'ennemi
 			Joueur.recupCoordonnesVerifierTirer(joueur1, joueur2); // On lui demande de tirer.
 
-			System.out.println("\n ---------- \n" + joueur2.name + " : Vous tirez. Voici votre tableau de tir."); // On annonce le joueur
+			System.out.println("\n ---------- \n" + joueur2.getName() + " : Vous tirez. Voici votre tableau de tir."); // On annonce le joueur
 			Affichage.afficherGrilleEnnemi(joueur1); // On affiche la grille de tir du joueur nevers l'ennemi
 			Joueur.recupCoordonnesVerifierTirer(joueur2, joueur1); // On lui demande de tirer.
 		}
 
 		if(joueur1.aPerdu()==true){
-			System.out.println(joueur1.name + " a perdu ! " + joueur2.name + " a gagné !");
+			System.out.println(joueur1.getName() + " a perdu ! " + joueur2.getName() + " a gagné !");
 		} else if(joueur2.aPerdu()==true){
-			System.out.println(joueur2.name + " a perdu ! " + joueur1.name + " a gagné !");
+			System.out.println(joueur2.getName() + " a perdu ! " + joueur1.getName() + " a gagné !");
 		}
 
 		System.out.println("Mode HvsH stoppé.\n\n");  
@@ -278,23 +278,23 @@ public class TestJeu {
 		iaDeJeu.placementBateauIA(joueur2, joueurs);
 
 		//Pour tester l'affichage : on affiche le plateau du joueur 1
-		Affichage.afficherGrille(joueur1);
+		//Affichage.afficherGrille(joueur1);
 		//Pour tester l'affichage : on affiche le plateau du joueur 2
-		Affichage.afficherGrille(joueur2);
+		//Affichage.afficherGrille(joueur2);
 
 		//on gère les tours
 		while(joueur1.aPerdu()==false && joueur2.aPerdu()==false){ // Tant que l'un ou l'autre n'a pas perdu
-			System.out.println("\n ---------- \n" + joueur1.name + " : Vous tirez. Voici votre tableau de tir."); // On annonce le joueur
+			System.out.println("\n ---------- \n" + joueur1.getName() + " : Vous tirez. Voici votre tableau de tir."); // On annonce le joueur
 			Affichage.afficherGrilleEnnemi(joueur2); // On affiche la grille de tir du joueur envers l'ennemi
 			Joueur.recupCoordonnesVerifierTirer(joueur1, joueur2); // On lui demande de tirer.
-			System.out.println("\n ---------- \n" + joueur2.name + " : Vous tirez."); // On annonce l'IA
+			System.out.println("\n ---------- \n" + joueur2.getName() + " : Vous tirez."); // On annonce l'IA
 			iaDeJeu.tirSelonNiveau(joueur2, joueur1); // On lui demande de tirer.
 		}
 
 		if(joueur1.aPerdu()==true){
-			System.out.println(joueur1.name + " a perdu ! " + joueur2.name + " a gagné !");
+			System.out.println(joueur1.getName() + " a perdu ! " + joueur2.getName() + " a gagné !");
 		} else if(joueur2.aPerdu()==true){
-			System.out.println(joueur2.name + " a perdu ! " + joueur1.name + " a gagné !");
+			System.out.println(joueur2.getName() + " a perdu ! " + joueur1.getName() + " a gagné !");
 		}
 		// Ici est géré le mode de jeu Humain contre IA
 
@@ -408,45 +408,47 @@ public class TestJeu {
 			joueurs.utilitairePlacementDesBateaux(listeJoueurs[i], nombreBateau, nombreBateauMax, longueurMax);
 		}
 
-		//Pour tester l'affichage : on affiche le plateau de chaque joueur
-		for(int i = 0; i<listeJoueurs.length ; i++){
+		//Pour tester l'affichage : on affiche le plateau de chaque joueur /*
+		/*for(int i = 0; i<listeJoueurs.length ; i++){
 			Affichage.afficherGrille(listeJoueurs[i]);
-		}
+		}*/
 
 		boolean tousLesJoueursSaufUnOntPerdu = false;
 		Plateau cibleCourante;
 
 		//on gère les tours
-		for(int i = 0; i<listeJoueurs.length && tousLesJoueursSaufUnOntPerdu == false; i++){ // Tant que l'un des joueur n'a pas gagné.
-			System.out.println("\n ---------- \n" + listeJoueurs[i].name + " : Vous tirez. Voici votre tableau de tir."); // On annonce le joueur
-			cibleCourante = null;
-			for(int j = 1; j<listeJoueurs.length && cibleCourante==null ;j++){
-				if(listeJoueurs[(i+j)%listeJoueurs.length].aPerdu()==false){
-					cibleCourante = listeJoueurs[(i+j)%listeJoueurs.length];
+		while(tousLesJoueursSaufUnOntPerdu == false){
+			for(int i = 0; i<listeJoueurs.length && tousLesJoueursSaufUnOntPerdu == false; i++){ // Tant que l'un des joueur n'a pas gagné.
+				System.out.println("\n ---------- \n" + listeJoueurs[i].getName() + " : Vous tirez. Voici votre tableau de tir."); // On annonce le joueur
+				cibleCourante = null;
+				for(int j = 1; j<listeJoueurs.length && cibleCourante==null ;j++){
+					if(listeJoueurs[(i+j)%listeJoueurs.length].aPerdu()==false){
+						cibleCourante = listeJoueurs[(i+j)%listeJoueurs.length];
+					}
 				}
-			}
 
-			Affichage.afficherGrilleEnnemi(cibleCourante); // On affiche la grille de tir du joueur envers l'ennemi
-			Joueur.recupCoordonnesVerifierTirer(listeJoueurs[i], cibleCourante); // On lui demande de tirer.
+				Affichage.afficherGrilleEnnemi(cibleCourante); // On affiche la grille de tir du joueur envers l'ennemi
+				Joueur.recupCoordonnesVerifierTirer(listeJoueurs[i], cibleCourante); // On lui demande de tirer.
 
-			int compteurDeGagnant = 0;
-			for(int j = 0; j<listeJoueurs.length ; j++){ // Petite astuce pour compter les gagnant à chaque tour.
-				if(listeJoueurs[j].aPerdu()==false){
-					compteurDeGagnant ++;
+				int compteurDeGagnant = 0;
+				for(int j = 0; j<listeJoueurs.length ; j++){ // Petite astuce pour compter les gagnant à chaque tour.
+					if(listeJoueurs[j].aPerdu()==false){
+						compteurDeGagnant ++;
+					}
 				}
-			}
-			if(compteurDeGagnant>1){
-				tousLesJoueursSaufUnOntPerdu = false;
-			} else {
-				tousLesJoueursSaufUnOntPerdu = true ;
+				if(compteurDeGagnant>1){
+					tousLesJoueursSaufUnOntPerdu = false;
+				} else {
+					tousLesJoueursSaufUnOntPerdu = true ;
+				}
 			}
 		}
 
 		for(int i = 0; i<listeJoueurs.length ; i++){
 			if(listeJoueurs[i].aPerdu()==true){
-				System.out.println(listeJoueurs[i].name + " a perdu ! ");
+				System.out.println(listeJoueurs[i].getName() + " a perdu ! ");
 			} else {
-				System.out.println(listeJoueurs[i].name + " a gagné ! ");
+				System.out.println(listeJoueurs[i].getName() + " a gagné ! ");
 			}
 		}
 
@@ -557,39 +559,41 @@ public class TestJeu {
 		}
 
 		//Pour tester l'affichage : on affiche le plateau de chaque joueur
-		for(int i = 0; i<listeJoueurs.length ; i++){
+		/*for(int i = 0; i<listeJoueurs.length ; i++){
 			Affichage.afficherGrille(listeJoueurs[i]);
-		}
+		}*/
 
 		boolean tousLesJoueursSaufUnOntPerdu = false;
 		Plateau cibleCourante;
 
 		//on gère les tours
-		for(int i = 0; i<listeJoueurs.length && tousLesJoueursSaufUnOntPerdu == false ; i++){  // Tant que l'un des joueur n'a pas gagné.
-			System.out.println("\n ---------- \n" + listeJoueurs[i].name + " : Vous tirez. Voici votre tableau de tir."); // On annonce le joueur
-			cibleCourante = Joueur.surQuiVoulezVousTirer(listeJoueurs[i], listeJoueurs); // On lui demande sur qui il veut tirer.
-			Affichage.afficherGrilleEnnemi(cibleCourante); // On affiche la grille de tir du joueur envers l'ennemi
-			Joueur.recupCoordonnesVerifierTirer(listeJoueurs[i], cibleCourante); // On lui demande de tirer.
+		while(tousLesJoueursSaufUnOntPerdu == false){
+			for(int i = 0; i<listeJoueurs.length && tousLesJoueursSaufUnOntPerdu == false ; i++){  // Tant que l'un des joueur n'a pas gagné.
+				System.out.println("\n ---------- \n" + listeJoueurs[i].getName() + " : Vous tirez. Voici votre tableau de tir."); // On annonce le joueur
+				cibleCourante = Joueur.surQuiVoulezVousTirer(listeJoueurs[i], listeJoueurs); // On lui demande sur qui il veut tirer.
+				Affichage.afficherGrilleEnnemi(cibleCourante); // On affiche la grille de tir du joueur envers l'ennemi
+				Joueur.recupCoordonnesVerifierTirer(listeJoueurs[i], cibleCourante); // On lui demande de tirer.
 
-			int compteurDeGagnant = 0;
-			for(int j = 0; j<listeJoueurs.length ; j++){ // Petite astuce pour compter les gagnant à chaque tour.
-				if(listeJoueurs[j].aPerdu()==false){
-					compteurDeGagnant ++;
+				int compteurDeGagnant = 0;
+				for(int j = 0; j<listeJoueurs.length ; j++){ // Petite astuce pour compter les gagnant à chaque tour.
+					if(listeJoueurs[j].aPerdu()==false){
+						compteurDeGagnant ++;
+					}
 				}
-			}
-			if(compteurDeGagnant>1){
-				tousLesJoueursSaufUnOntPerdu = false;
-			} else {
-				tousLesJoueursSaufUnOntPerdu = true ;
-			}
+				if(compteurDeGagnant>1){
+					tousLesJoueursSaufUnOntPerdu = false;
+				} else {
+					tousLesJoueursSaufUnOntPerdu = true ;
+				}
 
+			}
 		}
 
 		for(int i = 0; i<listeJoueurs.length ; i++){
 			if(listeJoueurs[i].aPerdu()==true){
-				System.out.println(listeJoueurs[i].name + " a perdu ! ");
+				System.out.println(listeJoueurs[i].getName() + " a perdu ! ");
 			} else {
-				System.out.println(listeJoueurs[i].name + " a gagné ! ");
+				System.out.println(listeJoueurs[i].getName() + " a gagné ! ");
 			}
 		}
 
@@ -598,7 +602,9 @@ public class TestJeu {
 
 
 	public static void fenetre() {
-		System.out.println("Mode fenetre lancé");// Ici est géré le mode de jeu Humain contre Humain
+		System.out.println("Mode fenetre lancé");
+		System.out.println("ATTENTION CETTE CLASSE N'EST PAS VALIDE - Pas d'attente lors du tir d'un joueur, je pense que ça vient directement de la classe fournie. On l'a laissé, si vous vouliez essayer. \n ! C'est à vos risques et périls. !");
+		// Ici est géré le mode de jeu Humain contre Humain
 
 		//On instancie les variables utiles pour les demandes utilisateur
 		int tailleX = 0;
@@ -653,7 +659,7 @@ public class TestJeu {
 			while(tailleX<=0 || tailleY<=0){ 
 				System.out.println( pseudo1 + " , " + pseudo2 + ": Sur quelle taille de plateau voulez-vous jouer ? Hauteur ?");
 				tailleX = Joueur.demanderInt();
-				
+
 				System.out.println("Largeur ?");
 				tailleY = Joueur.demanderInt();
 			}
@@ -667,7 +673,7 @@ public class TestJeu {
 			while(tailleX<=0 || tailleY<=0){ 
 				System.out.println( pseudo1 + " , " + pseudo2 + ": Sur quelle taille de plateau voulez-vous jouer ? Hauteur ?");
 				tailleX = Joueur.demanderInt();
-				
+
 				System.out.println("Largeur ?");
 				tailleY = Joueur.demanderInt();
 			}
@@ -705,20 +711,20 @@ public class TestJeu {
 
 		//on gère les tours
 		while(joueur1.aPerdu()==false && joueur2.aPerdu()==false){ // Tant que l'un ou l'autre n'a pas perdu
-			System.out.println("\n ---------- \n" + joueur1.name + " : Vous tirez. Voici votre tableau de tir."); // On annonce le joueur
+			System.out.println("\n ---------- \n" + joueur1.getName() + " : Vous tirez. Voici votre tableau de tir."); // On annonce le joueur
 
 			plateauCourant = joueur2.getPlateauValeursZero();
 			fenetre1.afficher(plateauCourant, "Joueur 1 tirez !");
-			System.out.println("\n ---------- \n" + joueur2.name + " : Vous tirez. Voici votre tableau de tir."); // On annonce le joueur
+			System.out.println("\n ---------- \n" + joueur2.getName() + " : Vous tirez. Voici votre tableau de tir."); // On annonce le joueur
 
 			plateauCourant = joueur1.getPlateauValeursZero();
 			fenetre2.afficher(plateauCourant, "Joueur 2 tirez !");
 		}
 
 		if(joueur1.aPerdu()==true){
-			System.out.println(joueur1.name + " a perdu ! " + joueur2.name + " a gagné ! ");
+			System.out.println(joueur1.getName() + " a perdu ! " + joueur2.getName() + " a gagné ! ");
 		} else if(joueur2.aPerdu()==true){
-			System.out.println(joueur2.name + " a perdu ! " + joueur1.name + " a gagné ! ");
+			System.out.println(joueur2.getName() + " a perdu ! " + joueur1.getName() + " a gagné ! ");
 		}
 
 		System.out.println("Mode FENETRE stoppé.\n\n");  

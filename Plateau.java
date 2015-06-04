@@ -6,17 +6,17 @@
  * Classe de gestion du plateau de jeu.
  */
 public class Plateau {
-	
+
 	//Les Tableaux de la classe
-	int[][][] plateauValeurs; //Initilisation d'un tableau 3D Pour implémentation des deux niveaux de données
+	private int[][][] plateauValeurs; //Initilisation d'un tableau 3D Pour implémentation des deux niveaux de données
 
 	//Les variables externes
-	int nbBateaux;
-	String name = "Joueur";
-	ListeBateau bateaux;
-	int type = 0 ;
+	private int nbBateaux;
+	private String name = "Joueur";
+	private ListeBateau bateaux;
+	private int type = 0 ;
 
-	
+
 	/** Constructeur du plateau de jeu d'un joueur : par défaut plateau carré de la taille passée en argument.
 	 * @param name : nom à donner au plateau/joueur
 	 * @param x : largeur du plateau
@@ -57,12 +57,12 @@ public class Plateau {
 
 
 	/** Méthode qui va remplir le plateau de (nombredeBateau) bateaux.
-	 * @param listeTailleBateaux : nombre de Bateaux à ajouter au plateau de jeu, sous forme de liste.
+	 * @param listeTaille : nombre de Bateaux à ajouter au plateau de jeu, sous forme de liste.
 	 */
 	public void remplirAleatoirement(Joueur listeTaille){
 		// On vérifie si les bateaux tiennent dans le plateau, on fait modifier la liste en conséquence.
 		//listeTaille.transformationEnlisteTailleBateauCorrecte(this, listeTaille);
-		
+
 		bateaux = new ListeBateau(listeTaille.getTypeDeFlotte().length); // On créé la liste des bateaux
 		boolean bateauPossible;
 		//DEBUG //System.out.println("Longueur : " + bateaux.getListeBat().length);
@@ -79,6 +79,7 @@ public class Plateau {
 			bateauPossible = false;
 
 			while(bateauPossible==false){
+
 
 				// **** ON CHOISIT LES COORDONNES DU BATEAU ET SON ORIENTATION **** // Les variables ont le suffixe -p pour "possible"
 				int xMax = getPlateauValeurs().length; // On repère la hauteur maximal du plateau de jeu
@@ -143,15 +144,15 @@ public class Plateau {
 		}
 	}
 
-	
+
 	/** Méthode qui va demander au joueur de remplir son plateau, avec les bateaux dont les tailles sont spécifié dans le tableau passé en argument "listeTailleBateau"
 	 * @param tailleMaxBateau : Spécifie la taille maximum d'un bateau
-	 * @param listeTailleBateaux : La liste des bateaux à créer en fonction de leur taille.
+	 * @param listeTaille : La liste des bateaux à créer en fonction de leur taille.
 	 */
 	public void remplirManuellement(int tailleMaxBateau, Joueur listeTaille){
 		// On vérifie si les bateaux tiennent dans le plateau, on fait modifier la liste en conséquence.
 		//listeTaille.transformationEnlisteTailleBateauCorrecte(this, listeTaille);
-		
+
 		bateaux = new ListeBateau(listeTaille.getTypeDeFlotte().length); // On créé la liste des bateaux
 		boolean bateauPossible;
 
@@ -244,15 +245,15 @@ public class Plateau {
 
 			//DEBUG ONLY // 
 			//System.out.println("Le bateau N°" + (i+1) + " de taille" + longueur + "(" + x + y + z + t + ") est créé. (xmin,ymin,xmax,ymax) donc il est horizontal :" + (bateaux.listeBat[i].horizontal) );
-			
+
 		}
 
 	}
 
 
 	/** Méthode qui renvois une liste de Taille de bateaux correcte, pour permettre que ça tienne dans le plateau.
-	 * @param listeTailleBateaux
-	 * @return
+	 * @param listeTailleBateaux : liste à modifier.
+	 * @return : liste modifiée
 	 */
 	public int[] transformationEnlisteTailleBateauCorrecte(int[] listeTailleBateaux){
 		// **** ON VERIFIE QUE LE NOMBRE DE BATEAU ENTRE PAR L'UTILISATEUR EST COHERENT ***//
@@ -286,7 +287,7 @@ public class Plateau {
 		}
 		return listeTailleBateauxRemplacement;
 	}
-	
+
 	/** Méthode qui teste si un bateau est présent sur la case considérée. Il parcourt la liste des bateau affiliée au plateau du joueur, et demande à chaque bateau si il est sur la case considérée.
 	 * @param x : ordonnées de la case (vertical)
 	 * @param y : abscisse de la case (horizontal)
@@ -336,7 +337,7 @@ public class Plateau {
 	public void tirerJoueur(int[] coordonnes, Plateau joueur){
 		joueur.recevoirTir(coordonnes[0], coordonnes[1]);
 	}
-	
+
 	/** Méthode qui permet de recevoir un tir, en mettant à jour la case sur la couche 1 du plateau, et en appelant la méthode "recevoir tire" du bateau sur la case de la couche 0
 	 * @param x : coordonnées de tir (vertical/ordonnée)
 	 * @param y : coordonnées de tir (horizontal/abscisse)
@@ -347,7 +348,7 @@ public class Plateau {
 			this.bateaux.getListeBat()[this.numeroBateauPresent(x, y)-1].recevoirTir(x, y); // On prend le plateau du joueur, la liste de bateau associée, on récupère la liste des bateaux, dont on sélectionne le numéro du bateau qui nous intéresse, et on lui demande de recevoir un tir.			
 		}
 	}
-	
+
 	/** Méthode qui calcul le nombre de bateaux alive restant. Retourne si le joueur a perdu ou non.
 	 * @return un boolean qui vaut true si tous les bateaux sont à "mort"
 	 */
@@ -384,13 +385,13 @@ public class Plateau {
 		}
 		return dejaSubiTir;
 	}
-	
+
 	/** Méthode qui compte le nombre de cases libres sur un plateau de jeu.
 	 * @return un int qui représente le nombre de cases libres (0) sur le plateau.
 	 */
 	public int compterCasesLibres(){
 		int casesLibres = 0;
-		
+
 		for(int i = 0; i<this.plateauValeurs.length ; i++){
 			for(int j =0; j<this.plateauValeurs[i].length ; j++){
 				if(this.plateauValeurs[i][j][0]==0){
@@ -400,9 +401,9 @@ public class Plateau {
 		}
 		return casesLibres;
 	}
-	
+
 	// ********** LES GETTERS ET SETTERS ********** //
-	
+
 	/**
 	 * @return the plateauValeurs
 	 */
@@ -417,7 +418,7 @@ public class Plateau {
 				if(plateauValeurs[i][j][1]==1 && plateauValeurs[i][j][0]>0){
 					plateauCourant[i][j] = 2;	
 				} else if (plateauValeurs[i][j][1]==1 && (plateauValeurs[i][j][0]==0 || plateauValeurs[i][j][0]==-1)){
-						plateauCourant[i][j] = 1;
+					plateauCourant[i][j] = 1;
 				} else if (plateauValeurs[i][j][1]==0){
 					plateauCourant[i][j] = 0;
 				} else if(plateauValeurs[i][j][0]==-2){
@@ -427,7 +428,7 @@ public class Plateau {
 		}
 		return plateauCourant;
 	}
-	
+
 	/**
 	 * @param plateauValeurs le plateauValeurs à "setter"
 	 */

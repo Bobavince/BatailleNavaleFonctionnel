@@ -6,8 +6,9 @@
  * Classe de gestion de la liste des bateaux sur le plateau.
  */
 public class ListeBateau {
-	// Liste des bateaux en tant qu'objet.
-	Bateau[] listeBat; 
+
+
+	public Bateau[] listeBat; // Liste des bateaux en tant qu'objet. Pas possible de mettre en private, car modifié par le plateau. Il faudrait de l'héritage, pour faire quelques chose de propre.
 
 	/** Créé une liste d'objet de type "Bateau"
 	 *  @param nombreDeBateau : créer la liste avec le nombre de Bateau indiqué comme longuer de la liste.
@@ -40,7 +41,7 @@ public class ListeBateau {
 	}
 
 	// ********** LES GETTERS ET SETTERS ********** //
-	
+
 	/**
 	 * @return the listeBat
 	 */

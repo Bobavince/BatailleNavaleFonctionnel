@@ -6,11 +6,11 @@
  * Classe de gestion du plateau des bateaux.
  */
 public class Bateau {
-	int numero;
-	int longueur;
-	boolean horizontal;
-	boolean alive = false;
-	int[][] lieuEtat = null; // Deux première colonne pour les coordonnées, la troisième pour l'état
+	private int numero;
+	private int longueur;
+	private boolean horizontal;
+	private boolean alive = false;
+	private int[][] lieuEtat = null; // Deux première colonne pour les coordonnées, la troisième pour l'état
 
 	/** Méthode qui créé un bateau à partir de ses coordonnées de placement, et qui met à jour sa longueur.
 	 * @param xDebut : valeur sur les x de début du bateau (inclus)
@@ -79,6 +79,11 @@ public class Bateau {
 		return jeSuisPresent;
 	}
 
+	/** Méthode qui devait être présente selon le sujet.
+	 * @param plateauJoueur : un plateau
+	 * @param x : x 
+	 * @param y : y
+	 */
 	public void tir(Plateau plateauJoueur, int x, int y){
 
 		//C'était dans le sujet. Il n'est pas dit qu'on doit vraiment s'en servir.
@@ -96,6 +101,7 @@ public class Bateau {
 			}
 		}
 		this.verifierAlive();
+
 		// DEBUG MODE //
 		/* Pour connaitre les etats des bateaux, cheat.
 		String etat = "";
@@ -103,9 +109,10 @@ public class Bateau {
 			etat += "[" +lieuEtat[i][0] + "," + lieuEtat[i][1]+"]"+lieuEtat[i][2] ;
 		}
 		System.out.println("Etat du bateau tiré : " + etat);
-		*/
+		 */
+		// FIN DEBUG MODE //
 	}
-	
+
 	/** Méthode qui permet de recevoir un tir, donc par défaut, une modification de -1 sur la case x/y
 	 * @param x : ordonnée
 	 * @param y : abscisse
@@ -124,24 +131,27 @@ public class Bateau {
 				aliveOrNot = true;
 			}
 		}
-		
+
 		this.alive = aliveOrNot;
 	}
 
+	/** Donne les coordonnées d'une case d'un bateau alive.
+	 * @return des coordonnés
+	 */
 	public int[] donnerCoordonnesAlive(){
 		int coordonnes[] = new int[2];
-		
+
 		for(int i =0; i<lieuEtat.length ; i++){
 			if(lieuEtat[i][2] > 0){
 				coordonnes[0] = lieuEtat[i][0];
 				coordonnes[1] = lieuEtat[i][1];
 			}
 		}
-		
+
 		return coordonnes;
 	}
 	// ********** LES GETTERS ET SETTERS ********** //
-	
+
 	/**
 	 * @return the numero
 	 */
@@ -211,5 +221,5 @@ public class Bateau {
 	public void setLieuEtat(int[][] lieuEtat) {
 		this.lieuEtat = lieuEtat;
 	}
-		
+
 }

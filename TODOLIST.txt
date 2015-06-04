@@ -33,20 +33,20 @@ LISTE DE CHOSES A FAIRE (NON OFFICIELLES)
  * 3 joueurs circulaires : DONE
  * Plus de 3 joueurs non circulaires : DONE
  * 
- * FORME DE PLATEAU ------------------------------ A COMPLETER --------------------------------------
+ * FORME DE PLATEAU ------------------------------ DONE --------------------------------------
  * Rectangulaire fixe, nb de bateaux fixe : DONE
  * Rectangulaire taille variable par l'utilisateur, nb de bateaux avec les tailles : DONE
- * REctangulaire avec nb de bateaux automatiquement : A COMPLETER (une méthode est prête à être remplie)
+ * REctangulaire avec nb de bateaux automatiquement : DONE 
  * Autres formes de plateaux : DONE
  * 
  * AFFICHAGE ------------------------------ A COMPLETER --------------------------------------
  * Simple Terminal : DONE (inclus)
- * affichage graphique (depuis classe donnée) : A COMPLETER
+ * affichage graphique (depuis classe donnée) : A COMPLETER / non fonctionnel, cause : non attente du joueur
  * affichage complet Terminal : DONE
  * 
  * SAISIE ------------------------------ A COMPLETER --------------------------------------
  * numéo et ligne séparéemment : DONE
- * Clic sur les cases : A COMPLETER
+ * Clic sur les cases : A COMPLETER / identique.
  * chaine avec lettres suivis de chiffres : DONE (La méthode existe, elle s'apelle "coordonnes")
  */
 

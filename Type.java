@@ -62,7 +62,7 @@ public class Type {
 	}
 
 	/** Classe qui créer un plateau rond (tableau 2D avec les cases aux angles à -2)
-	 * @param r : rayon du cercle à créer
+	 * @param d : dimaètre du cercle à créer
 	 * @return un tableau avec un cercle d'eau (de cases à 0)
 	 */
 	public static int[][] rond(int d){
@@ -78,17 +78,18 @@ public class Type {
 				}
 			}
 		}
-		
+
 		return tab;
 	}
 
 	/** Classe qui créer un plateau triangle (tableau 2D avec des cases en coin à -2)
-	 * @param cote : coté du triangle à créer
+	 * @param hauteur : hauteur du triangle. (x)
+	 * @param cote : coté du triangle à créer (y)
 	 * @return un tableau avec un trangle d'eau (de cases à 0)
 	 */
 	public static int[][] triangle(int hauteur, int cote){
 		int[][] tab =new int[hauteur][cote] ;
-		
+
 		for(int i=0 ; i<tab.length; i++){
 			for(int j=0 ; j<tab[0].length ; j++){
 				if(j < (-(tab[0].length*0.5)/(double)(tab.length))*i + (int)(tab[0].length*0.5) || j > ((tab[0].length*0.5)/(double)(tab.length))*i + (int)(tab[0].length*0.5)){ // ON NE TOUCHE PAS A CA, CA MARCHE ! 
@@ -98,7 +99,7 @@ public class Type {
 				}
 			}
 		}
-		
+
 		return tab;
 	}
 
@@ -118,7 +119,7 @@ public class Type {
 
 		return tab; // on renvois le tableau créé.
 	}
-	
+
 	/** Classe qui créer un plateau rectangle avec des récifs
 	 * @param x : hauteur du plateau de jeu renvoyé (taille vertical) 
 	 * @param y : largeur du plateau de jeu renvoyé (taille horizontal)
@@ -127,54 +128,50 @@ public class Type {
 	public static int[][] recifs(int x, int y){
 		int[][] tab = new int[x][y];
 		double pourcentage = 0;
-		/*
-		System.out.println("Quel pourcentage de récifs voulez vous ? (ciffre de 5 à 40 (en pourcent))");
-		while(pourcentage < 0.05 || pourcentage > 0.40){
-			pourcentage = 0.01*Joueur.demanderInt();
-		}*/
-		pourcentage = 0.3; // On a des problèmes avec la saisie joueur. Il faudrait déclarer cette classe pour créer en fait un seul pourcentage pour tous les joueurs ! 
+
+		pourcentage = 0.3; // On a des problèmes avec la saisie joueur. Il faudrait déclarer cette classe pour créer en fait un seul pourcentage pour tous les joueurs pour pouvoir leur demander ! 
 		for(int i=0 ; i<x; i++){
 			for(int j=0 ; j<y ; j++){
 				tab[i][j] = 0; // on remplis le tableau de case "0" équivalente à de l'eau.
 			}
 		}
-		
+
 		for(int i=0 ; i<x; i++){
 			for(int j=0 ; j<y ; j++){
 				if(Math.random()<pourcentage*0.2){
 					tab[i][j] = -2;
-					if(Math.random()<0.5){
+					if(Math.random()<0.5){ // Au random .. 
 						if(i+1<x && j+1<y){
-							tab[i+1][j+1] = -2; 	
+							tab[i+1][j+1] = -2; 	// Si c'est correct, on ajoute une case invalide.
 						}
 						if(i+1<x && j<y){
-							tab[i+1][j] = -2;	
+							tab[i+1][j] = -2;	// Si c'est correct, on ajoute une case invalide.
 						}		
-					} else if (Math.random()<0.1) {
+					} else if (Math.random()<0.1) { // encore plus au random 
 						if(i+1<x && j-1>0){
-							tab[i+1][j-1] = -2;	
+							tab[i+1][j-1] = -2;	// Si c'est correct, on ajoute une case invalide.
 						}
 						if(i-1>0 && j<y){
-							tab[i-1][j] = -2;
+							tab[i-1][j] = -2;// Si c'est correct, on ajoute une case invalide.
 						}
 						if(i-1>0 && j-1>0){
-							tab[i-1][j-1] = -2;
+							tab[i-1][j-1] = -2;// Si c'est correct, on ajoute une case invalide.
 						}
-					} else if (Math.random()>0.9) {
+					} else if (Math.random()>0.9) { // encore encore plus au random
 						if(i+2<x && j<y){
-							tab[i+2][j] = -2;
+							tab[i+2][j] = -2; // Si c'est correct, on ajoute une case invalide.
 						}
 						if(i+1<x && j<y){
-							tab[i+1][j] = -2;	
+							tab[i+1][j] = -2;	 // Si c'est correct, on ajoute une case invalide.
 						}
 						if(i-1>0 && j-1>0){
-							tab[i-1][j-1] = -2;	
+							tab[i-1][j-1] = -2;	// Si c'est correct, on ajoute une case invalide.
 						}
 					}
 				}
 			}
 		}
-		
+
 		return tab;
 	}
 

@@ -4,7 +4,6 @@
 
 import java.awt.Color;
 import java.awt.GridLayout;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -123,13 +122,6 @@ public class Affichage {
 		System.out.println(grille); // Affichage de la grille.
 	}
 
-	/** Méthode qui devrait gérer l'affichage de son propre plateau, ou d'un plateau ami. On devrait voir les bateaux, et leur état.
-	 * @param plateau  : plateau du joueur duquel on va afficher la grille en tant qu'ami
-	 */
-	public static void afficherGrilleAmi(Plateau plateau){
-		// Il n'y a pas de mode avec des alliances pour l'instant. C'était au cas où.
-	}
-
 	/** Méthode qui devrait gérer l'affichage d'un plateau ennemi. On devrait voir les tirs (donc la couche 1 du plateau ennemi).
 	 * @param plateau : plateau du joueur duquel on va afficher la grille en tant qu'ennemi
 	 */
@@ -193,7 +185,7 @@ public class Affichage {
 								} else if(plateau.getPlateauValeurs()[i/2][(j/2)-1][0]==(0)){ //Si regarde si c'est de l'eau
 									grille += "O "; // Si c'est de l'eau on met un O, comme les ronds que font un tir dans l'eau.
 								} else { //Si ce n'est pas de l'eau ou pas un récif, alors c'est un bateau. 
-									if(plateau.bateaux.getListeBat()[plateau.numeroBateauPresent((i/2), (j/2)-1)-1].isAlive() == true){ //On regarde si le bateau de la case est vivant.
+									if(plateau.getBateaux().getListeBat()[plateau.numeroBateauPresent((i/2), (j/2)-1)-1].isAlive() == true){ //On regarde si le bateau de la case est vivant.
 										grille += "T "; //Si le bateau est vivant, mais qu'on a tiré sur cette case, on met "touché" avec un "T".
 									} else {
 										grille += "C "; //Si le bateau est mort, et qu'on a tiré sur cette case, on l'a donc coulé. on met donc "C".
